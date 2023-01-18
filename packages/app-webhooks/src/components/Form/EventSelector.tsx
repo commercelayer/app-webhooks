@@ -15,10 +15,13 @@ export function EventSelector({
 }: Props): JSX.Element | null {
   const events = getAllEventsForSelect()
 
-  const defaultValue: SelectValue = {
-    value: selectedEvent as string,
-    label: selectedEvent as string
-  }
+  const defaultValue: SelectValue | undefined =
+    selectedEvent != null
+      ? {
+          value: selectedEvent,
+          label: selectedEvent
+        }
+      : undefined
 
   return (
     <div>
