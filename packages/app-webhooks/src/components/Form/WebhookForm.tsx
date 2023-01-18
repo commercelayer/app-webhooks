@@ -101,7 +101,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
           selectedEvent={formTopic}
           helperText={
             <>
-              The resource/event that will trigger the webhook.
+              The resource/event that will trigger the webhook.{' '}
               <A
                 href='https://docs.commercelayer.io/core/real-time-webhooks#supported-events'
                 target='blank'
