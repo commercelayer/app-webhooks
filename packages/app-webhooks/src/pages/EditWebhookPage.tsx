@@ -39,7 +39,7 @@ const EditWebhookPage = (): JSX.Element | null => {
               setLocation(appRoutes.details.makePath(webhookId))
             }}
           >
-            <WebhookForm webhookId={webhookId} webhookData={data} />
+            <WebhookForm webhookData={data} />
           </PageLayout>
         )
       }

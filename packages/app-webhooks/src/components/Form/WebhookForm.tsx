@@ -18,11 +18,10 @@ import { appRoutes } from '#data/routes'
 import { parseApiError } from '#utils/apiErrors'
 
 interface Props {
-  webhookId?: string
   webhookData?: Webhook
 }
 
-const WebhookForm = ({ webhookId, webhookData }: Props): JSX.Element | null => {
+const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
   const { sdkClient } = useTokenProvider()
   const [apiError, setApiError] = useState<ApiError[] | undefined>(undefined)
   const [_location, setLocation] = useLocation()
@@ -67,7 +66,7 @@ const WebhookForm = ({ webhookId, webhookData }: Props): JSX.Element | null => {
 
     try {
       const payload = {
-        id: webhookId as string,
+        id: webhookData?.id as string,
         name: formName,
         topic: formTopic,
         callback_url: formCallbackUrl,
@@ -78,7 +77,7 @@ const WebhookForm = ({ webhookId, webhookData }: Props): JSX.Element | null => {
         setLocation(appRoutes.list.makePath())
       } else {
         await sdkClient.webhooks.update(payload)
-        setLocation(appRoutes.details.makePath(webhookId as string))
+        setLocation(appRoutes.details.makePath(webhookData?.id as string))
       }
     } catch (error) {
       setApiError(parseApiError(error))
