@@ -14,21 +14,19 @@ export function WebhookDetails(): JSX.Element | null {
   return (
     <ListDetails title='Details'>
       {data.topic != null ? (
-        <ListDetailsItem label='Topic' hasGutter>
-          {data.topic}
-        </ListDetailsItem>
+        <ListDetailsItem label='Topic'>{data.topic}</ListDetailsItem>
       ) : null}
       {data.callback_url != null ? (
-        <ListDetailsItem label='Callback URL' hasGutter>
+        <ListDetailsItem label='Callback URL'>
           {data.callback_url}
         </ListDetailsItem>
       ) : null}
       {data.include_resources != null && data.include_resources.length > 0 ? (
-        <ListDetailsItem label='Includes' hasGutter>
+        <ListDetailsItem label='Includes'>
           {data.include_resources.join(', ')}
         </ListDetailsItem>
       ) : null}
-      <ListDetailsItem label='Updated at' hasGutter>
+      <ListDetailsItem label='Updated at'>
         <WebhookDate atType='updated_at' includeTime />
       </ListDetailsItem>
     </ListDetails>
