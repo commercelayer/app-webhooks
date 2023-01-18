@@ -2,15 +2,15 @@ import { RuntimeConfigProvider } from '#components/RuntimeConfigProvider'
 import { ErrorNotFound } from '#components/ErrorNotFound'
 import { appRoutes } from '#data/routes'
 import { Router, Route, Switch } from 'wouter'
-import ListPage from './pages/ListPage'
+import ListPage from '#pages/ListPage'
 import {
   PageSkeleton,
   TokenProvider,
   ErrorBoundary
 } from '@commercelayer/core-app-elements'
-import DetailsPage from './pages/DetailsPage'
-import NewWebhookPage from './pages/NewWebhookPage'
-import EditWebhookPage from './pages/EditWebhookPage'
+import DetailsPage from '#pages/DetailsPage'
+import NewWebhookPage from '#pages/NewWebhookPage'
+import EditWebhookPage from '#pages/EditWebhookPage'
 
 function App(): JSX.Element {
   const basePath =
