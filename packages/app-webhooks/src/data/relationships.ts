@@ -43,17 +43,28 @@ export function getRelationshipsByResourceType(
   return webhookRelationships[resourceType]
 }
 
-export function getAllRelationshipsForSelect(): SelectValue[] {
-  const allRelationshipsForSelect: SelectValue[] = []
+function getAllFlatRelationships(): string[] {
+  const allFlatRelationships: string[] = []
   Object.keys(webhookRelationships).forEach((res) => {
     const relationships = getRelationshipsByResourceType(
       res as ResourceWithRelationship
     )
     relationships.forEach((rel) => {
-      allRelationshipsForSelect.push({
-        label: `${res}.${rel}`,
-        value: `${res}.${rel}`
-      })
+      allFlatRelationships.push(`${res}.${rel}`)
+    })
+  })
+  return allFlatRelationships
+}
+
+const allFlatRelationships = getAllFlatRelationships()
+export type ResourceRelationshipKey = (typeof allFlatRelationships)[number]
+
+export function getAllRelationshipsForSelect(): SelectValue[] {
+  const allRelationshipsForSelect: SelectValue[] = []
+  allFlatRelationships.forEach((rel) => {
+    allRelationshipsForSelect.push({
+      label: rel,
+      value: rel
     })
   })
   return allRelationshipsForSelect
