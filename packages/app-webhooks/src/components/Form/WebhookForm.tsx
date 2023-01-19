@@ -11,6 +11,8 @@ import {
   Button,
   Text
 } from '@commercelayer/core-app-elements'
+import type { ResourceEventKey } from '#data/events'
+import type { ResourceRelationshipKey } from '#data/relationships'
 
 import { EventSelector } from '#components/Form/EventSelector'
 import { RelationshipSelector } from '#components/Form/RelationshipSelector'
@@ -39,10 +41,10 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
   } = webhookData !== undefined ? webhookData : {}
 
   const [formName, setFormName] = useState(name)
-  const [formTopic, setFormTopic] = useState<string>(topic)
+  const [formTopic, setFormTopic] = useState<ResourceEventKey>(topic)
   const [formCallbackUrl, setFormCallbackUrl] = useState(callback_url)
   const [formIncludeResources, setFormIncludeResources] =
-    useState<string[]>(include_resources)
+    useState<ResourceRelationshipKey[]>(include_resources)
 
   const hasApiError = apiError != null && apiError.length > 0
 
