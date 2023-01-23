@@ -15,16 +15,10 @@ declare module 'App' {
     isNotFound: boolean
   }
 
-  export interface WebhookFormContextValue {
-    state: WebhookFormContextState
-    refetch: () => Promise<void>
-  }
+  export type WebhookFormContextValue = Pick<
+    WebhookDetailsContextValue,
+    'state' | 'refetch'
+  >
 
-  export interface WebhookFormContextState {
-    data?: Webhook
-    isLoading: boolean
-    isDeleting: boolean
-    isPolling: boolean
-    isNotFound: boolean
-  }
+  export interface WebhookFormContextState extends WebhookDetailsContextState {}
 }
