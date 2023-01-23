@@ -1,11 +1,12 @@
 import { getAllEventsForSelect } from '#data/events'
 import type { SelectValue } from '@commercelayer/core-app-elements'
+import type { ResourceEventKey } from '#data/events'
 import { InputSelect, flatSelectValues } from '@commercelayer/core-app-elements'
 
 interface Props {
-  selectedEvent?: string
+  selectedEvent?: ResourceEventKey
   helperText?: React.ReactNode
-  onSelect: (event: string) => void
+  onSelect: (event: ResourceEventKey) => void
 }
 
 export function EventSelector({
@@ -30,7 +31,7 @@ export function EventSelector({
         defaultValue={defaultValue}
         onSelect={(event) => {
           const value = flatSelectValues(event)
-          onSelect(value as string)
+          onSelect(value as ResourceEventKey)
         }}
         isClearable
         label='Topic'

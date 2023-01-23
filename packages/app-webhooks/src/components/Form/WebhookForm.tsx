@@ -130,6 +130,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
 
       <Spacer bottom='6'>
         <RelationshipSelector
+          parentResource={formTopic}
           onSelect={setFormIncludeResources}
           selectedRelationships={formIncludeResources}
         />

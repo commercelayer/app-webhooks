@@ -1,19 +1,32 @@
+import { useEffect, useState } from 'react'
 import { getAllRelationshipsForSelect } from '#data/relationships'
 import type { SelectValue } from '@commercelayer/core-app-elements'
+import type { ResourceEventKey } from '#data/events'
+import type { ResourceRelationshipKey } from '#data/relationships'
 import { InputSelect, flatSelectValues } from '@commercelayer/core-app-elements'
 
 interface Props {
-  selectedRelationships?: string[]
+  parentResource?: ResourceEventKey
+  selectedRelationships?: ResourceRelationshipKey[]
   helperText?: React.ReactNode
   onSelect: (relationships: string[]) => void
 }
 
 export function RelationshipSelector({
+  parentResource,
   selectedRelationships,
   helperText = 'List of resources to be included in the webhook payload.',
   onSelect
 }: Props): JSX.Element | null {
-  const relationships = getAllRelationshipsForSelect()
+  const [relationships, setRelationships] = useState<SelectValue[]>([])
+
+  useEffect(
+    function updateFilteredRelationships() {
+      const filteredRelationships = getAllRelationshipsForSelect(parentResource)
+      setRelationships(filteredRelationships)
+    },
+    [parentResource]
+  )
 
   const defaultValue: SelectValue[] | undefined = selectedRelationships?.map(
     (r) => {
@@ -43,6 +56,7 @@ export function RelationshipSelector({
             onSelect([values])
           }
         }}
+        isDisabled={relationships.length === 0}
         isClearable
         isMulti
         label='Include'

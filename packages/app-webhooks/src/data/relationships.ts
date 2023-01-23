@@ -1,4 +1,5 @@
 import type { SelectValue } from '@commercelayer/core-app-elements'
+import type { ResourceEventKey } from '#data/events'
 import { ResourceWithRelationship } from 'App'
 
 export const webhookRelationships: Record<ResourceWithRelationship, string[]> =
@@ -43,25 +44,33 @@ export function getRelationshipsByResourceType(
   return webhookRelationships[resourceType]
 }
 
-function getAllFlatRelationships(): string[] {
-  const allFlatRelationships: string[] = []
+function getDottedIncludeRelationships(
+  selectedResourceEvent?: ResourceEventKey
+): string[] {
+  const allDottedRelationships: string[] = []
   Object.keys(webhookRelationships).forEach((res) => {
+    const selectedResource = selectedResourceEvent?.split('.')[0]
     const relationships = getRelationshipsByResourceType(
       res as ResourceWithRelationship
     )
     relationships.forEach((rel) => {
-      allFlatRelationships.push(`${res}.${rel}`)
+      if (selectedResource == null || res === selectedResource) {
+        allDottedRelationships.push(`${res}.${rel}`)
+      }
     })
   })
-  return allFlatRelationships
+  return allDottedRelationships
 }
 
-const allFlatRelationships = getAllFlatRelationships()
-export type ResourceRelationshipKey = (typeof allFlatRelationships)[number]
+const allDottedRelationships = getDottedIncludeRelationships()
+export type ResourceRelationshipKey = (typeof allDottedRelationships)[number]
 
-export function getAllRelationshipsForSelect(): SelectValue[] {
+export function getAllRelationshipsForSelect(
+  parentResource?: ResourceEventKey
+): SelectValue[] {
   const allRelationshipsForSelect: SelectValue[] = []
-  allFlatRelationships.forEach((rel) => {
+  const dottedRelationships = getDottedIncludeRelationships(parentResource)
+  dottedRelationships.forEach((rel) => {
     allRelationshipsForSelect.push({
       label: rel,
       value: rel
