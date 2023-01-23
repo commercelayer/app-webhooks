@@ -14,11 +14,11 @@ export const appRoutes = {
     makePath: () => '/new'
   },
   editWebhook: {
-    path: '/edit/:webhookId',
-    makePath: (webhookId: string) => `/edit/${webhookId}`
+    path: '/:webhookId/edit',
+    makePath: (webhookId: string) => `/${webhookId}/edit`
   },
   details: {
-    path: '/details/:webhookId',
-    makePath: (webhookId: string) => `/details/${webhookId}/`
+    path: '/:webhookId',
+    makePath: (webhookId: string) => `/${webhookId}`
   }
 }
