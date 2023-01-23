@@ -30,7 +30,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const formMode = webhookData !== undefined ? 'edit' : 'new'
+  const formAction = webhookData !== undefined ? 'update' : 'create'
 
   /* eslint-disable @typescript-eslint/naming-convention */
   const {
@@ -74,13 +74,8 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
         callback_url: formCallbackUrl,
         include_resources: formIncludeResources
       }
-      if (formMode === 'new') {
-        await sdkClient.webhooks.create(payload)
-        setLocation(appRoutes.list.makePath())
-      } else {
-        await sdkClient.webhooks.update(payload)
-        setLocation(appRoutes.details.makePath(webhookData?.id as string))
-      }
+      const sdkRequest = await sdkClient.webhooks[formAction](payload)
+      setLocation(appRoutes.details.makePath(sdkRequest?.id))
     } catch (error) {
       setApiError(parseApiError(error))
       setIsLoading(false)
@@ -144,7 +139,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
           }}
           disabled={isLoading}
         >
-          {formMode === 'new' ? 'Create webhook' : 'Edit webhook'}
+          {formAction === 'create' ? 'Create webhook' : 'Edit webhook'}
         </Button>
         {hasApiError ? (
           <div>
