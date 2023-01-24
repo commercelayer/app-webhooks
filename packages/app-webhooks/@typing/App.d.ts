@@ -15,9 +15,9 @@ declare module 'App' {
     isNotFound: boolean
   }
 
-  export type WebhookFormContextValue = Pick<
+  export type WebhookFormContextValue = Omit<
     WebhookDetailsContextValue,
-    'state' | 'refetch'
+    'deleteWebhook'
   >
 
   export interface WebhookFormContextState extends WebhookDetailsContextState {}
