@@ -1,4 +1,4 @@
-import { CommerceLayerClient, Webhook } from '@commercelayer/sdk'
+import { CommerceLayerClient, Webhook, EventCallback } from '@commercelayer/sdk'
 import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
 import { ListWebhookContextValue, ListWebhookContextState } from 'App'
 import {
@@ -19,7 +19,7 @@ interface ListWebhookProviderProps {
   children: ((props: ListWebhookContextValue) => ReactNode) | ReactNode
   sdkClient: CommerceLayerClient
 }
-const POLLING_INTERVAL = 4000
+const POLLING_INTERVAL = 10000
 
 const Context = createContext<ListWebhookContextValue>(initialValues)
 
@@ -47,6 +47,16 @@ export function ListWebhookProvider({
           state,
           pageSize
         })
+        for (const webhook of list) {
+          const lastEventCallbacks = await getWebhookLastEventCallbacks({
+            cl: sdkClient,
+            webhookId: webhook.id
+          })
+          const webhookIndex = list?.findIndex((w) => w.id === webhook.id)
+          if (list[webhookIndex] !== undefined) {
+            list[webhookIndex].last_event_callbacks = lastEventCallbacks
+          }
+        }
         dispatch({ type: 'setList', payload: list })
       } finally {
         handleLoadingState && dispatch({ type: 'setLoading', payload: false })
@@ -136,6 +146,16 @@ const getAllWebhooks = async ({
     pageSize,
     sort: state.sort
   })
+}
+
+const getWebhookLastEventCallbacks = async ({
+  cl,
+  webhookId
+}: {
+  cl: CommerceLayerClient
+  webhookId: string
+}): Promise<ListResponse<EventCallback>> => {
+  return await cl.webhooks.last_event_callbacks(webhookId)
 }
 
 const statusForPolling: Array<Webhook['circuit_state']> = ['closed', 'open']
