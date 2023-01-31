@@ -4,6 +4,7 @@ import { WebhookDetailsContextState } from 'App'
 type Action =
   | { type: 'setLoading'; payload: boolean }
   | { type: 'setDeleting'; payload: boolean }
+  | { type: 'setCircuitResetting'; payload: boolean }
   | { type: 'setNotFound'; payload: boolean }
   | { type: 'setData'; payload: Webhook }
   | { type: 'togglePolling'; payload: boolean }
@@ -22,6 +23,11 @@ export const reducer = (
       return {
         ...state,
         isDeleting: action.payload
+      }
+    case 'setCircuitResetting':
+      return {
+        ...state,
+        isCircuitResetting: action.payload
       }
     case 'setNotFound':
       return {

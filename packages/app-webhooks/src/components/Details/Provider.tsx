@@ -32,11 +32,13 @@ export function WebhookDetailsProvider({
   const [state, dispatch] = useReducer(reducer, initialState)
   const intervalId = useRef<NodeJS.Timer | null>(null)
 
-  const fetchJob = useCallback(
+  const fetchWebhook = useCallback(
     async ({ handleLoadingState }: { handleLoadingState: boolean }) => {
       handleLoadingState && dispatch({ type: 'setLoading', payload: true })
       try {
-        const webhookDetails = await sdkClient.webhooks.retrieve(webhookId)
+        const webhookDetails = await sdkClient.webhooks.retrieve(webhookId, {
+          include: ['last_event_callbacks']
+        })
         dispatch({ type: 'setData', payload: webhookDetails })
       } catch {
         dispatch({ type: 'setNotFound', payload: true })
@@ -59,14 +61,26 @@ export function WebhookDetailsProvider({
       })
   }, [webhookId])
 
+  const resetWebhookCircuit = useCallback(async (): Promise<boolean> => {
+    dispatch({ type: 'setCircuitResetting', payload: true })
+    return await sdkClient.webhooks
+      .update({ id: webhookId, _reset_circuit: true })
+      .then(() => true)
+      .catch(() => {
+        dispatch({ type: 'setCircuitResetting', payload: false })
+        void fetchWebhook({ handleLoadingState: true })
+        return false
+      })
+  }, [webhookId])
+
   useEffect(
     function startPolling() {
-      void fetchJob({ handleLoadingState: true })
+      void fetchWebhook({ handleLoadingState: true })
       if (!state.isPolling) {
         return
       }
       intervalId.current = setInterval(() => {
-        void fetchJob({ handleLoadingState: false })
+        void fetchWebhook({ handleLoadingState: false })
       }, POLLING_INTERVAL)
 
       return () => {
@@ -80,8 +94,9 @@ export function WebhookDetailsProvider({
 
   const value: WebhookDetailsContextValue = {
     state,
-    refetch: async () => await fetchJob({ handleLoadingState: false }),
-    deleteWebhook
+    refetch: async () => await fetchWebhook({ handleLoadingState: false }),
+    deleteWebhook,
+    resetWebhookCircuit
   }
 
   return (

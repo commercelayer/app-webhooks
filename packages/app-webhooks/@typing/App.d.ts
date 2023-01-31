@@ -5,12 +5,14 @@ declare module 'App' {
     state: WebhookDetailsContextState
     refetch: () => Promise<void>
     deleteWebhook: () => Promise<boolean>
+    resetWebhookCircuit: () => Promise<boolean>
   }
 
   export interface WebhookDetailsContextState {
     data?: Webhook
     isLoading: boolean
     isDeleting: boolean
+    isCircuitResetting: boolean
     isPolling: boolean
     isNotFound: boolean
   }
@@ -20,5 +22,8 @@ declare module 'App' {
     'deleteWebhook'
   >
 
-  export interface WebhookFormContextState extends WebhookDetailsContextState {}
+  export type WebhookFormContextState = Omit<
+    WebhookDetailsContextState,
+    'isCircuitResetting'
+  >
 }
