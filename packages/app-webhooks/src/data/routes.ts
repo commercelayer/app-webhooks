@@ -17,6 +17,10 @@ export const appRoutes = {
     path: '/:webhookId/edit',
     makePath: (webhookId: string) => `/${webhookId}/edit`
   },
+  webhookEventCallbacks: {
+    path: '/:webhookId/event-callbacks',
+    makePath: (webhookId: string) => `/${webhookId}/event-callbacks`
+  },
   details: {
     path: '/:webhookId',
     makePath: (webhookId: string) => `/${webhookId}`

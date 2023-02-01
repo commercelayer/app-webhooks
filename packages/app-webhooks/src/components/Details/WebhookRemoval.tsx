@@ -37,7 +37,6 @@ export function WebhookRemoval(): JSX.Element | null {
           e.stopPropagation()
           deleteWebhook()
             .then(() => {
-              console.log('Deleted')
               setLocation(appRoutes.list.makePath())
             })
             .catch((e: any) => {

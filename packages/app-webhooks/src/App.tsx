@@ -10,6 +10,7 @@ import {
 } from '@commercelayer/core-app-elements'
 import DetailsPage from '#pages/DetailsPage'
 import NewWebhookPage from '#pages/NewWebhookPage'
+import EventCallbacksPage from '#pages/EventCallbacksPage'
 import EditWebhookPage from '#pages/EditWebhookPage'
 
 function App(): JSX.Element {
@@ -42,6 +43,9 @@ function App(): JSX.Element {
                 </Route>
                 <Route path={appRoutes.editWebhook.path}>
                   <EditWebhookPage />
+                </Route>
+                <Route path={appRoutes.webhookEventCallbacks.path}>
+                  <EventCallbacksPage />
                 </Route>
                 <Route path={appRoutes.details.path}>
                   <DetailsPage />

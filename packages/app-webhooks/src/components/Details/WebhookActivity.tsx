@@ -1,3 +1,4 @@
+import { appRoutes } from '#data/routes'
 import { EventCallbacksTable } from '#components/Common/EventCallbacksTable'
 import {
   A,
@@ -8,6 +9,7 @@ import {
   Spacer,
   Text
 } from '@commercelayer/core-app-elements'
+import { useLocation } from 'wouter'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookActivity(): JSX.Element | null {
@@ -20,6 +22,7 @@ export function WebhookActivity(): JSX.Element | null {
     return null
   }
 
+  const [_, setLocation] = useLocation()
   const webhookPreviewEventCallbacks = data.last_event_callbacks.slice(0, 5)
 
   return (
@@ -64,7 +67,15 @@ export function WebhookActivity(): JSX.Element | null {
                 eventCallbacks={webhookPreviewEventCallbacks}
               />
             </Spacer>
-            {data.last_event_callbacks.length > 5 && <A>View more</A>}
+            {data.last_event_callbacks.length > 5 && (
+              <A
+                onClick={() => {
+                  setLocation(appRoutes.webhookEventCallbacks.makePath(data.id))
+                }}
+              >
+                View more
+              </A>
+            )}
           </div>
         </Card>
       </Spacer>
