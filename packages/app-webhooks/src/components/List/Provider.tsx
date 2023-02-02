@@ -55,17 +55,6 @@ export function ListWebhookProvider({
     [state.currentPage]
   )
 
-  const deleteWebhook = (webhookId: string): void => {
-    sdkClient.webhooks
-      .delete(webhookId)
-      .catch(() => {
-        console.error('Webhook not found')
-      })
-      .finally(() => {
-        void fetchList({ handleLoadingState: false })
-      })
-  }
-
   useEffect(
     function handleChangePageSkippingFirstRender() {
       if (state.list?.meta.currentPage != null) {
@@ -111,8 +100,7 @@ export function ListWebhookProvider({
 
   const value: ListWebhookContextValue = {
     state,
-    changePage,
-    deleteWebhook
+    changePage
   }
 
   return (

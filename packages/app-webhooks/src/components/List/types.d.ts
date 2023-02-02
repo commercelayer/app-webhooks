@@ -5,7 +5,6 @@ declare module 'App' {
   export interface ListWebhookContextValue {
     state: ListWebhookContextState
     changePage: (page: number) => void
-    deleteWebhook: (id: string) => void
   }
 
   export type ListWebhookAllowedStatusType =
