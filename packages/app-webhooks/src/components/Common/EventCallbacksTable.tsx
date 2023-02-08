@@ -9,6 +9,7 @@ import {
 } from '@commercelayer/core-app-elements'
 import { EventCallback } from '@commercelayer/sdk'
 import { getTimeAgoString } from '#utils/timeAgo'
+import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
 
 interface Props {
   eventCallbacks?: EventCallback[]
@@ -20,13 +21,13 @@ export function EventCallbacksTable({ eventCallbacks }: Props): JSX.Element {
   }
 
   const tableRows = eventCallbacks.map((event) => {
+    const eventCallbackStatusVariantVariant = eventCallbackStatusVariant(event)
+
     return (
       <Tr key={event.id}>
         <Td>
           <div className='flex items-center gap-2'>
-            <StatusDot
-              variant={event.response_code === '200' ? 'success' : 'danger'}
-            />
+            <StatusDot variant={eventCallbackStatusVariantVariant} />
             <span className='font-bold'>{event.response_code}</span>
           </div>
         </Td>
