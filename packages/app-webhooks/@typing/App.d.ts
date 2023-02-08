@@ -17,10 +17,13 @@ declare module 'App' {
     isNotFound: boolean
   }
 
-  export type WebhookFormContextValue = Omit<
-    WebhookDetailsContextValue,
-    'deleteWebhook'
-  >
+  export interface WebhookFormContextValue
+    extends Omit<
+      WebhookDetailsContextValue,
+      'deleteWebhook' | 'resetWebhookCircuit' | 'state'
+    > {
+    state: WebhookFormContextState
+  }
 
   export type WebhookFormContextState = Omit<
     WebhookDetailsContextState,
