@@ -9,7 +9,7 @@ import {
   Spacer
 } from '@commercelayer/core-app-elements'
 import { useLocation, useRoute } from 'wouter'
-import { WebhookActivity } from '#components/Details/WebhookActivity'
+import { WebhookCircuit } from '#components/Details/WebhookCircuit'
 import { WebhookDetails } from '#components/Details/WebhookDetails'
 import { WebhookSecret } from '#components/Details/WebhookSecret'
 import { WebhookRemoval } from '#components/Details/WebhookRemoval'
@@ -56,7 +56,7 @@ const DetailsPage = (): JSX.Element | null => {
             {data.last_event_callbacks !== undefined &&
               data.last_event_callbacks.length > 0 && (
                 <Spacer bottom='12'>
-                  <WebhookActivity />
+                  <WebhookCircuit />
                 </Spacer>
               )}
             <Spacer bottom='12'>

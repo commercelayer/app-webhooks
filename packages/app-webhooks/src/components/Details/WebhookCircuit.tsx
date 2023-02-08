@@ -12,7 +12,7 @@ import {
 import { useLocation } from 'wouter'
 import { useWebhookDetailsContext } from './Provider'
 
-export function WebhookActivity(): JSX.Element | null {
+export function WebhookCircuit(): JSX.Element | null {
   const {
     state: { data },
     resetWebhookCircuit
