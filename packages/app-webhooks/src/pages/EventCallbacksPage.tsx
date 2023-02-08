@@ -6,11 +6,13 @@ import {
   PageLayout,
   List,
   EmptyState,
-  useCoreSdkProvider
+  useCoreSdkProvider,
+  useTokenProvider
 } from '@commercelayer/core-app-elements'
 import { EventCallbacksTable } from '#components/Common/EventCallbacksTable'
 
 function EventCallbacksPage(): JSX.Element {
+  const { settings } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const [_location, setLocation] = useLocation()
   const [_match, params] = useRoute(appRoutes.webhookEventCallbacks.path)
@@ -25,6 +27,7 @@ function EventCallbacksPage(): JSX.Element {
   return (
     <PageLayout
       title='Event Callbacks'
+      mode={settings.mode}
       onGoBack={() => {
         setLocation(appRoutes.details.makePath(webhookId as string))
       }}

@@ -2,6 +2,7 @@ import { WebhookDetailsProvider } from '#components/Details/Provider'
 import { ErrorNotFound } from '#components/ErrorNotFound'
 import { appRoutes } from '#data/routes'
 import {
+  useTokenProvider,
   useCoreSdkProvider,
   A,
   PageSkeleton,
@@ -15,6 +16,7 @@ import { WebhookSecret } from '#components/Details/WebhookSecret'
 import { WebhookRemoval } from '#components/Details/WebhookRemoval'
 
 const DetailsPage = (): JSX.Element | null => {
+  const { settings } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const [_match, params] = useRoute(appRoutes.details.path)
   const [_, setLocation] = useLocation()
@@ -40,6 +42,7 @@ const DetailsPage = (): JSX.Element | null => {
         ) : (
           <PageLayout
             title={data.name}
+            mode={settings.mode}
             onGoBack={() => {
               setLocation(appRoutes.list.makePath())
             }}

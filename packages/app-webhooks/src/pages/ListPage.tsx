@@ -32,6 +32,7 @@ function getListUiStatus(webhook: Webhook): StatusUI {
 }
 
 function ListPage(): JSX.Element {
+  const { settings } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const { dashboardUrl } = useTokenProvider()
   const [_location, setLocation] = useLocation()
@@ -44,6 +45,7 @@ function ListPage(): JSX.Element {
   return (
     <PageLayout
       title='Webhooks'
+      mode={settings.mode}
       onGoBack={() => {
         window.location.href = dashboardUrl != null ? dashboardUrl : '/'
       }}

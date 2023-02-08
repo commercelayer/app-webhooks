@@ -1,5 +1,6 @@
 import { appRoutes } from '#data/routes'
 import {
+  useTokenProvider,
   Button,
   EmptyState,
   PageLayout
@@ -7,11 +8,13 @@ import {
 import { Link, useLocation } from 'wouter'
 
 export function ErrorNotFound(): JSX.Element {
+  const { settings } = useTokenProvider()
   const [_, setLocation] = useLocation()
 
   return (
     <PageLayout
       title='Webhooks'
+      mode={settings.mode}
       onGoBack={() => {
         setLocation(appRoutes.list.makePath())
       }}
