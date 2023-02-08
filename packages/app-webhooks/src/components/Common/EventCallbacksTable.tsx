@@ -12,18 +12,12 @@ import { getTimeAgoString } from '#utils/timeAgo'
 
 interface Props {
   eventCallbacks?: EventCallback[]
-  hideTopBorder?: boolean
 }
 
-export function EventCallbacksTable({
-  eventCallbacks,
-  hideTopBorder = false
-}: Props): JSX.Element {
+export function EventCallbacksTable({ eventCallbacks }: Props): JSX.Element {
   if (eventCallbacks == null) {
     return <></>
   }
-
-  const tableHead = hideTopBorder ? <></> : undefined
 
   const tableRows = eventCallbacks.map((event) => {
     return (
@@ -57,5 +51,5 @@ export function EventCallbacksTable({
     )
   })
 
-  return <Table thead={tableHead} tbody={tableRows} />
+  return <Table tbody={tableRows} />
 }

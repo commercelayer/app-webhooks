@@ -72,7 +72,7 @@ function EventCallbacksPage(): JSX.Element {
                 pageCount
               }}
             >
-              <EventCallbacksTable hideTopBorder eventCallbacks={list} />
+              <EventCallbacksTable eventCallbacks={list} />
             </List>
           )
         }}
