@@ -24,6 +24,7 @@ export function WebhookCircuit(): JSX.Element | null {
 
   const [_, setLocation] = useLocation()
   const webhookPreviewEventCallbacks = data.last_event_callbacks.slice(0, 5)
+  const isCircuitOpen = data.circuit_state === 'open'
 
   return (
     <ListDetails title='Activity'>
@@ -37,18 +38,16 @@ export function WebhookCircuit(): JSX.Element | null {
                     <span className='font-bold'>
                       Circuit {data.circuit_state}
                     </span>
-                    {data.circuit_state === 'open' && (
-                      <Badge variant='danger' label='failed' />
-                    )}
+                    {isCircuitOpen && <Badge variant='danger' label='failed' />}
                   </div>
                 </Spacer>
-                {data.circuit_state === 'open' && (
+                {isCircuitOpen && (
                   <Text className='text-sm font-bold' variant='danger'>
                     No further callbacks are performed until reset.
                   </Text>
                 )}
               </div>
-              {data.circuit_state === 'open' && (
+              {isCircuitOpen && (
                 <Button
                   size='small'
                   variant='primary'
