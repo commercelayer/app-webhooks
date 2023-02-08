@@ -13,9 +13,13 @@ import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
 
 interface Props {
   eventCallbacks?: EventCallback[]
+  className?: string
 }
 
-export function EventCallbacksTable({ eventCallbacks }: Props): JSX.Element {
+export function EventCallbacksTable({
+  eventCallbacks,
+  className
+}: Props): JSX.Element {
   if (eventCallbacks == null) {
     return <></>
   }
@@ -52,5 +56,5 @@ export function EventCallbacksTable({ eventCallbacks }: Props): JSX.Element {
     )
   })
 
-  return <Table tbody={tableRows} />
+  return <Table className={className} tbody={tableRows} />
 }

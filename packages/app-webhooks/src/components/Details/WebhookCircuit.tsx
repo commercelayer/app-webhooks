@@ -27,7 +27,7 @@ export function WebhookCircuit(): JSX.Element | null {
   const isCircuitOpen = data.circuit_state === 'open'
 
   return (
-    <ListDetails title='Activity'>
+    <ListDetails>
       <Spacer bottom='4'>
         <Card>
           <Spacer bottom='4'>
@@ -63,6 +63,7 @@ export function WebhookCircuit(): JSX.Element | null {
           <div className='CardContent'>
             <Spacer bottom='4'>
               <EventCallbacksTable
+                className='border-t border-gray-100'
                 eventCallbacks={webhookPreviewEventCallbacks}
               />
             </Spacer>
