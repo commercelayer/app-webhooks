@@ -25,7 +25,7 @@ function App(): JSX.Element {
         {({ domain }) => (
           <TokenProvider
             currentApp='webhooks'
-            clientKind='integration'
+            clientKind='webapp'
             domain={domain ?? ''}
             onInvalidAuth={({ reason }) => {
               console.error('invalid callback received: ', reason)
