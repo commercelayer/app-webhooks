@@ -12,5 +12,5 @@ export const initialValues: WebhookDetailsContextValue = {
   state: initialState,
   refetch: async () => undefined,
   deleteWebhook: async () => false,
-  resetWebhookCircuit: async () => false
+  resetWebhookCircuit: async () => {}
 }

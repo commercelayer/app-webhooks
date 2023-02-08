@@ -61,15 +61,14 @@ export function WebhookDetailsProvider({
       })
   }, [webhookId])
 
-  const resetWebhookCircuit = useCallback(async (): Promise<boolean> => {
+  const resetWebhookCircuit = useCallback(async (): Promise<void> => {
     dispatch({ type: 'setCircuitResetting', payload: true })
-    return await sdkClient.webhooks
+    await sdkClient.webhooks
       .update({ id: webhookId, _reset_circuit: true })
       .then(() => true)
       .catch(() => {
         dispatch({ type: 'setCircuitResetting', payload: false })
         void fetchWebhook({ handleLoadingState: true })
-        return false
       })
   }, [webhookId])
 
