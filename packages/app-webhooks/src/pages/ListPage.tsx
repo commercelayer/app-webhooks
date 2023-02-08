@@ -10,6 +10,7 @@ import {
   List,
   ListItemTask,
   EmptyState,
+  useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/core-app-elements'
 import { StatusUI } from '@commercelayer/core-app-elements/dist/ui/atoms/StatusIcon'
@@ -31,7 +32,8 @@ function getListUiStatus(webhook: Webhook): StatusUI {
 }
 
 function ListPage(): JSX.Element {
-  const { sdkClient, dashboardUrl } = useTokenProvider()
+  const { sdkClient } = useCoreSdkProvider()
+  const { dashboardUrl } = useTokenProvider()
   const [_location, setLocation] = useLocation()
 
   if (sdkClient == null) {

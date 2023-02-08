@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import { ApiError } from 'App'
 import {
-  useTokenProvider,
+  useCoreSdkProvider,
   A,
   Input,
   Label,
@@ -24,7 +24,7 @@ interface Props {
 }
 
 const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
-  const { sdkClient } = useTokenProvider()
+  const { sdkClient } = useCoreSdkProvider()
   const [apiError, setApiError] = useState<ApiError[] | undefined>(undefined)
   const [_location, setLocation] = useLocation()
 

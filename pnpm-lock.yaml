@@ -10,7 +10,7 @@ importers:
 
   packages/app-webhooks:
     specifiers:
-      '@commercelayer/core-app-elements': 0.0.1-beta.10
+      '@commercelayer/core-app-elements': 0.0.1-beta.12
       '@commercelayer/eslint-config-ts-react': ^0.1.4
       '@commercelayer/sdk': 4.20.0
       '@testing-library/jest-dom': ^5.16.5
@@ -39,7 +39,7 @@ importers:
       wouter: ^2.9.0
       zod: 3.20.2
     dependencies:
-      '@commercelayer/core-app-elements': 0.0.1-beta.10_rweibvbguh76xzwjdceysrscoq
+      '@commercelayer/core-app-elements': 0.0.1-beta.12_rweibvbguh76xzwjdceysrscoq
       '@commercelayer/eslint-config-ts-react': 0.1.4_ol4nhuzbuflsbzk2mijpqykzba
       '@commercelayer/sdk': 4.20.0
       '@testing-library/jest-dom': 5.16.5
@@ -316,8 +316,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: false
 
-  /@commercelayer/core-app-elements/0.0.1-beta.10_rweibvbguh76xzwjdceysrscoq:
-    resolution: {integrity: sha512-mZW9ULGtQu7g5odIYa2RiYo3az/Qx4c781wp5yNVzU7JhCXdOTXHgNvUVQHeC77jcgqIF9i6oPnloTFpg9S1TA==}
+  /@commercelayer/core-app-elements/0.0.1-beta.12_rweibvbguh76xzwjdceysrscoq:
+    resolution: {integrity: sha512-ZDZFm/jcbDWVdkVEWtwUetcOuXP6J8nefRyehpScwkNIgKmJ4u44654Vqfnk2Iyf9g0bWem8aQN3INdzg3MyDA==}
     engines: {node: '>=18', pnpm: '>=7'}
     peerDependencies:
       '@commercelayer/sdk': ^4.x
