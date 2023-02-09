@@ -45,19 +45,11 @@ function EventCallbacksPage(): JSX.Element {
           }
 
           if (list == null) {
-            return (
-              <div>
-                <EmptyState title='Unable to load list' />
-              </div>
-            )
+            return <EmptyState title='Unable to load list' />
           }
 
           if (list.length === 0) {
-            return (
-              <div>
-                <EmptyState title='No event callbacks yet!' />
-              </div>
-            )
+            return <EmptyState title='No event callbacks yet!' />
           }
 
           const isRefetching = currentPage !== list.meta.currentPage

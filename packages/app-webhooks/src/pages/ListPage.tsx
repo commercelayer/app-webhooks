@@ -59,26 +59,20 @@ function ListPage(): JSX.Element {
           }
 
           if (list == null) {
-            return (
-              <div>
-                <EmptyState title='Unable to load list' />
-              </div>
-            )
+            return <EmptyState title='Unable to load list' />
           }
 
           if (list.length === 0) {
             return (
-              <div>
-                <EmptyState
-                  title='No webhook yet!'
-                  description='Create your first webhook'
-                  action={
-                    <Link href={appRoutes.newWebhook.makePath()}>
-                      <Button variant='primary'>New webhook</Button>
-                    </Link>
-                  }
-                />
-              </div>
+              <EmptyState
+                title='No webhook yet!'
+                description='Create your first webhook'
+                action={
+                  <Link href={appRoutes.newWebhook.makePath()}>
+                    <Button variant='primary'>New webhook</Button>
+                  </Link>
+                }
+              />
             )
           }
 
