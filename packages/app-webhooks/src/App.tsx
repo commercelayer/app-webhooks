@@ -6,10 +6,12 @@ import ListPage from '#pages/ListPage'
 import {
   PageSkeleton,
   TokenProvider,
+  CoreSdkProvider,
   ErrorBoundary
 } from '@commercelayer/core-app-elements'
 import DetailsPage from '#pages/DetailsPage'
 import NewWebhookPage from '#pages/NewWebhookPage'
+import EventCallbacksPage from '#pages/EventCallbacksPage'
 import EditWebhookPage from '#pages/EditWebhookPage'
 
 function App(): JSX.Element {
@@ -24,33 +26,39 @@ function App(): JSX.Element {
         {({ domain }) => (
           <TokenProvider
             currentApp='webhooks'
-            clientKind='integration'
+            clientKind={import.meta.env.PUBLIC_TOKEN_KIND ?? 'webapp'}
             domain={domain ?? ''}
-            onInvalidAuth={({ reason }) => {
+            onInvalidAuth={({ reason, dashboardUrl }) => {
               console.error('invalid callback received: ', reason)
+              window.location.href = dashboardUrl
             }}
             loadingElement={<PageSkeleton />}
             devMode
           >
-            <Router base={basePath}>
-              <Switch>
-                <Route path={appRoutes.list.path}>
-                  <ListPage />
-                </Route>
-                <Route path={appRoutes.newWebhook.path}>
-                  <NewWebhookPage />
-                </Route>
-                <Route path={appRoutes.editWebhook.path}>
-                  <EditWebhookPage />
-                </Route>
-                <Route path={appRoutes.details.path}>
-                  <DetailsPage />
-                </Route>
-                <Route>
-                  <ErrorNotFound />
-                </Route>
-              </Switch>
-            </Router>
+            <CoreSdkProvider>
+              <Router base={basePath}>
+                <Switch>
+                  <Route path={appRoutes.list.path}>
+                    <ListPage />
+                  </Route>
+                  <Route path={appRoutes.newWebhook.path}>
+                    <NewWebhookPage />
+                  </Route>
+                  <Route path={appRoutes.editWebhook.path}>
+                    <EditWebhookPage />
+                  </Route>
+                  <Route path={appRoutes.webhookEventCallbacks.path}>
+                    <EventCallbacksPage />
+                  </Route>
+                  <Route path={appRoutes.details.path}>
+                    <DetailsPage />
+                  </Route>
+                  <Route>
+                    <ErrorNotFound />
+                  </Route>
+                </Switch>
+              </Router>
+            </CoreSdkProvider>
           </TokenProvider>
         )}
       </RuntimeConfigProvider>

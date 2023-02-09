@@ -3,18 +3,21 @@ import { ErrorNotFound } from '#components/ErrorNotFound'
 import { appRoutes } from '#data/routes'
 import {
   useTokenProvider,
+  useCoreSdkProvider,
   A,
   PageSkeleton,
   PageLayout,
   Spacer
 } from '@commercelayer/core-app-elements'
 import { useLocation, useRoute } from 'wouter'
+import { WebhookCircuit } from '#components/Details/WebhookCircuit'
 import { WebhookDetails } from '#components/Details/WebhookDetails'
 import { WebhookSecret } from '#components/Details/WebhookSecret'
 import { WebhookRemoval } from '#components/Details/WebhookRemoval'
 
 const DetailsPage = (): JSX.Element | null => {
-  const { sdkClient } = useTokenProvider()
+  const { settings } = useTokenProvider()
+  const { sdkClient } = useCoreSdkProvider()
   const [_match, params] = useRoute(appRoutes.details.path)
   const [_, setLocation] = useLocation()
 
@@ -39,6 +42,7 @@ const DetailsPage = (): JSX.Element | null => {
         ) : (
           <PageLayout
             title={data.name}
+            mode={settings.mode}
             onGoBack={() => {
               setLocation(appRoutes.list.makePath())
             }}
@@ -52,6 +56,12 @@ const DetailsPage = (): JSX.Element | null => {
               </A>
             }
           >
+            {data.last_event_callbacks !== undefined &&
+              data.last_event_callbacks.length > 0 && (
+                <Spacer bottom='12'>
+                  <WebhookCircuit />
+                </Spacer>
+              )}
             <Spacer bottom='12'>
               <WebhookDetails />
             </Spacer>

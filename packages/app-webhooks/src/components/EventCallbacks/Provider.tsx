@@ -1,6 +1,9 @@
-import { CommerceLayerClient, Webhook } from '@commercelayer/sdk'
+import { CommerceLayerClient, EventCallback } from '@commercelayer/sdk'
 import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
-import { ListWebhookContextValue, ListWebhookContextState } from 'App'
+import {
+  ListEventCallbackContextValue,
+  ListEventCallbackContextState
+} from 'App'
 import {
   createContext,
   ReactNode,
@@ -14,22 +17,25 @@ import {
 import { initialValues, initialState } from './data'
 import { reducer } from './reducer'
 
-interface ListWebhookProviderProps {
+interface ListEventCallbackProviderProps {
   pageSize: number
-  children: ((props: ListWebhookContextValue) => ReactNode) | ReactNode
+  webhookId?: string | null
+  children: ((props: ListEventCallbackContextValue) => ReactNode) | ReactNode
   sdkClient: CommerceLayerClient
 }
 const POLLING_INTERVAL = 10000
 
-const Context = createContext<ListWebhookContextValue>(initialValues)
+const Context = createContext<ListEventCallbackContextValue>(initialValues)
 
-export const useListContext = (): ListWebhookContextValue => useContext(Context)
+export const useListContext = (): ListEventCallbackContextValue =>
+  useContext(Context)
 
-export function ListWebhookProvider({
+export function ListEventCallbackProvider({
   children,
   pageSize,
+  webhookId,
   sdkClient
-}: ListWebhookProviderProps): JSX.Element {
+}: ListEventCallbackProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState)
   const intervalId = useRef<NodeJS.Timer | null>(null)
 
@@ -41,18 +47,21 @@ export function ListWebhookProvider({
   const fetchList = useCallback(
     async ({ handleLoadingState }: { handleLoadingState: boolean }) => {
       handleLoadingState && dispatch({ type: 'setLoading', payload: true })
-      try {
-        const list = await getAllWebhooks({
-          cl: sdkClient,
-          state,
-          pageSize
-        })
-        dispatch({ type: 'setList', payload: list })
-      } finally {
-        handleLoadingState && dispatch({ type: 'setLoading', payload: false })
+      if (webhookId != null) {
+        try {
+          const list = await getAllEventCallbacks({
+            cl: sdkClient,
+            state,
+            webhookId,
+            pageSize
+          })
+          dispatch({ type: 'setList', payload: list })
+        } finally {
+          handleLoadingState && dispatch({ type: 'setLoading', payload: false })
+        }
       }
     },
-    [state.currentPage]
+    [webhookId, state.currentPage]
   )
 
   useEffect(
@@ -61,21 +70,7 @@ export function ListWebhookProvider({
         void fetchList({ handleLoadingState: false })
       }
     },
-    [state.currentPage]
-  )
-
-  useEffect(
-    function handlePollingState() {
-      if (state.list == null || state.list.length === 0) {
-        return
-      }
-
-      const shouldPoll = state.list.some((job) =>
-        statusForPolling.includes(job.circuit_state)
-      )
-      dispatch({ type: 'togglePolling', payload: shouldPoll })
-    },
-    [state.list]
+    [webhookId, state.currentPage]
   )
 
   useEffect(
@@ -98,7 +93,7 @@ export function ListWebhookProvider({
     [state.isPolling]
   )
 
-  const value: ListWebhookContextValue = {
+  const value: ListEventCallbackContextValue = {
     state,
     changePage
   }
@@ -110,21 +105,21 @@ export function ListWebhookProvider({
   )
 }
 
-const getAllWebhooks = async ({
+const getAllEventCallbacks = async ({
   cl,
   state,
+  webhookId,
   pageSize
 }: {
   cl: CommerceLayerClient
-  state: ListWebhookContextState
+  state: ListEventCallbackContextState
+  webhookId: string
   pageSize: number
-}): Promise<ListResponse<Webhook>> => {
-  return await cl.webhooks.list({
+}): Promise<ListResponse<EventCallback>> => {
+  return await cl.event_callbacks.list({
+    filters: { webhook_id_eq: webhookId },
     pageNumber: state.currentPage,
     pageSize,
-    sort: state.sort,
-    include: ['last_event_callbacks']
+    sort: state.sort
   })
 }
-
-const statusForPolling: Array<Webhook['circuit_state']> = ['closed', 'open']

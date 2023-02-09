@@ -27,7 +27,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@commercelayer/core-app-elements": "0.0.1-beta.7",
+    "@commercelayer/core-app-elements": "0.0.1-beta.14",
     "@commercelayer/eslint-config-ts-react": "^0.1.4",
     "@commercelayer/sdk": "4.20.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -37,6 +37,7 @@
     "@types/react-dom": "^18.0.9",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^3.0.0",
+    "date-fns": "^2.29.3",
     "eslint": "^8.23.1",
     "jsdom": "^20.0.0",
     "jwt-decode": "^3.1.2",

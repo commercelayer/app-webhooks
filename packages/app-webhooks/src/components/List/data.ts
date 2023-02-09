@@ -11,6 +11,5 @@ export const initialState: ListWebhookContextState = {
 
 export const initialValues: ListWebhookContextValue = {
   state: initialState,
-  changePage: () => undefined,
-  deleteWebhook: () => undefined
+  changePage: () => undefined
 }

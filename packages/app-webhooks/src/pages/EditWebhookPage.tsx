@@ -2,15 +2,17 @@ import { WebhookFormProvider } from '#components/Form/Provider'
 import { ErrorNotFound } from '#components/ErrorNotFound'
 import { appRoutes } from '#data/routes'
 import {
-  useTokenProvider,
+  useCoreSdkProvider,
   PageSkeleton,
-  PageLayout
+  PageLayout,
+  useTokenProvider
 } from '@commercelayer/core-app-elements'
 import { useLocation, useRoute } from 'wouter'
 import WebhookForm from '#components/Form/WebhookForm'
 
 const EditWebhookPage = (): JSX.Element | null => {
-  const { sdkClient } = useTokenProvider()
+  const { settings } = useTokenProvider()
+  const { sdkClient } = useCoreSdkProvider()
   const [_match, params] = useRoute(appRoutes.editWebhook.path)
   const [_location, setLocation] = useLocation()
 
@@ -35,6 +37,7 @@ const EditWebhookPage = (): JSX.Element | null => {
         ) : (
           <PageLayout
             title='Edit webhook'
+            mode={settings.mode}
             onGoBack={() => {
               setLocation(appRoutes.details.makePath(webhookId))
             }}

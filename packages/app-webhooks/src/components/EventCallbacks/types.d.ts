@@ -1,20 +1,20 @@
-import { Webhook } from '@commercelayer/sdk'
+import { EventCallback } from '@commercelayer/sdk'
 import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
 
 declare module 'App' {
-  export interface ListWebhookContextValue {
-    state: ListWebhookContextState
+  export interface ListEventCallbackContextValue {
+    state: ListEventCallbackContextState
     changePage: (page: number) => void
   }
 
-  export type ListWebhookAllowedStatusType =
+  export type ListEventCallbackAllowedStatusType =
     | 'completed'
     | 'interrupted'
     | 'in_progress'
     | 'pending'
 
-  export interface ListWebhookContextState {
-    list?: ListResponse<Webhook>
+  export interface ListEventCallbackContextState {
+    list?: ListResponse<EventCallback>
     isLoading: boolean
     isPolling: boolean
     currentPage: number

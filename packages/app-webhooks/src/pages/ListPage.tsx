@@ -1,7 +1,7 @@
+import { Webhook } from '@commercelayer/sdk'
 import { appRoutes } from '#data/routes'
 import { Link, useLocation } from 'wouter'
 import { ListWebhookProvider } from '#components/List/Provider'
-import { getUiStatus } from '#components/List/utils'
 import {
   A,
   Button,
@@ -10,12 +10,31 @@ import {
   List,
   ListItemTask,
   EmptyState,
+  useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/core-app-elements'
+import { StatusUI } from '@commercelayer/core-app-elements/dist/ui/atoms/StatusIcon'
 import { DescriptionLine } from '#components/List/ItemDescriptionLine'
+import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
+
+/**
+ * Get the relative status based on webhook's absence or presence of an event callback {@link https://docs.commercelayer.io/core/v/api-reference/webhooks/object}
+ * @param webhook - The webhook object.
+ * @returns a valid StatusUI to be used in the StatusIcon component.
+ */
+function getListUiStatus(webhook: Webhook): StatusUI {
+  const eventCallback =
+    webhook.last_event_callbacks !== undefined &&
+    webhook.last_event_callbacks?.length > 0
+      ? webhook.last_event_callbacks[0]
+      : undefined
+  return eventCallbackStatusVariant(eventCallback)
+}
 
 function ListPage(): JSX.Element {
-  const { sdkClient, dashboardUrl } = useTokenProvider()
+  const { settings } = useTokenProvider()
+  const { sdkClient } = useCoreSdkProvider()
+  const { dashboardUrl } = useTokenProvider()
   const [_location, setLocation] = useLocation()
 
   if (sdkClient == null) {
@@ -26,6 +45,7 @@ function ListPage(): JSX.Element {
   return (
     <PageLayout
       title='Webhooks'
+      mode={settings.mode}
       onGoBack={() => {
         window.location.href = dashboardUrl != null ? dashboardUrl : '/'
       }}
@@ -39,26 +59,20 @@ function ListPage(): JSX.Element {
           }
 
           if (list == null) {
-            return (
-              <div>
-                <EmptyState title='Unable to load list' />
-              </div>
-            )
+            return <EmptyState title='Unable to load list' />
           }
 
           if (list.length === 0) {
             return (
-              <div>
-                <EmptyState
-                  title='No webhook yet!'
-                  description='Create your first webhook'
-                  action={
-                    <Link href={appRoutes.newWebhook.makePath()}>
-                      <Button variant='primary'>New webhook</Button>
-                    </Link>
-                  }
-                />
-              </div>
+              <EmptyState
+                title='No webhook yet!'
+                description='Create your first webhook'
+                action={
+                  <Link href={appRoutes.newWebhook.makePath()}>
+                    <Button variant='primary'>New webhook</Button>
+                  </Link>
+                }
+              />
             )
           }
 
@@ -83,7 +97,7 @@ function ListPage(): JSX.Element {
               }}
             >
               {list.map((webhook) => {
-                const statusUi = getUiStatus(webhook.circuit_state)
+                const statusUi = getListUiStatus(webhook)
                 return (
                   <ListItemTask
                     key={webhook.id}
@@ -93,7 +107,7 @@ function ListPage(): JSX.Element {
                     }}
                     progressPercentage={statusUi === 'progress' ? 0 : undefined}
                     title={webhook.name as string}
-                    description={<DescriptionLine job={webhook} />}
+                    description={<DescriptionLine webhook={webhook} />}
                   />
                 )
               })}
