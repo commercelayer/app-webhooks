@@ -10,17 +10,11 @@ export function DescriptionLine({ webhook }: Props): JSX.Element {
     webhook.last_event_callbacks === undefined ||
     webhook.last_event_callbacks.length === 0
   )
-    return <></>
+    return <>Never fired</>
+
   const createdAtTimeAgo = getTimeAgoString(
     webhook.last_event_callbacks[0].created_at
   )
 
-  return (
-    <>
-      {webhook.last_event_callbacks === undefined ||
-      webhook.last_event_callbacks.length === 0
-        ? 'Never fired'
-        : `Fired ${createdAtTimeAgo}`}
-    </>
-  )
+  return <>{`Fired ${createdAtTimeAgo}`}</>
 }
