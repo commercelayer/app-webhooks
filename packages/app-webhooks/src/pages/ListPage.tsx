@@ -47,7 +47,8 @@ function ListPage(): JSX.Element {
       title='Webhooks'
       mode={settings.mode}
       onGoBack={() => {
-        window.location.href = dashboardUrl != null ? dashboardUrl : '/'
+        window.location.href =
+          dashboardUrl != null ? `${dashboardUrl}/hub` : '/'
       }}
     >
       <ListWebhookProvider sdkClient={sdkClient} pageSize={25}>
