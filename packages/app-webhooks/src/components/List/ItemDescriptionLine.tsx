@@ -1,5 +1,5 @@
 import { Webhook } from '@commercelayer/sdk'
-import { getTimeAgoString } from '#utils/timeAgo'
+import { formatDistanceInWords } from '#utils/formatDistanceInWords'
 
 interface Props {
   webhook: Webhook
@@ -12,7 +12,7 @@ export function DescriptionLine({ webhook }: Props): JSX.Element {
   )
     return <>Never fired</>
 
-  const createdAtTimeAgo = getTimeAgoString(
+  const createdAtTimeAgo = formatDistanceInWords(
     webhook.last_event_callbacks[0].created_at
   )
 
