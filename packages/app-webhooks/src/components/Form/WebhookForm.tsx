@@ -86,7 +86,10 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
     <>
       <Spacer bottom='6'>
         <Label className='mb-2'>Name</Label>
-        <Input onChange={setFormName} value={formName} />
+        <Input
+          onChange={(event) => setFormName(event.currentTarget.value)}
+          value={formName}
+        />
         <Text variant='info' size='small' className='font-medium'>
           Choose a meaningful name that helps you identify this webhook.
         </Text>
@@ -114,7 +117,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
       <Spacer bottom='6'>
         <Label className='mb-2'>Callback URL</Label>
         <Input
-          onChange={setFormCallbackUrl}
+          onChange={(event) => setFormCallbackUrl(event.currentTarget.value)}
           className='mb-1'
           value={formCallbackUrl}
         />
