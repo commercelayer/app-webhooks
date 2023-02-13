@@ -5,7 +5,7 @@ import formatDistance from 'date-fns/formatDistance'
  * @param dateTime - A string containing a parsable datetime.
  * @returns a string containing a "XXX ago" string (eg. about 1 minute ago, about 1 hour ago).
  */
-export function getTimeAgoString(dateTime: string): string {
+export function formatDistanceInWords(dateTime: string): string {
   const dateTimeToDate = Date.parse(dateTime)
   return `${formatDistance(Date.now(), dateTimeToDate)} ago`
 }

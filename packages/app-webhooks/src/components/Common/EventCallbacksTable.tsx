@@ -8,7 +8,7 @@ import {
   Text
 } from '@commercelayer/core-app-elements'
 import { EventCallback } from '@commercelayer/sdk'
-import { getTimeAgoString } from '#utils/timeAgo'
+import { formatDistanceInWords } from '#utils/formatDistanceInWords'
 import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
 
 interface Props {
@@ -36,7 +36,7 @@ export function EventCallbacksTable({
           </div>
         </Td>
         <Td>
-          <Text variant='info'>{getTimeAgoString(event.created_at)}</Text>
+          <Text variant='info'>{formatDistanceInWords(event.created_at)}</Text>
         </Td>
         <Td>
           <div className='text-right'>
