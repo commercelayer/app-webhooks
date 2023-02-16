@@ -26,6 +26,8 @@ const selectValueSchema = {
   value: zod.string().min(1)
 }
 
+const includeResourcesRegExp = /^[a-z][a-z_.]*[a-z](,[a-z][a-z_.]*[a-z])*$|^$/
+
 const webhookFormSchema = zod
   .object({
     name: zod.string().min(1, { message: `Name can't be blank` }),
@@ -37,7 +39,9 @@ const webhookFormSchema = zod
       .string()
       .min(1, { message: `Callback URL can't be blank` })
       .url({ message: 'Callback URL is invalid' }),
-    include_resources: zod.string()
+    include_resources: zod.string().regex(includeResourcesRegExp, {
+      message: 'Include is invalid'
+    })
   })
   .required()
 
