@@ -156,7 +156,6 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
         <Input
           label='Callback URL'
           name='callback_url'
-          placeholder='https://www.example.com/...'
           hint={{ text: 'The URL invoked by the webhook.' }}
         />
       </Spacer>
