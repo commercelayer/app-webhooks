@@ -176,7 +176,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
           {formAction === 'create' ? 'Create webhook' : 'Edit webhook'}
         </Button>
         {hasApiError ? (
-          <div>
+          <div className='mt-2'>
             {apiError.map((error, idx) => (
               <InputFeedback key={idx} variant='danger' message={error.title} />
             ))}
