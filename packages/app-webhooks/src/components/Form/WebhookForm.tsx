@@ -107,7 +107,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
         name: values.name,
         topic: values.topic?.value,
         callback_url: values.callback_url,
-        include_resources: values.include_resources.split('.')
+        include_resources: values.include_resources.split(',')
       }
       const sdkRequest = await sdkClient.webhooks[formAction](payload)
       methods.reset()
