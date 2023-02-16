@@ -5,6 +5,6 @@ declare module 'App' {
     meta?: unknown
     source?: unknown
     status?: string
-    title?: string
+    title: string
   }
 }

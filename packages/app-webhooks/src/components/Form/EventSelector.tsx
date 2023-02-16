@@ -1,42 +1,22 @@
 import { getAllEventsForSelect } from '#data/events'
-import type { SelectValue } from '@commercelayer/core-app-elements'
-import type { ResourceEventKey } from '#data/events'
-import { InputSelect, flatSelectValues } from '@commercelayer/core-app-elements'
+import { InputSelect } from '@commercelayer/app-elements-hook-form'
+import type { HintProps } from '@commercelayer/core-app-elements/dist/ui/atoms/Hint'
 
 interface Props {
-  selectedEvent?: ResourceEventKey
-  helperText?: React.ReactNode
-  onSelect: (event: ResourceEventKey) => void
+  name: string
+  hintText?: HintProps['children']
 }
 
-export function EventSelector({
-  selectedEvent,
-  helperText,
-  onSelect
-}: Props): JSX.Element | null {
+export function EventSelector({ name, hintText }: Props): JSX.Element | null {
   const events = getAllEventsForSelect()
 
-  const defaultValue: SelectValue | undefined =
-    selectedEvent != null
-      ? {
-          value: selectedEvent,
-          label: selectedEvent
-        }
-      : undefined
-
   return (
-    <div>
-      <InputSelect
-        initialValues={events}
-        defaultValue={defaultValue}
-        onSelect={(event) => {
-          const value = flatSelectValues(event)
-          onSelect(value as ResourceEventKey)
-        }}
-        isClearable
-        label='Topic'
-        helperText={helperText}
-      />
-    </div>
+    <InputSelect
+      name={name}
+      initialValues={events}
+      isClearable
+      label='Topic'
+      hint={{ text: hintText }}
+    />
   )
 }
