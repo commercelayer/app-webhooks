@@ -181,7 +181,11 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
         {hasApiError ? (
           <div className='mt-2'>
             {apiError.map((error, idx) => (
-              <InputFeedback key={idx} variant='danger' message={error.title} />
+              <InputFeedback
+                key={idx}
+                variant='danger'
+                message={error.detail}
+              />
             ))}
           </div>
         ) : null}
