@@ -41,7 +41,7 @@ export function WebhookRemoval(): JSX.Element | null {
         }}
         data-test-id='list-task-item-btn-cancel'
       >
-        Remove webhook
+        Delete webhook
       </Button>
     </ListDetails>
   )
