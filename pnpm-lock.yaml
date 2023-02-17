@@ -11,7 +11,7 @@ importers:
   packages/app-webhooks:
     specifiers:
       '@commercelayer/app-elements-hook-form': v0.0.1-beta.18
-      '@commercelayer/core-app-elements': v0.0.1-beta.18
+      '@commercelayer/core-app-elements': v0.0.1-beta.19
       '@commercelayer/eslint-config-ts-react': ^0.1.4
       '@commercelayer/sdk': 4.20.0
       '@hookform/resolvers': ^2.9.11
@@ -42,8 +42,8 @@ importers:
       wouter: ^2.9.0
       zod: 3.20.2
     dependencies:
-      '@commercelayer/app-elements-hook-form': 0.0.1-beta.18_7ck2too2hlo7renu2rwqtni5ce
-      '@commercelayer/core-app-elements': 0.0.1-beta.18_rweibvbguh76xzwjdceysrscoq
+      '@commercelayer/app-elements-hook-form': 0.0.1-beta.18_3wpxdzmomzfscvwueqrdm2bkli
+      '@commercelayer/core-app-elements': 0.0.1-beta.19_rweibvbguh76xzwjdceysrscoq
       '@commercelayer/eslint-config-ts-react': 0.1.4_ol4nhuzbuflsbzk2mijpqykzba
       '@commercelayer/sdk': 4.20.0
       '@hookform/resolvers': 2.9.11_react-hook-form@7.43.1
@@ -322,19 +322,19 @@ packages:
       to-fast-properties: 2.0.0
     dev: false
 
-  /@commercelayer/app-elements-hook-form/0.0.1-beta.18_7ck2too2hlo7renu2rwqtni5ce:
+  /@commercelayer/app-elements-hook-form/0.0.1-beta.18_3wpxdzmomzfscvwueqrdm2bkli:
     resolution: {integrity: sha512-bpU5uxtkTvIXuAVSSnfPDqzGDx8SWpsZ7SkCR3Lg/zGdRsHJ6sh0C/qL1RDMRguIMm8vAu1qhVBRwf6rIYToYw==}
     engines: {node: '>=18', pnpm: '>=7'}
     peerDependencies:
       '@commercelayer/core-app-elements': ^0.0.1-beta.17
       react-hook-form: ^7.43.x
     dependencies:
-      '@commercelayer/core-app-elements': 0.0.1-beta.18_rweibvbguh76xzwjdceysrscoq
+      '@commercelayer/core-app-elements': 0.0.1-beta.19_rweibvbguh76xzwjdceysrscoq
       react-hook-form: 7.43.1_react@18.2.0
     dev: false
 
-  /@commercelayer/core-app-elements/0.0.1-beta.18_rweibvbguh76xzwjdceysrscoq:
-    resolution: {integrity: sha512-7PqDeOB7csg0sAMZEpZHycfEAW3G7CEmrpamUHzy/wrPeannoeuJ2GjQn+gBhW0D7bgYuRCQmTtKIJt2zikVZw==}
+  /@commercelayer/core-app-elements/0.0.1-beta.19_rweibvbguh76xzwjdceysrscoq:
+    resolution: {integrity: sha512-LEsMnIDYHIWpwOa7B3wFsnxJsbTwAh4uQ9A4iHykyTXj9i9cgXflzLGNHHLIo5Kib15FU+rXxgryEXR0ZKcD1Q==}
     engines: {node: '>=18', pnpm: '>=7'}
     peerDependencies:
       '@commercelayer/sdk': ^4.x

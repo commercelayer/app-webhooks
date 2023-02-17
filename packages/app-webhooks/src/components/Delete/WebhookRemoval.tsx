@@ -5,14 +5,14 @@ import {
   Text
 } from '@commercelayer/core-app-elements'
 import { appRoutes } from '#data/routes'
-import { useWebhookDetailsContext } from './Provider'
+import { useWebhookDeleteContext } from './Provider'
 import { useLocation } from 'wouter'
 
 export function WebhookRemoval(): JSX.Element | null {
   const {
     state: { data },
     deleteWebhook
-  } = useWebhookDetailsContext()
+  } = useWebhookDeleteContext()
   const [_, setLocation] = useLocation()
 
   if (data == null || data.shared_secret == null) {
@@ -20,14 +20,10 @@ export function WebhookRemoval(): JSX.Element | null {
   }
 
   return (
-    <ListDetails title='Danger zone'>
-      <Spacer bottom='4'>
-        <hr />
-      </Spacer>
+    <ListDetails>
       <Spacer bottom='6'>
-        <Text variant='info'>
-          Permanently remove the webhook. This action cannot be undone, proceed
-          with caution.
+        <Text variant='info' weight='medium'>
+          This action cannot be undone, proceed with caution.
         </Text>
       </Spacer>
       <Button
@@ -45,7 +41,7 @@ export function WebhookRemoval(): JSX.Element | null {
         }}
         data-test-id='list-task-item-btn-cancel'
       >
-        Remove webhook
+        Delete webhook
       </Button>
     </ListDetails>
   )

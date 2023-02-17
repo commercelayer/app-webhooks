@@ -42,7 +42,7 @@ export function WebhookCircuit(): JSX.Element | null {
                   </div>
                 </Spacer>
                 {isCircuitOpen && (
-                  <Text className='text-sm font-bold' variant='danger'>
+                  <Text variant='danger' size='small' weight='bold'>
                     No further callbacks are performed until reset.
                   </Text>
                 )}

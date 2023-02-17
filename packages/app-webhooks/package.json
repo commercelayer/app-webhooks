@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@commercelayer/app-elements-hook-form": "v0.0.1-beta.18",
-    "@commercelayer/core-app-elements": "v0.0.1-beta.18",
+    "@commercelayer/core-app-elements": "v0.0.1-beta.19",
     "@commercelayer/eslint-config-ts-react": "^0.1.4",
     "@commercelayer/sdk": "4.20.0",
     "@hookform/resolvers": "^2.9.11",

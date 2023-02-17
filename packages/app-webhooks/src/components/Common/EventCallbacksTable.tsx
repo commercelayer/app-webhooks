@@ -36,7 +36,9 @@ export function EventCallbacksTable({
           </div>
         </Td>
         <Td>
-          <Text variant='info'>{formatDistanceInWords(event.created_at)}</Text>
+          <Text variant='info' weight='medium'>
+            {formatDistanceInWords(event.created_at)}
+          </Text>
         </Td>
         <Td>
           <div className='text-right'>

@@ -17,6 +17,10 @@ export const appRoutes = {
     path: '/:webhookId/edit',
     makePath: (webhookId: string) => `/${webhookId}/edit`
   },
+  deleteWebhook: {
+    path: '/:webhookId/delete',
+    makePath: (webhookId: string) => `/${webhookId}/delete`
+  },
   webhookEventCallbacks: {
     path: '/:webhookId/event_callbacks',
     makePath: (webhookId: string) => `/${webhookId}/event_callbacks`
