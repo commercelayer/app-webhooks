@@ -4,16 +4,18 @@ import { appRoutes } from '#data/routes'
 import {
   useTokenProvider,
   useCoreSdkProvider,
-  A,
   PageSkeleton,
   PageLayout,
-  Spacer
+  Spacer,
+  ContextMenu,
+  DropdownMenuItem,
+  DropdownMenuDivider
 } from '@commercelayer/core-app-elements'
 import { useLocation, useRoute } from 'wouter'
+import { WebhookCallbackURL } from '#components/Details/WebhookCallbackURL'
 import { WebhookCircuit } from '#components/Details/WebhookCircuit'
 import { WebhookDetails } from '#components/Details/WebhookDetails'
 import { WebhookSecret } from '#components/Details/WebhookSecret'
-import { WebhookRemoval } from '#components/Details/WebhookRemoval'
 
 const DetailsPage = (): JSX.Element | null => {
   const { settings } = useTokenProvider()
@@ -32,6 +34,28 @@ const DetailsPage = (): JSX.Element | null => {
     return <PageSkeleton layout='details' hasHeaderDescription />
   }
 
+  const contextMenu = (
+    <ContextMenu
+      menuItems={
+        <>
+          <DropdownMenuItem
+            label='Edit'
+            onClick={() => {
+              setLocation(appRoutes.editWebhook.makePath(webhookId))
+            }}
+          />
+          <DropdownMenuDivider />
+          <DropdownMenuItem
+            label='Delete'
+            onClick={() => {
+              setLocation(appRoutes.deleteWebhook.makePath(webhookId))
+            }}
+          />
+        </>
+      }
+    />
+  )
+
   return (
     <WebhookDetailsProvider sdkClient={sdkClient} webhookId={webhookId}>
       {({ state: { isLoading, data } }) =>
@@ -46,15 +70,7 @@ const DetailsPage = (): JSX.Element | null => {
             onGoBack={() => {
               setLocation(appRoutes.list.makePath())
             }}
-            actionButton={
-              <A
-                onClick={() => {
-                  setLocation(appRoutes.editWebhook.makePath(webhookId))
-                }}
-              >
-                Edit
-              </A>
-            }
+            actionButton={contextMenu}
           >
             {data.last_event_callbacks !== undefined &&
               data.last_event_callbacks.length > 0 && (
@@ -66,10 +82,10 @@ const DetailsPage = (): JSX.Element | null => {
               <WebhookDetails />
             </Spacer>
             <Spacer bottom='12'>
-              <WebhookSecret />
+              <WebhookCallbackURL />
             </Spacer>
             <Spacer bottom='12'>
-              <WebhookRemoval />
+              <WebhookSecret />
             </Spacer>
           </PageLayout>
         )
