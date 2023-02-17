@@ -29,10 +29,7 @@ function App(): JSX.Element {
             currentApp='webhooks'
             clientKind={import.meta.env.PUBLIC_TOKEN_KIND ?? 'webapp'}
             domain={domain ?? ''}
-            onInvalidAuth={({ reason, dashboardUrl }) => {
-              console.error('invalid callback received: ', reason)
-              window.location.href = dashboardUrl
-            }}
+            reauthenticateOnInvalidAuth={!import.meta.env.DEV}
             loadingElement={<PageSkeleton />}
             devMode
           >
