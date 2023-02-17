@@ -27,9 +27,11 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@commercelayer/core-app-elements": "0.0.1-beta.17",
+    "@commercelayer/app-elements-hook-form": "v0.0.1-beta.18",
+    "@commercelayer/core-app-elements": "v0.0.1-beta.18",
     "@commercelayer/eslint-config-ts-react": "^0.1.4",
     "@commercelayer/sdk": "4.20.0",
+    "@hookform/resolvers": "^2.9.11",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/node": "18.0.1",
@@ -45,6 +47,7 @@
     "only-allow": "^1.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.1",
     "typescript": "4.9.4",
     "vite": "^4.0.4",
     "vitest": "^0.26.3",

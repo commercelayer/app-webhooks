@@ -8,7 +8,8 @@ export function parseApiError(err: any): ApiError[] {
   } else {
     return [
       {
-        title: err.message ?? 'Could not save the webhook'
+        title: err.message ?? 'Could not save the webhook',
+        detail: err.message ?? 'Could not save the webhook'
       }
     ]
   }
