@@ -32,7 +32,7 @@ function getListUiStatus(webhook: Webhook): StatusUI {
 }
 
 function ListPage(): JSX.Element {
-  const { settings } = useTokenProvider()
+  const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const { dashboardUrl } = useTokenProvider()
   const [_location, setLocation] = useLocation()
@@ -40,6 +40,20 @@ function ListPage(): JSX.Element {
   if (sdkClient == null) {
     console.warn('Waiting for SDK client')
     return <PageSkeleton />
+  }
+
+  if (!canUser('read', 'webhooks')) {
+    return (
+      <PageLayout
+        title='Webhooks'
+        mode={settings.mode}
+        onGoBack={() => {
+          setLocation(appRoutes.list.makePath())
+        }}
+      >
+        <EmptyState title='You are not authorized' />
+      </PageLayout>
+    )
   }
 
   return (
@@ -69,9 +83,11 @@ function ListPage(): JSX.Element {
                 title='No webhook yet!'
                 description='Create your first webhook'
                 action={
-                  <Link href={appRoutes.newWebhook.makePath()}>
-                    <Button variant='primary'>New webhook</Button>
-                  </Link>
+                  canUser('create', 'webhooks') ? (
+                    <Link href={appRoutes.newWebhook.makePath()}>
+                      <Button variant='primary'>New webhook</Button>
+                    </Link>
+                  ) : undefined
                 }
               />
             )
@@ -85,9 +101,11 @@ function ListPage(): JSX.Element {
               isDisabled={isRefetching}
               title='All webhooks'
               actionButton={
-                <Link href={appRoutes.newWebhook.makePath()}>
-                  <A>New webhook</A>
-                </Link>
+                canUser('create', 'webhooks') ? (
+                  <Link href={appRoutes.newWebhook.makePath()}>
+                    <A>New webhook</A>
+                  </Link>
+                ) : undefined
               }
               pagination={{
                 recordsPerPage,

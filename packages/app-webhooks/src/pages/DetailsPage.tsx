@@ -4,6 +4,8 @@ import { appRoutes } from '#data/routes'
 import {
   useTokenProvider,
   useCoreSdkProvider,
+  Button,
+  EmptyState,
   PageSkeleton,
   PageLayout,
   Spacer,
@@ -11,22 +13,39 @@ import {
   DropdownMenuItem,
   DropdownMenuDivider
 } from '@commercelayer/core-app-elements'
-import { useLocation, useRoute } from 'wouter'
+import { Link, useLocation, useRoute } from 'wouter'
 import { WebhookCallbackURL } from '#components/Details/WebhookCallbackURL'
 import { WebhookCircuit } from '#components/Details/WebhookCircuit'
 import { WebhookDetails } from '#components/Details/WebhookDetails'
 import { WebhookSecret } from '#components/Details/WebhookSecret'
 
 const DetailsPage = (): JSX.Element | null => {
-  const { settings } = useTokenProvider()
+  const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const [_match, params] = useRoute(appRoutes.details.path)
   const [_, setLocation] = useLocation()
 
   const webhookId = params == null ? null : params.webhookId
 
-  if (webhookId == null) {
-    return null
+  if (webhookId == null || !canUser('read', 'webhooks')) {
+    return (
+      <PageLayout
+        title='Webhook details'
+        onGoBack={() => {
+          setLocation(appRoutes.list.makePath())
+        }}
+        mode={settings.mode}
+      >
+        <EmptyState
+          title='Not authorized'
+          action={
+            <Link href={appRoutes.list.makePath()}>
+              <Button variant='primary'>Go back</Button>
+            </Link>
+          }
+        />
+      </PageLayout>
+    )
   }
 
   if (sdkClient == null) {
@@ -34,23 +53,34 @@ const DetailsPage = (): JSX.Element | null => {
     return <PageSkeleton layout='details' hasHeaderDescription />
   }
 
+  const contextMenuEdit = canUser('update', 'webhooks') && (
+    <DropdownMenuItem
+      label='Edit'
+      onClick={() => {
+        setLocation(appRoutes.editWebhook.makePath(webhookId))
+      }}
+    />
+  )
+
+  const contextMenuDivider = canUser('update', 'webhooks') &&
+    canUser('destroy', 'webhooks') && <DropdownMenuDivider />
+
+  const contextMenuDelete = canUser('destroy', 'webhooks') && (
+    <DropdownMenuItem
+      label='Delete'
+      onClick={() => {
+        setLocation(appRoutes.deleteWebhook.makePath(webhookId))
+      }}
+    />
+  )
+
   const contextMenu = (
     <ContextMenu
       menuItems={
         <>
-          <DropdownMenuItem
-            label='Edit'
-            onClick={() => {
-              setLocation(appRoutes.editWebhook.makePath(webhookId))
-            }}
-          />
-          <DropdownMenuDivider />
-          <DropdownMenuItem
-            label='Delete'
-            onClick={() => {
-              setLocation(appRoutes.deleteWebhook.makePath(webhookId))
-            }}
-          />
+          {contextMenuEdit}
+          {contextMenuDivider}
+          {contextMenuDelete}
         </>
       }
     />

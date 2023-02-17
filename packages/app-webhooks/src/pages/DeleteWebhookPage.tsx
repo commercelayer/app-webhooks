@@ -4,22 +4,41 @@ import { appRoutes } from '#data/routes'
 import {
   useTokenProvider,
   useCoreSdkProvider,
+  Button,
+  EmptyState,
   PageSkeleton,
   PageLayout
 } from '@commercelayer/core-app-elements'
-import { useLocation, useRoute } from 'wouter'
+import { Link, useLocation, useRoute } from 'wouter'
 import { WebhookRemoval } from '#components/Delete/WebhookRemoval'
 
 const DeleteWebhookPage = (): JSX.Element | null => {
-  const { settings } = useTokenProvider()
+  const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const [_match, params] = useRoute(appRoutes.deleteWebhook.path)
   const [_, setLocation] = useLocation()
 
   const webhookId = params == null ? null : params.webhookId
 
-  if (webhookId == null) {
-    return null
+  if (webhookId == null || !canUser('destroy', 'webhooks')) {
+    return (
+      <PageLayout
+        title='Delete webhook'
+        onGoBack={() => {
+          setLocation(appRoutes.list.makePath())
+        }}
+        mode={settings.mode}
+      >
+        <EmptyState
+          title='Not authorized'
+          action={
+            <Link href={appRoutes.list.makePath()}>
+              <Button variant='primary'>Go back</Button>
+            </Link>
+          }
+        />
+      </PageLayout>
+    )
   }
 
   if (sdkClient == null) {
