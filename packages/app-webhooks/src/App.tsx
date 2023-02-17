@@ -29,7 +29,7 @@ function App(): JSX.Element {
             currentApp='webhooks'
             clientKind={import.meta.env.PUBLIC_TOKEN_KIND ?? 'webapp'}
             domain={domain ?? ''}
-            reauthenticateOnInvalidAuth
+            reauthenticateOnInvalidAuth={!import.meta.env.DEV}
             loadingElement={<PageSkeleton />}
             devMode
           >
