@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/commercelayer/core-app-webhooks.git"
+    "url": "https://github.com/commercelayer/app-webhooks.git"
   },
   "license": "MIT",
   "engines": {
