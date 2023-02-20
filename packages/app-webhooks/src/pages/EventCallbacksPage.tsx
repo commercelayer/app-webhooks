@@ -1,23 +1,49 @@
 import { appRoutes } from '#data/routes'
-import { useRoute, useLocation } from 'wouter'
+import { Link, useRoute, useLocation } from 'wouter'
 import { ListEventCallbackProvider } from '#components/EventCallbacks/Provider'
 import {
-  PageSkeleton,
-  PageLayout,
-  List,
-  EmptyState,
   useCoreSdkProvider,
-  useTokenProvider
+  useTokenProvider,
+  Button,
+  EmptyState,
+  List,
+  PageLayout,
+  PageSkeleton
 } from '@commercelayer/core-app-elements'
 import { EventCallbacksTable } from '#components/Common/EventCallbacksTable'
 
 function EventCallbacksPage(): JSX.Element {
-  const { settings } = useTokenProvider()
+  const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const [_location, setLocation] = useLocation()
   const [_match, params] = useRoute(appRoutes.webhookEventCallbacks.path)
 
   const webhookId = params == null ? null : params.webhookId
+
+  if (
+    webhookId == null ||
+    !canUser('read', 'webhooks') ||
+    !canUser('read', 'event_callbacks')
+  ) {
+    return (
+      <PageLayout
+        title='Event callbacks'
+        onGoBack={() => {
+          setLocation(appRoutes.list.makePath())
+        }}
+        mode={settings.mode}
+      >
+        <EmptyState
+          title='Not authorized'
+          action={
+            <Link href={appRoutes.list.makePath()}>
+              <Button variant='primary'>Go back</Button>
+            </Link>
+          }
+        />
+      </PageLayout>
+    )
+  }
 
   if (sdkClient == null) {
     console.warn('Waiting for SDK client')
@@ -29,7 +55,7 @@ function EventCallbacksPage(): JSX.Element {
       title='Event Callbacks'
       mode={settings.mode}
       onGoBack={() => {
-        setLocation(appRoutes.details.makePath(webhookId as string))
+        setLocation(appRoutes.details.makePath(webhookId))
       }}
     >
       <ListEventCallbackProvider

@@ -1,6 +1,7 @@
 import { appRoutes } from '#data/routes'
 import { EventCallbacksTable } from '#components/Common/EventCallbacksTable'
 import {
+  useTokenProvider,
   A,
   Badge,
   Button,
@@ -13,12 +14,17 @@ import { useLocation } from 'wouter'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookCircuit(): JSX.Element | null {
+  const { canUser } = useTokenProvider()
   const {
     state: { data },
     resetWebhookCircuit
   } = useWebhookDetailsContext()
 
-  if (data == null || data.last_event_callbacks === undefined) {
+  if (
+    data == null ||
+    data.last_event_callbacks === undefined ||
+    !canUser('read', 'event_callbacks')
+  ) {
     return null
   }
 
