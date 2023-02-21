@@ -12,7 +12,7 @@ import {
   ContextMenu,
   DropdownMenuItem,
   DropdownMenuDivider
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import { Link, useLocation, useRoute } from 'wouter'
 import { WebhookCallbackURL } from '#components/Details/WebhookCallbackURL'
 import { WebhookCircuit } from '#components/Details/WebhookCircuit'

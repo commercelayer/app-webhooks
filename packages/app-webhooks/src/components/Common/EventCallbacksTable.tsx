@@ -6,7 +6,7 @@ import {
   Tr,
   Td,
   Text
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import { EventCallback } from '@commercelayer/sdk'
 import { formatDistanceInWords } from '#utils/formatDistanceInWords'
 import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'

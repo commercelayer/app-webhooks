@@ -1,9 +1,4 @@
-import {
-  Button,
-  ListDetails,
-  Spacer,
-  Text
-} from '@commercelayer/core-app-elements'
+import { Button, ListDetails, Spacer, Text } from '@commercelayer/app-elements'
 import { appRoutes } from '#data/routes'
 import { useWebhookDeleteContext } from './Provider'
 import { useLocation } from 'wouter'

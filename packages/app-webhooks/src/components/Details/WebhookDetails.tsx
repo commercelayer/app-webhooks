@@ -1,4 +1,4 @@
-import { ListDetailsItem, ListDetails } from '@commercelayer/core-app-elements'
+import { ListDetailsItem, ListDetails } from '@commercelayer/app-elements'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookDetails(): JSX.Element | null {

@@ -1,5 +1,5 @@
 import { useWebhookDetailsContext } from '#components/Details/Provider'
-import { formatDate } from '@commercelayer/core-app-elements'
+import { formatDate } from '@commercelayer/app-elements'
 
 interface Props extends React.HTMLAttributes<HTMLSpanElement> {
   atType: 'updated_at'

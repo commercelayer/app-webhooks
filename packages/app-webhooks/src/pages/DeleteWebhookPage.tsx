@@ -8,7 +8,7 @@ import {
   EmptyState,
   PageSkeleton,
   PageLayout
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import { Link, useLocation, useRoute } from 'wouter'
 import { WebhookRemoval } from '#components/Delete/WebhookRemoval'
 

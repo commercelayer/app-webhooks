@@ -1,4 +1,4 @@
-import type { SelectValue } from '@commercelayer/core-app-elements'
+import type { SelectValue } from '@commercelayer/app-elements'
 import type { ResourceEventKey } from '#data/events'
 import { ResourceWithRelationship } from 'App'
 
