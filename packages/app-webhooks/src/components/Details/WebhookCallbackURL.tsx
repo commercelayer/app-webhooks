@@ -1,4 +1,4 @@
-import { InputReadonly, ListDetails } from '@commercelayer/core-app-elements'
+import { InputReadonly, ListDetails } from '@commercelayer/app-elements'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookCallbackURL(): JSX.Element | null {

@@ -12,8 +12,8 @@ import {
   EmptyState,
   useCoreSdkProvider,
   useTokenProvider
-} from '@commercelayer/core-app-elements'
-import { StatusUI } from '@commercelayer/core-app-elements/dist/ui/atoms/StatusIcon'
+} from '@commercelayer/app-elements'
+import { StatusUI } from '@commercelayer/app-elements/dist/ui/atoms/StatusIcon'
 import { DescriptionLine } from '#components/List/ItemDescriptionLine'
 import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
 

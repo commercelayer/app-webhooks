@@ -8,7 +8,7 @@ import {
   TokenProvider,
   CoreSdkProvider,
   ErrorBoundary
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import DetailsPage from '#pages/DetailsPage'
 import NewWebhookPage from '#pages/NewWebhookPage'
 import EventCallbacksPage from '#pages/EventCallbacksPage'

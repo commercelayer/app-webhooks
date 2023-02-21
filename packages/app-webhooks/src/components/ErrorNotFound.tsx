@@ -4,7 +4,7 @@ import {
   Button,
   EmptyState,
   PageLayout
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import { Link, useLocation } from 'wouter'
 
 export function ErrorNotFound(): JSX.Element {

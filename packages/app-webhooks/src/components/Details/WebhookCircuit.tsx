@@ -9,7 +9,7 @@ import {
   ListDetails,
   Spacer,
   Text
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import { useLocation } from 'wouter'
 import { useWebhookDetailsContext } from './Provider'
 

@@ -9,7 +9,7 @@ import {
   List,
   PageLayout,
   PageSkeleton
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import { EventCallbacksTable } from '#components/Common/EventCallbacksTable'
 
 function EventCallbacksPage(): JSX.Element {

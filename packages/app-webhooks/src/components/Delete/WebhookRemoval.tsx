@@ -3,7 +3,7 @@ import {
   ListDetails,
   Spacer,
   Text
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import { appRoutes } from '#data/routes'
 import { useWebhookDeleteContext } from './Provider'
 import { useLocation } from 'wouter'

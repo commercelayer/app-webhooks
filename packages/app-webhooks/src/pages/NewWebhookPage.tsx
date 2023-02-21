@@ -6,7 +6,7 @@ import {
   PageSkeleton,
   PageLayout,
   useTokenProvider
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import { Link, useLocation, useRoute } from 'wouter'
 import WebhookForm from '#components/Form/WebhookForm'
 

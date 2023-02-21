@@ -1,4 +1,4 @@
-import type { SelectValue } from '@commercelayer/core-app-elements'
+import type { SelectValue } from '@commercelayer/app-elements'
 import { ResourceWithEvent } from 'App'
 
 export const webhookEvents: Record<ResourceWithEvent, string[]> = {

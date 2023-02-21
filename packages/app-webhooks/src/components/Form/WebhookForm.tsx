@@ -4,7 +4,7 @@ import {
   Spacer,
   Button,
   InputFeedback
-} from '@commercelayer/core-app-elements'
+} from '@commercelayer/app-elements'
 import {
   Input,
   Form as FormProvider
