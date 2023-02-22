@@ -1,6 +1,6 @@
-# Commerce Core App Webhooks
+# Commerce Layer App Webhooks
 
-The Commerce Layer webhooks application (React) provides you with a simple GUI to manage webhooks.
+The Commerce Layer webhooks application (React) provides you with a simple GUI to handle [webhooks](https://docs.commercelayer.io/core/real-time-webhooks).
 
 ## What is Commerce Layer?
 
@@ -9,7 +9,7 @@ The Commerce Layer webhooks application (React) provides you with a simple GUI t
 ## Table of contents
 
 - [Getting started](#getting-started)
-- [Contributors guide](#contributors-guide)
+- [Environments](#environments)
 - [Help and support](#need-help)
 - [License](#license)
 
@@ -30,9 +30,14 @@ pnpm dev
 
 4. Open [http://localhost:5173](http://localhost:5173) with your browser to see the result. You can use the following format to open the app: `http://localhost:5173/webhooks?accessToken=<your-access-token>`
 
-## Contributors guide
+## Environments
 
-1. ...
+Configure environment variables in your `.env`, `.env.local` or `.env.production` file as followings:
+
+| Var name            | Sample vaule | Description                                                                                                                                                                                                                                                          |
+| ------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PUBLIC_TOKEN_KIND   | integration  | (Optional) Defines the kind of token to be used and validated. <br />Possible values: `integration` or `webapp`. <br />Default value is `webapp`.                                                                                                                    |
+| PUBLIC_PROJECT_PATH | webhooks      | (Optional) Defines the base root path where the app will be served.<br/> `https://<slug>.commercelayer.app/<PUBLIC_PROJECT_PATH>`<br /> It's used at build time to reference assets folder and at runtime as base router path. <br />No leading or trailing slashes. |
 
 ## Need help?
 
