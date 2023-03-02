@@ -15,20 +15,14 @@ import {
 } from '@commercelayer/app-elements'
 import { StatusUI } from '@commercelayer/app-elements/dist/ui/atoms/StatusIcon'
 import { DescriptionLine } from '#components/List/ItemDescriptionLine'
-import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
 
 /**
- * Get the relative status based on webhook's absence or presence of an event callback {@link https://docs.commercelayer.io/core/v/api-reference/webhooks/object}
+ * Get the relative status based on webhook's circuit state {@link https://docs.commercelayer.io/core/v/api-reference/webhooks/object}
  * @param webhook - The webhook object.
  * @returns a valid StatusUI to be used in the StatusIcon component.
  */
 function getListUiStatus(webhook: Webhook): StatusUI {
-  const eventCallback =
-    webhook.last_event_callbacks !== undefined &&
-    webhook.last_event_callbacks?.length > 0
-      ? webhook.last_event_callbacks[0]
-      : undefined
-  return eventCallbackStatusVariant(eventCallback)
+  return webhook?.circuit_state === 'open' ? 'danger' : 'success'
 }
 
 function ListPage(): JSX.Element {
