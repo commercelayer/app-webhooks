@@ -30,8 +30,6 @@ export function ListWebhookProvider({
 }: ListWebhookProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  console.log(state)
-
   const changePage = useCallback(
     (page: number) => dispatch({ type: 'changePage', payload: page }),
     []
