@@ -4,39 +4,30 @@ declare module 'App' {
   export interface WebhookDetailsContextValue {
     state: WebhookDetailsContextState
     refetch: () => Promise<void>
-    deleteWebhook: () => Promise<boolean>
     resetWebhookCircuit: () => Promise<void>
   }
 
   export interface WebhookDetailsContextState {
     data?: Webhook
     isLoading: boolean
-    isDeleting: boolean
-    isCircuitResetting: boolean
-    isPolling: boolean
     isNotFound: boolean
   }
 
   export interface WebhookDeleteContextValue
     extends Omit<WebhookDetailsContextValue, 'resetWebhookCircuit' | 'state'> {
     state: WebhookFormContextState
+    deleteWebhook: () => Promise<boolean>
   }
 
-  export type WebhookDeleteContextState = Omit<
-    WebhookDetailsContextState,
-    'isCircuitResetting'
-  >
+  export interface WebhookDeleteContextState
+    extends WebhookDetailsContextState {
+    isDeleting: boolean
+  }
 
   export interface WebhookFormContextValue
-    extends Omit<
-      WebhookDetailsContextValue,
-      'deleteWebhook' | 'resetWebhookCircuit' | 'state'
-    > {
+    extends Omit<WebhookDetailsContextValue, 'resetWebhookCircuit' | 'state'> {
     state: WebhookFormContextState
   }
 
-  export type WebhookFormContextState = Omit<
-    WebhookDetailsContextState,
-    'isCircuitResetting'
-  >
+  export interface WebhookFormContextState extends WebhookDetailsContextState {}
 }

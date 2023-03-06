@@ -3,10 +3,8 @@ import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
 import { ListEventCallbackContextState } from 'App'
 
 type Action =
-  | { type: 'setLoading'; payload: boolean }
-  | { type: 'setList'; payload: ListResponse<EventCallback> }
+  | { type: 'loadData'; payload: ListResponse<EventCallback> }
   | { type: 'changePage'; payload: number }
-  | { type: 'togglePolling'; payload: boolean }
   | { type: 'sort'; payload: 'asc' | 'desc' }
 
 export const reducer = (
@@ -14,25 +12,17 @@ export const reducer = (
   action: Action
 ): ListEventCallbackContextState => {
   switch (action.type) {
-    case 'setLoading':
+    case 'loadData':
       return {
         ...state,
-        isLoading: action.payload
-      }
-    case 'setList':
-      return {
-        ...state,
-        list: action.payload
+        list: action.payload,
+        isLoading: false
       }
     case 'changePage':
       return {
         ...state,
-        currentPage: action.payload
-      }
-    case 'togglePolling':
-      return {
-        ...state,
-        isPolling: action.payload
+        currentPage: action.payload,
+        isLoading: true
       }
     case 'sort':
       return {

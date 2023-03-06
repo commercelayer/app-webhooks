@@ -7,16 +7,9 @@ declare module 'App' {
     changePage: (page: number) => void
   }
 
-  export type ListEventCallbackAllowedStatusType =
-    | 'completed'
-    | 'interrupted'
-    | 'in_progress'
-    | 'pending'
-
   export interface ListEventCallbackContextState {
     list?: ListResponse<EventCallback>
     isLoading: boolean
-    isPolling: boolean
     currentPage: number
     sort: {
       created_at: 'asc' | 'desc'

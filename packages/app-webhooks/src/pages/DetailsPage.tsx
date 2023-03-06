@@ -49,7 +49,6 @@ const DetailsPage = (): JSX.Element | null => {
   }
 
   if (sdkClient == null) {
-    console.warn('Waiting for SDK client')
     return <PageSkeleton layout='details' hasHeaderDescription />
   }
 
