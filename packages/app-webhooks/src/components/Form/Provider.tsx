@@ -6,8 +6,7 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useReducer,
-  useRef
+  useReducer
 } from 'react'
 import { initialState, initialValues } from './data'
 import { reducer } from './reducer'
@@ -17,8 +16,6 @@ interface WebhookFormProviderProps {
   sdkClient: CommerceLayerClient
   children: ((props: WebhookFormContextValue) => ReactNode) | ReactNode
 }
-
-const POLLING_INTERVAL = 4000
 
 const Context = createContext<WebhookFormContextValue>(initialValues)
 export const useWebhookFormContext = (): WebhookFormContextValue =>
@@ -30,46 +27,23 @@ export function WebhookFormProvider({
   children
 }: WebhookFormProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const intervalId = useRef<NodeJS.Timer | null>(null)
 
-  const fetchJob = useCallback(
-    async ({ handleLoadingState }: { handleLoadingState: boolean }) => {
-      handleLoadingState && dispatch({ type: 'setLoading', payload: true })
-      try {
-        const webhookForm = await sdkClient.webhooks.retrieve(webhookId)
-        dispatch({ type: 'setData', payload: webhookForm })
-      } catch {
-        dispatch({ type: 'setNotFound', payload: true })
-        dispatch({ type: 'togglePolling', payload: false })
-        dispatch({ type: 'setLoading', payload: false })
-      }
-      handleLoadingState && dispatch({ type: 'setLoading', payload: false })
-    },
-    [webhookId]
-  )
+  const fetchJob = useCallback(async () => {
+    try {
+      const webhookForm = await sdkClient.webhooks.retrieve(webhookId)
+      dispatch({ type: 'loadData', payload: webhookForm })
+    } catch {
+      dispatch({ type: 'setNotFound', payload: true })
+    }
+  }, [webhookId])
 
-  useEffect(
-    function startPolling() {
-      void fetchJob({ handleLoadingState: true })
-      if (!state.isPolling) {
-        return
-      }
-      intervalId.current = setInterval(() => {
-        void fetchJob({ handleLoadingState: false })
-      }, POLLING_INTERVAL)
-
-      return () => {
-        if (intervalId.current != null) {
-          clearInterval(intervalId.current)
-        }
-      }
-    },
-    [state.isPolling]
-  )
+  useEffect(function init() {
+    void fetchJob()
+  }, [])
 
   const value: WebhookFormContextValue = {
     state,
-    refetch: async () => await fetchJob({ handleLoadingState: false })
+    refetch: async () => await fetchJob()
   }
 
   return (
