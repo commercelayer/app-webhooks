@@ -17,7 +17,6 @@ const NewWebhookPage = (): JSX.Element | null => {
   const [_location, setLocation] = useLocation()
 
   if (sdkClient == null) {
-    console.warn('Waiting for SDK client')
     return <PageSkeleton hasHeaderDescription />
   }
 
