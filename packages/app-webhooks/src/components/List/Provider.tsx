@@ -7,8 +7,7 @@ import {
   useCallback,
   useEffect,
   useReducer,
-  useContext,
-  useRef
+  useContext
 } from 'react'
 
 import { initialValues, initialState } from './data'
@@ -19,7 +18,6 @@ interface ListWebhookProviderProps {
   children: ((props: ListWebhookContextValue) => ReactNode) | ReactNode
   sdkClient: CommerceLayerClient
 }
-const POLLING_INTERVAL = 10000
 
 const Context = createContext<ListWebhookContextValue>(initialValues)
 
@@ -31,72 +29,35 @@ export function ListWebhookProvider({
   sdkClient
 }: ListWebhookProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const intervalId = useRef<NodeJS.Timer | null>(null)
+
+  console.log(state)
 
   const changePage = useCallback(
     (page: number) => dispatch({ type: 'changePage', payload: page }),
     []
   )
 
-  const fetchList = useCallback(
-    async ({ handleLoadingState }: { handleLoadingState: boolean }) => {
-      handleLoadingState && dispatch({ type: 'setLoading', payload: true })
-      try {
-        const list = await getAllWebhooks({
-          cl: sdkClient,
-          state,
-          pageSize
-        })
-        dispatch({ type: 'setList', payload: list })
-      } finally {
-        handleLoadingState && dispatch({ type: 'setLoading', payload: false })
-      }
-    },
-    [state.currentPage]
-  )
+  const fetchList = useCallback(async () => {
+    const list = await getAllWebhooks({
+      cl: sdkClient,
+      state,
+      pageSize
+    })
+    dispatch({ type: 'loadData', payload: list })
+  }, [state.currentPage])
 
   useEffect(
     function handleChangePageSkippingFirstRender() {
       if (state.list?.meta.currentPage != null) {
-        void fetchList({ handleLoadingState: false })
+        void fetchList()
       }
     },
     [state.currentPage]
   )
 
-  useEffect(
-    function handlePollingState() {
-      if (state.list == null || state.list.length === 0) {
-        return
-      }
-
-      const shouldPoll = state.list.some((job) =>
-        statusForPolling.includes(job.circuit_state)
-      )
-      dispatch({ type: 'togglePolling', payload: shouldPoll })
-    },
-    [state.list]
-  )
-
-  useEffect(
-    function startPolling() {
-      void fetchList({ handleLoadingState: true })
-      if (!state.isPolling) {
-        return
-      }
-      // start polling
-      intervalId.current = setInterval(() => {
-        void fetchList({ handleLoadingState: false })
-      }, POLLING_INTERVAL)
-
-      return () => {
-        if (intervalId.current != null) {
-          clearInterval(intervalId.current)
-        }
-      }
-    },
-    [state.isPolling]
-  )
+  useEffect(function init() {
+    void fetchList()
+  }, [])
 
   const value: ListWebhookContextValue = {
     state,
@@ -126,5 +87,3 @@ const getAllWebhooks = async ({
     include: ['last_event_callbacks']
   })
 }
-
-const statusForPolling: Array<Webhook['circuit_state']> = ['closed', 'open']
