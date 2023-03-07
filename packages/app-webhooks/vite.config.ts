@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
-import path from 'path'
+import tsconfigPaths from 'vite-tsconfig-paths'
 import { loadEnv } from 'vite'
 
 // https://vitejs.dev/config/
@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     env.PUBLIC_PROJECT_PATH != null ? `/${env.PUBLIC_PROJECT_PATH}` : ''
 
   return {
-    plugins: [react()],
+    plugins: [react(), tsconfigPaths()],
     envPrefix: 'PUBLIC_',
     base: `${basePath}/`,
     build: {
@@ -19,14 +19,6 @@ export default defineConfig(({ mode }) => {
     server: {
       fs: {
         strict: env.ALLOW_LOCAL_PACKAGES === 'true'
-      }
-    },
-    resolve: {
-      alias: {
-        '#components': path.resolve(__dirname, './src/components'),
-        '#pages': path.resolve(__dirname, './src/pages'),
-        '#data': path.resolve(__dirname, './src/data'),
-        '#utils': path.resolve(__dirname, './src/utils')
       }
     },
     test: {
