@@ -42,10 +42,10 @@ export function WebhookDetailsProvider({
   const resetWebhookCircuit = useCallback(async (): Promise<void> => {
     await sdkClient.webhooks
       .update({ id: webhookId, _reset_circuit: true })
-      .then(() => true)
-      .catch(() => {
+      .then(() => {
         void fetchWebhook()
       })
+      .catch(() => {})
   }, [webhookId])
 
   useEffect(function init() {
