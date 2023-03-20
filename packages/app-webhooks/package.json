@@ -27,8 +27,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@commercelayer/app-elements": "v0.0.2",
-    "@commercelayer/app-elements-hook-form": "v0.0.2",
+    "@commercelayer/app-elements": "v0.0.10",
+    "@commercelayer/app-elements-hook-form": "v0.0.10",
     "@commercelayer/eslint-config-ts-react": "^0.1.4",
     "@commercelayer/sdk": "4.20.0",
     "@hookform/resolvers": "^2.9.11",
