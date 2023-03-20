@@ -1,6 +1,8 @@
 import {
+  useTokenProvider,
   downloadJsonAsFile,
   A,
+  Hint,
   StatusDot,
   Table,
   Tr,
@@ -8,7 +10,7 @@ import {
   Text
 } from '@commercelayer/app-elements'
 import { EventCallback } from '@commercelayer/sdk'
-import { formatDistanceInWords } from '#utils/formatDistanceInWords'
+import { formatDateAndTime } from '#utils/formatDateAndTime'
 import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
 
 interface Props {
@@ -24,6 +26,10 @@ export function EventCallbacksTable({
     return <></>
   }
 
+  const {
+    settings: { timezone }
+  } = useTokenProvider()
+
   const tableRows = eventCallbacks.map((event) => {
     const eventCallbackStatusVariantVariant = eventCallbackStatusVariant(event)
 
@@ -34,14 +40,16 @@ export function EventCallbacksTable({
             <StatusDot variant={eventCallbackStatusVariantVariant} />
             <span className='font-bold'>{event.response_code}</span>
           </div>
+          <Hint>{event.response_message}</Hint>
         </Td>
         <Td>
           <Text variant='info' weight='medium'>
-            {formatDistanceInWords(event.created_at)}
+            {formatDateAndTime(event.created_at, timezone).date}
           </Text>
+          <Hint>{formatDateAndTime(event.created_at).time}</Hint>
         </Td>
         <Td>
-          <div className='text-right'>
+          <div>
             <A
               onClick={() =>
                 downloadJsonAsFile({
@@ -53,6 +61,7 @@ export function EventCallbacksTable({
               payload
             </A>
           </div>
+          <Hint>JSON</Hint>
         </Td>
       </Tr>
     )
