@@ -41,9 +41,14 @@ export function WebhookDetailsProvider({
 
   const resetWebhookCircuit = useCallback(async (): Promise<void> => {
     await sdkClient.webhooks
-      .update({ id: webhookId, _reset_circuit: true })
-      .then(() => {
-        void fetchWebhook()
+      .update(
+        { id: webhookId, _reset_circuit: true },
+        {
+          include: ['last_event_callbacks']
+        }
+      )
+      .then((webhookDetails) => {
+        dispatch({ type: 'loadData', payload: webhookDetails })
       })
       .catch(() => {})
   }, [webhookId])
