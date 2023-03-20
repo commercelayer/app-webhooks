@@ -33,7 +33,7 @@ export function WebhookDeleteProvider({
       const webhookDelete = await sdkClient.webhooks.retrieve(webhookId)
       dispatch({ type: 'loadData', payload: webhookDelete })
     } catch {
-      dispatch({ type: 'setNotFound', payload: true })
+      dispatch({ type: 'setNotFound' })
     }
   }, [webhookId])
 

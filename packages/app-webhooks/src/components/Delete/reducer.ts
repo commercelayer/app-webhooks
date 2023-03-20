@@ -1,9 +1,7 @@
 import { Webhook } from '@commercelayer/sdk'
 import { WebhookDeleteContextState } from 'App'
 
-type Action =
-  | { type: 'loadData'; payload: Webhook }
-  | { type: 'setNotFound'; payload: boolean }
+type Action = { type: 'loadData'; payload: Webhook } | { type: 'setNotFound' }
 
 export const reducer = (
   state: WebhookDeleteContextState,
@@ -19,7 +17,7 @@ export const reducer = (
     case 'setNotFound':
       return {
         ...state,
-        isNotFound: action.payload,
+        isNotFound: true,
         isLoading: false
       }
     default:

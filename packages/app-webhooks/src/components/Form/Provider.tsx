@@ -33,7 +33,7 @@ export function WebhookFormProvider({
       const webhookForm = await sdkClient.webhooks.retrieve(webhookId)
       dispatch({ type: 'loadData', payload: webhookForm })
     } catch {
-      dispatch({ type: 'setNotFound', payload: true })
+      dispatch({ type: 'setNotFound' })
     }
   }, [webhookId])
 

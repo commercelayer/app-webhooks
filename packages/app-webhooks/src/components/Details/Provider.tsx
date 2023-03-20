@@ -35,7 +35,7 @@ export function WebhookDetailsProvider({
       })
       dispatch({ type: 'loadData', payload: webhookDetails })
     } catch {
-      dispatch({ type: 'setNotFound', payload: true })
+      dispatch({ type: 'setNotFound' })
     }
   }, [webhookId])
 
