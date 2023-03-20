@@ -36,12 +36,12 @@ export function ListWebhookProvider({
   )
 
   const fetchList = useCallback(async () => {
-    const list = await getAllWebhooks({
+    const webhooks = await getAllWebhooks({
       cl: sdkClient,
       state,
       pageSize
     })
-    dispatch({ type: 'loadData', payload: list })
+    dispatch({ type: 'loadData', payload: webhooks })
   }, [state.currentPage])
 
   useEffect(

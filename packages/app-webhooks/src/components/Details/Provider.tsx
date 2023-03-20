@@ -30,10 +30,10 @@ export function WebhookDetailsProvider({
 
   const fetchWebhook = useCallback(async () => {
     try {
-      const webhookDetails = await sdkClient.webhooks.retrieve(webhookId, {
+      const webhook = await sdkClient.webhooks.retrieve(webhookId, {
         include: ['last_event_callbacks']
       })
-      dispatch({ type: 'loadData', payload: webhookDetails })
+      dispatch({ type: 'loadData', payload: webhook })
     } catch {
       dispatch({ type: 'setNotFound' })
     }
@@ -47,8 +47,8 @@ export function WebhookDetailsProvider({
           include: ['last_event_callbacks']
         }
       )
-      .then((webhookDetails) => {
-        dispatch({ type: 'loadData', payload: webhookDetails })
+      .then((webhook) => {
+        dispatch({ type: 'loadData', payload: webhook })
       })
       .catch(() => {})
   }, [webhookId])

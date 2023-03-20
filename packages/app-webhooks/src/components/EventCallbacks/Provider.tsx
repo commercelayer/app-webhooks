@@ -43,13 +43,13 @@ export function ListEventCallbackProvider({
 
   const fetchList = useCallback(async () => {
     if (webhookId != null) {
-      const list = await getAllEventCallbacks({
+      const eventCallbacks = await getAllEventCallbacks({
         cl: sdkClient,
         state,
         webhookId,
         pageSize
       })
-      dispatch({ type: 'loadData', payload: list })
+      dispatch({ type: 'loadData', payload: eventCallbacks })
     }
   }, [webhookId, state.currentPage])
 
