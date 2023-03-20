@@ -1,5 +1,6 @@
 import { Webhook } from '@commercelayer/sdk'
-import { formatDistanceInWords } from '#utils/formatDistanceInWords'
+import { formatDateAndTime } from '#utils/formatDateAndTime'
+import { useTokenProvider, Hint } from '@commercelayer/app-elements'
 
 interface Props {
   webhook: Webhook
@@ -10,11 +11,17 @@ export function DescriptionLine({ webhook }: Props): JSX.Element {
     webhook.last_event_callbacks === undefined ||
     webhook.last_event_callbacks.length === 0
   )
-    return <>Never fired</>
+    return <Hint>Never fired</Hint>
 
-  const createdAtTimeAgo = formatDistanceInWords(
-    webhook.last_event_callbacks[0].created_at
-  )
+  const {
+    settings: { timezone }
+  } = useTokenProvider()
 
-  return <>{`Fired ${createdAtTimeAgo}`}</>
+  const lastEventCallbackDate = webhook.last_event_callbacks[0].created_at
+
+  const createdAtTimeAgo = `${
+    formatDateAndTime(lastEventCallbackDate, timezone).date
+  } - ${formatDateAndTime(lastEventCallbackDate, timezone).time}`
+
+  return <Hint>{`Fired ${createdAtTimeAgo}`}</Hint>
 }
