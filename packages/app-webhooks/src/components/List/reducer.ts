@@ -3,28 +3,28 @@ import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
 import { ListWebhookContextState } from 'App'
 
 type Action =
-  | { type: 'loadData'; payload: ListResponse<Webhook> }
-  | { type: 'changePage'; payload: number }
-  | { type: 'sort'; payload: 'asc' | 'desc' }
+  | { type: 'webhooks/loaded'; payload: ListResponse<Webhook> }
+  | { type: 'webhooks/changePage'; payload: number }
+  | { type: 'webhooks/changeSort'; payload: 'asc' | 'desc' }
 
 export const reducer = (
   state: ListWebhookContextState,
   action: Action
 ): ListWebhookContextState => {
   switch (action.type) {
-    case 'loadData':
+    case 'webhooks/loaded':
       return {
         ...state,
         list: action.payload,
         isLoading: false
       }
-    case 'changePage':
+    case 'webhooks/changePage':
       return {
         ...state,
         currentPage: action.payload,
         isLoading: true
       }
-    case 'sort':
+    case 'webhooks/changeSort':
       return {
         ...state,
         sort: {

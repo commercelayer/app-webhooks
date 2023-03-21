@@ -1,20 +1,22 @@
 import { Webhook } from '@commercelayer/sdk'
 import { WebhookFormContextState } from 'App'
 
-type Action = { type: 'setNotFound' } | { type: 'loadData'; payload: Webhook }
+type Action =
+  | { type: 'webhook/onError' }
+  | { type: 'webhook/loaded'; payload: Webhook }
 
 export const reducer = (
   state: WebhookFormContextState,
   action: Action
 ): WebhookFormContextState | never => {
   switch (action.type) {
-    case 'setNotFound':
+    case 'webhook/onError':
       return {
         ...state,
         isNotFound: true,
         isLoading: false
       }
-    case 'loadData':
+    case 'webhook/loaded':
       return {
         ...state,
         data: action.payload,

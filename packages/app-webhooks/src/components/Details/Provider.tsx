@@ -33,9 +33,9 @@ export function WebhookDetailsProvider({
       const webhook = await sdkClient.webhooks.retrieve(webhookId, {
         include: ['last_event_callbacks']
       })
-      dispatch({ type: 'loadData', payload: webhook })
+      dispatch({ type: 'webhook/loaded', payload: webhook })
     } catch {
-      dispatch({ type: 'setNotFound' })
+      dispatch({ type: 'webhook/onError' })
     }
   }, [webhookId])
 
@@ -48,7 +48,7 @@ export function WebhookDetailsProvider({
         }
       )
       .then((webhook) => {
-        dispatch({ type: 'loadData', payload: webhook })
+        dispatch({ type: 'webhook/loaded', payload: webhook })
       })
       .catch(() => {})
   }, [webhookId])

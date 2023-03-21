@@ -30,10 +30,10 @@ export function WebhookFormProvider({
 
   const fetchJob = useCallback(async () => {
     try {
-      const webhookForm = await sdkClient.webhooks.retrieve(webhookId)
-      dispatch({ type: 'loadData', payload: webhookForm })
+      const webhook = await sdkClient.webhooks.retrieve(webhookId)
+      dispatch({ type: 'webhook/loaded', payload: webhook })
     } catch {
-      dispatch({ type: 'setNotFound' })
+      dispatch({ type: 'webhook/onError' })
     }
   }, [webhookId])
 

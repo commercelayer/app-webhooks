@@ -30,10 +30,10 @@ export function WebhookDeleteProvider({
 
   const fetchWebhook = useCallback(async () => {
     try {
-      const webhookDelete = await sdkClient.webhooks.retrieve(webhookId)
-      dispatch({ type: 'loadData', payload: webhookDelete })
+      const webhook = await sdkClient.webhooks.retrieve(webhookId)
+      dispatch({ type: 'webhook/loaded', payload: webhook })
     } catch {
-      dispatch({ type: 'setNotFound' })
+      dispatch({ type: 'webhook/onError' })
     }
   }, [webhookId])
 

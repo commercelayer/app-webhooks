@@ -1,20 +1,22 @@
 import { Webhook } from '@commercelayer/sdk'
 import { WebhookDetailsContextState } from 'App'
 
-type Action = { type: 'loadData'; payload: Webhook } | { type: 'setNotFound' }
+type Action =
+  | { type: 'webhook/loaded'; payload: Webhook }
+  | { type: 'webhook/onError' }
 
 export const reducer = (
   state: WebhookDetailsContextState,
   action: Action
 ): WebhookDetailsContextState | never => {
   switch (action.type) {
-    case 'loadData':
+    case 'webhook/loaded':
       return {
         ...state,
         data: action.payload,
         isLoading: false
       }
-    case 'setNotFound':
+    case 'webhook/onError':
       return {
         ...state,
         isNotFound: true,

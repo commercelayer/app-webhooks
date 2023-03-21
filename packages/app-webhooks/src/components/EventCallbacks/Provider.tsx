@@ -37,7 +37,8 @@ export function ListEventCallbackProvider({
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const changePage = useCallback(
-    (page: number) => dispatch({ type: 'changePage', payload: page }),
+    (page: number) =>
+      dispatch({ type: 'eventCallbacks/changePage', payload: page }),
     []
   )
 
@@ -49,7 +50,7 @@ export function ListEventCallbackProvider({
         webhookId,
         pageSize
       })
-      dispatch({ type: 'loadData', payload: eventCallbacks })
+      dispatch({ type: 'eventCallbacks/loaded', payload: eventCallbacks })
     }
   }, [webhookId, state.currentPage])
 
