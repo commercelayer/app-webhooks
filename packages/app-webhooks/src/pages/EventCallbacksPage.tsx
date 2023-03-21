@@ -46,7 +46,6 @@ function EventCallbacksPage(): JSX.Element {
   }
 
   if (sdkClient == null) {
-    console.warn('Waiting for SDK client')
     return <PageSkeleton />
   }
 

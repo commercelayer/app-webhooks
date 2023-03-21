@@ -2,41 +2,25 @@ import { Webhook } from '@commercelayer/sdk'
 import { WebhookFormContextState } from 'App'
 
 type Action =
-  | { type: 'setLoading'; payload: boolean }
-  | { type: 'setDeleting'; payload: boolean }
-  | { type: 'setNotFound'; payload: boolean }
-  | { type: 'setData'; payload: Webhook }
-  | { type: 'togglePolling'; payload: boolean }
+  | { type: 'webhook/onError' }
+  | { type: 'webhook/loaded'; payload: Webhook }
 
 export const reducer = (
   state: WebhookFormContextState,
   action: Action
 ): WebhookFormContextState | never => {
   switch (action.type) {
-    case 'setLoading':
+    case 'webhook/onError':
       return {
         ...state,
-        isLoading: action.payload
+        isNotFound: true,
+        isLoading: false
       }
-    case 'setDeleting':
+    case 'webhook/loaded':
       return {
         ...state,
-        isDeleting: action.payload
-      }
-    case 'setNotFound':
-      return {
-        ...state,
-        isNotFound: action.payload
-      }
-    case 'setData':
-      return {
-        ...state,
-        data: action.payload
-      }
-    case 'togglePolling':
-      return {
-        ...state,
-        isPolling: action.payload
+        data: action.payload,
+        isLoading: false
       }
     default:
       return state

@@ -49,7 +49,6 @@ const DetailsPage = (): JSX.Element | null => {
   }
 
   if (sdkClient == null) {
-    console.warn('Waiting for SDK client')
     return <PageSkeleton layout='details' hasHeaderDescription />
   }
 
@@ -88,8 +87,11 @@ const DetailsPage = (): JSX.Element | null => {
 
   return (
     <WebhookDetailsProvider sdkClient={sdkClient} webhookId={webhookId}>
-      {({ state: { isLoading, data } }) =>
-        isLoading ? (
+      {({ state: { isLoading, data } }) => {
+        const showWebhookCircuit =
+          data?.last_event_callbacks !== undefined &&
+          data?.last_event_callbacks.length > 0
+        return isLoading ? (
           <PageSkeleton layout='details' hasHeaderDescription />
         ) : data == null ? (
           <ErrorNotFound />
@@ -102,12 +104,11 @@ const DetailsPage = (): JSX.Element | null => {
             }}
             actionButton={contextMenu}
           >
-            {data.last_event_callbacks !== undefined &&
-              data.last_event_callbacks.length > 0 && (
-                <Spacer bottom='12'>
-                  <WebhookCircuit />
-                </Spacer>
-              )}
+            {showWebhookCircuit && (
+              <Spacer bottom='12'>
+                <WebhookCircuit />
+              </Spacer>
+            )}
             <Spacer bottom='12'>
               <WebhookDetails />
             </Spacer>
@@ -119,7 +120,7 @@ const DetailsPage = (): JSX.Element | null => {
             </Spacer>
           </PageLayout>
         )
-      }
+      }}
     </WebhookDetailsProvider>
   )
 }

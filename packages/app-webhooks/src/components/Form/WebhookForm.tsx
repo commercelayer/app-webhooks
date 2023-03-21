@@ -87,7 +87,6 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
   const hasApiError = apiError != null && apiError.length > 0
 
   if (sdkClient == null) {
-    console.warn('Waiting for SDK client')
     return null
   }
 

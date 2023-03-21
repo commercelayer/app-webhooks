@@ -32,7 +32,6 @@ function ListPage(): JSX.Element {
   const [_location, setLocation] = useLocation()
 
   if (sdkClient == null) {
-    console.warn('Waiting for SDK client')
     return <PageSkeleton />
   }
 

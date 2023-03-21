@@ -42,7 +42,6 @@ const EditWebhookPage = (): JSX.Element | null => {
   }
 
   if (sdkClient == null) {
-    console.warn('Waiting for SDK client')
     return <PageSkeleton hasHeaderDescription />
   }
 

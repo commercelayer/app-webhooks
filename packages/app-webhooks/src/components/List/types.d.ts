@@ -7,16 +7,9 @@ declare module 'App' {
     changePage: (page: number) => void
   }
 
-  export type ListWebhookAllowedStatusType =
-    | 'completed'
-    | 'interrupted'
-    | 'in_progress'
-    | 'pending'
-
   export interface ListWebhookContextState {
     list?: ListResponse<Webhook>
     isLoading: boolean
-    isPolling: boolean
     currentPage: number
     sort: {
       created_at: 'asc' | 'desc'

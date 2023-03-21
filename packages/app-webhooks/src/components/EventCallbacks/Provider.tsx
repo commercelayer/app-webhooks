@@ -10,8 +10,7 @@ import {
   useCallback,
   useEffect,
   useReducer,
-  useContext,
-  useRef
+  useContext
 } from 'react'
 
 import { initialValues, initialState } from './data'
@@ -23,7 +22,6 @@ interface ListEventCallbackProviderProps {
   children: ((props: ListEventCallbackContextValue) => ReactNode) | ReactNode
   sdkClient: CommerceLayerClient
 }
-const POLLING_INTERVAL = 10000
 
 const Context = createContext<ListEventCallbackContextValue>(initialValues)
 
@@ -37,61 +35,37 @@ export function ListEventCallbackProvider({
   sdkClient
 }: ListEventCallbackProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const intervalId = useRef<NodeJS.Timer | null>(null)
 
   const changePage = useCallback(
-    (page: number) => dispatch({ type: 'changePage', payload: page }),
+    (page: number) =>
+      dispatch({ type: 'eventCallbacks/changePage', payload: page }),
     []
   )
 
-  const fetchList = useCallback(
-    async ({ handleLoadingState }: { handleLoadingState: boolean }) => {
-      handleLoadingState && dispatch({ type: 'setLoading', payload: true })
-      if (webhookId != null) {
-        try {
-          const list = await getAllEventCallbacks({
-            cl: sdkClient,
-            state,
-            webhookId,
-            pageSize
-          })
-          dispatch({ type: 'setList', payload: list })
-        } finally {
-          handleLoadingState && dispatch({ type: 'setLoading', payload: false })
-        }
-      }
-    },
-    [webhookId, state.currentPage]
-  )
+  const fetchList = useCallback(async () => {
+    if (webhookId != null) {
+      const eventCallbacks = await getAllEventCallbacks({
+        cl: sdkClient,
+        state,
+        webhookId,
+        pageSize
+      })
+      dispatch({ type: 'eventCallbacks/loaded', payload: eventCallbacks })
+    }
+  }, [webhookId, state.currentPage])
 
   useEffect(
     function handleChangePageSkippingFirstRender() {
       if (state.list?.meta.currentPage != null) {
-        void fetchList({ handleLoadingState: false })
+        void fetchList()
       }
     },
     [webhookId, state.currentPage]
   )
 
-  useEffect(
-    function startPolling() {
-      void fetchList({ handleLoadingState: true })
-      if (!state.isPolling) {
-        return
-      }
-      // start polling
-      intervalId.current = setInterval(() => {
-        void fetchList({ handleLoadingState: false })
-      }, POLLING_INTERVAL)
-
-      return () => {
-        if (intervalId.current != null) {
-          clearInterval(intervalId.current)
-        }
-      }
-    },
-    [state.isPolling]
-  )
+  useEffect(function init() {
+    void fetchList()
+  }, [])
 
   const value: ListEventCallbackContextValue = {
     state,

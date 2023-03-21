@@ -1,16 +1,13 @@
-import { WebhookDetailsContextState, WebhookDetailsContextValue } from 'App'
+import { WebhookDeleteContextState, WebhookDeleteContextValue } from 'App'
 
-export const initialState: WebhookDetailsContextState = {
+export const initialState: WebhookDeleteContextState = {
   isLoading: true,
-  isPolling: false,
   isDeleting: false,
-  isCircuitResetting: false,
   isNotFound: false
 }
 
-export const initialValues: WebhookDetailsContextValue = {
+export const initialValues: WebhookDeleteContextValue = {
   state: initialState,
   refetch: async () => undefined,
-  deleteWebhook: async () => false,
-  resetWebhookCircuit: async () => {}
+  deleteWebhook: async () => false
 }
