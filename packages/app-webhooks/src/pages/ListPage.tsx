@@ -129,14 +129,13 @@ function ListPage(): JSX.Element {
                         name={getListUiIcon(webhook).icon}
                         gap='large'
                         background={getListUiIcon(webhook).bg}
-                        size={16}
                       />
                     }
                     onClick={() => {
                       setLocation(appRoutes.details.makePath(webhook.id))
                     }}
                   >
-                    <div className='flex flex-col'>
+                    <div>
                       <Text weight='bold'>{webhook.name}</Text>
                       <DescriptionLine webhook={webhook} />
                     </div>
