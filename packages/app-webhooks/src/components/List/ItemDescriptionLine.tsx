@@ -23,5 +23,5 @@ export function DescriptionLine({ webhook }: Props): JSX.Element {
     formatDateAndTime(lastEventCallbackDate, timezone).date
   } - ${formatDateAndTime(lastEventCallbackDate, timezone).time}`
 
-  return <Hint>{`Fired ${createdAtTimeAgo}`}</Hint>
+  return <Hint>{`Fired on ${createdAtTimeAgo}`}</Hint>
 }

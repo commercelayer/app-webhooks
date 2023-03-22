@@ -17,7 +17,7 @@ export function formatDateAndTime(
     isoDate: dateTime,
     timezone,
     format: 'custom',
-    customTemplate: 'PP'
+    customTemplate: 'PPP'
   })
   const formattedTime = formatDate({
     isoDate: dateTime,
