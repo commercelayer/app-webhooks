@@ -23,7 +23,7 @@ export function formatDateAndTime(
     isoDate: dateTime,
     timezone,
     format: 'custom',
-    customTemplate: 'p'
+    customTemplate: 'pp'
   })
 
   return {
