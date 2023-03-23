@@ -35,6 +35,7 @@ jobs:
           name: Build 
           command: pnpm build
       - aws-s3/sync:
+          arguments: --delete
           aws-access-key-id: AWS_ACCESS_KEY
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           from: packages/app-webhooks/dist
