@@ -21,7 +21,7 @@ export function DescriptionLine({ webhook }: Props): JSX.Element {
 
   const lastFiredAt = `${
     formatDateAndTime(lastEventCallbackDate, timezone).date
-  } - ${formatDateAndTime(lastEventCallbackDate, timezone).time}`
+  } · ${formatDateAndTime(lastEventCallbackDate, timezone).time}`
 
   return <Hint>{`Fired on ${lastFiredAt}`}</Hint>
 }
