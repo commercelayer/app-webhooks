@@ -17,7 +17,7 @@ export function formatDateAndTime(
     isoDate: dateTime,
     timezone,
     format: 'custom',
-    customTemplate: 'PPP'
+    customTemplate: 'PP'
   })
   const formattedTime = formatDate({
     isoDate: dateTime,
@@ -25,6 +25,50 @@ export function formatDateAndTime(
     format: 'custom',
     customTemplate: 'pp'
   })
+
+  const today = formatDate({
+    isoDate: new Date().toISOString(),
+    timezone: 'Europe/Rome',
+    format: 'noTime'
+  })
+  const date = formatDate({
+    isoDate: dateTime,
+    timezone: 'Europe/Rome',
+    format: 'noTime'
+  })
+
+  if (today === date) {
+    return {
+      date: 'Today',
+      time: formattedTime
+    }
+  }
+
+  const todayYear = formatDate({
+    isoDate: new Date().toISOString(),
+    timezone: 'Europe/Rome',
+    format: 'custom',
+    customTemplate: 'uuuu'
+  })
+  const dateYear = formatDate({
+    isoDate: dateTime,
+    timezone: 'Europe/Rome',
+    format: 'custom',
+    customTemplate: 'uuuu'
+  })
+
+  if (todayYear === dateYear) {
+    const formattedDateWithoutYear = formatDate({
+      isoDate: dateTime,
+      timezone,
+      format: 'custom',
+      customTemplate: `LLL d`
+    })
+    return {
+      date: formattedDateWithoutYear,
+      time: formattedTime
+    }
+  }
 
   return {
     date: formattedDate,

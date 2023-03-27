@@ -118,12 +118,13 @@ function ListPage(): JSX.Element {
                 pageCount
               }}
             >
-              {list.map((webhook) => {
+              {list.map((webhook, key) => {
                 // const statusUi = getListUiStatus(webhook)
                 return (
                   <ListItem
                     className='items-center'
-                    key={webhook.id}
+                    key={key}
+                    tag='div'
                     icon={
                       <Icon
                         name={getListUiIcon(webhook).icon}

@@ -10,7 +10,7 @@ import {
   PageLayout,
   PageSkeleton
 } from '@commercelayer/app-elements'
-import { EventCallbacksTable } from '#components/Common/EventCallbacksTable'
+import { EventCallbacksListItems } from '#components/Common/EventCallbacksListItems'
 
 function EventCallbacksPage(): JSX.Element {
   const { settings, canUser } = useTokenProvider()
@@ -92,7 +92,7 @@ function EventCallbacksPage(): JSX.Element {
                 pageCount
               }}
             >
-              <EventCallbacksTable eventCallbacks={list} />
+              <EventCallbacksListItems eventCallbacks={list} />
             </List>
           )
         }}
