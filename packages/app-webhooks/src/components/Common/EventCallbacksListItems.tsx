@@ -5,12 +5,12 @@ import {
   Badge,
   ListItem,
   Text,
-  Icon,
   Spacer
 } from '@commercelayer/app-elements'
 import { EventCallback } from '@commercelayer/sdk'
 import { formatDateAndTime } from '#utils/formatDateAndTime'
 import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
+import { ArrowCircleDown } from 'phosphor-react'
 
 interface Props {
   eventCallbacks?: EventCallback[]
@@ -60,7 +60,7 @@ export function EventCallbacksListItems({
               })
             }
           >
-            <Icon name='arrowCircleDown' />
+            <ArrowCircleDown size={22} />
           </A>
         </div>
       </ListItem>
