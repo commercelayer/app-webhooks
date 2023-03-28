@@ -135,7 +135,6 @@ function ListPage(): JSX.Element {
                     onClick={() => {
                       setLocation(appRoutes.details.makePath(webhook.id))
                     }}
-                    tag='div'
                   >
                     <div>
                       <Text weight='bold'>{webhook.name}</Text>
