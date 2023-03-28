@@ -16,7 +16,10 @@ import { formatDistanceInWords } from '#utils/formatDistanceInWords'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookCircuit(): JSX.Element | null {
-  const { canUser } = useTokenProvider()
+  const {
+    canUser,
+    settings: { timezone }
+  } = useTokenProvider()
   const {
     state: { data },
     resetWebhookCircuit
@@ -38,7 +41,8 @@ export function WebhookCircuit(): JSX.Element | null {
   const lastFired =
     Boolean(lastFiredDate) &&
     formatDistanceInWords(
-      data.last_event_callbacks.slice(0, 1)[0].created_at ?? ''
+      data.last_event_callbacks.slice(0, 1)[0].created_at ?? '',
+      timezone
     )
 
   const buttonStyle = {
