@@ -1,5 +1,6 @@
 import { appRoutes } from '#data/routes'
-import { EventCallbacksTable } from '#components/Common/EventCallbacksTable'
+import { useLocation } from 'wouter'
+import { EventCallbacksListItems } from '#components/Common/EventCallbacksListItems'
 import {
   useTokenProvider,
   A,
@@ -8,13 +9,17 @@ import {
   Card,
   ListDetails,
   Spacer,
-  Text
+  Text,
+  List
 } from '@commercelayer/app-elements'
-import { useLocation } from 'wouter'
+import { formatDistanceInWords } from '#utils/formatDistanceInWords'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookCircuit(): JSX.Element | null {
-  const { canUser } = useTokenProvider()
+  const {
+    canUser,
+    settings: { timezone }
+  } = useTokenProvider()
   const {
     state: { data },
     resetWebhookCircuit
@@ -31,56 +36,80 @@ export function WebhookCircuit(): JSX.Element | null {
   const [_, setLocation] = useLocation()
   const webhookPreviewEventCallbacks = data.last_event_callbacks.slice(0, 5)
   const isCircuitOpen = data.circuit_state === 'open'
+  const lastFiredDate =
+    data.last_event_callbacks.slice(0, 1)[0].created_at ?? false
+  const lastFired =
+    Boolean(lastFiredDate) &&
+    formatDistanceInWords(
+      data.last_event_callbacks.slice(0, 1)[0].created_at ?? '',
+      timezone
+    )
+
+  const buttonStyle = {
+    alignSelf: 'baseline'
+  }
 
   return (
     <ListDetails>
       <Spacer bottom='4'>
         <Card>
-          <Spacer bottom='4'>
-            <div className='flex justify-between'>
-              <div>
+          <div className='flex justify-between'>
+            <div>
+              <Spacer bottom='2'>
+                <div className='flex gap-2'>
+                  <Text weight='bold'>Circuit {data.circuit_state}</Text>
+                  {isCircuitOpen && <Badge variant='danger' label='failed' />}
+                  {!isCircuitOpen && (
+                    <Badge variant='success' label='enabled' />
+                  )}
+                </div>
+              </Spacer>
+              {isCircuitOpen && (
                 <Spacer bottom='2'>
-                  <div className='flex gap-2'>
-                    <span className='font-bold'>
-                      Circuit {data.circuit_state}
-                    </span>
-                    {isCircuitOpen && <Badge variant='danger' label='failed' />}
-                  </div>
-                </Spacer>
-                {isCircuitOpen && (
                   <Text variant='danger' size='small' weight='bold'>
                     No further callbacks are performed until reset.
                   </Text>
-                )}
-              </div>
-              {isCircuitOpen && (
-                <Button
-                  size='small'
-                  variant='primary'
-                  onClick={() => {
-                    void resetWebhookCircuit()
-                  }}
-                >
-                  Reset
-                </Button>
+                </Spacer>
+              )}
+              {!isCircuitOpen && (
+                <Spacer bottom='2'>
+                  <Text variant='info' size='small' weight='medium'>
+                    Last fired {lastFired}.
+                  </Text>
+                </Spacer>
               )}
             </div>
-          </Spacer>
+            {isCircuitOpen && (
+              <Button
+                size='small'
+                variant='primary'
+                onClick={() => {
+                  void resetWebhookCircuit()
+                }}
+                style={buttonStyle}
+              >
+                Reset
+              </Button>
+            )}
+          </div>
           <div className='CardContent'>
-            <Spacer bottom='4'>
-              <EventCallbacksTable
-                className='border-t border-gray-100'
+            <List>
+              <EventCallbacksListItems
                 eventCallbacks={webhookPreviewEventCallbacks}
               />
-            </Spacer>
+            </List>
             {data.last_event_callbacks.length > 5 && (
-              <A
-                onClick={() => {
-                  setLocation(appRoutes.webhookEventCallbacks.makePath(data.id))
-                }}
-              >
-                View more
-              </A>
+              <Spacer top='4'>
+                <A
+                  onClick={() => {
+                    setLocation(
+                      appRoutes.webhookEventCallbacks.makePath(data.id)
+                    )
+                  }}
+                >
+                  View more
+                </A>
+              </Spacer>
             )}
           </div>
         </Card>

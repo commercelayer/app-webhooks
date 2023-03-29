@@ -5,15 +5,16 @@ import { ListWebhookProvider } from '#components/List/Provider'
 import {
   A,
   Button,
+  Icon,
   PageSkeleton,
   PageLayout,
   List,
-  ListItemTask,
+  ListItem,
   EmptyState,
+  Text,
   useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/app-elements'
-import { StatusUI } from '@commercelayer/app-elements/dist/ui/atoms/StatusIcon'
 import { DescriptionLine } from '#components/List/ItemDescriptionLine'
 
 /**
@@ -21,8 +22,17 @@ import { DescriptionLine } from '#components/List/ItemDescriptionLine'
  * @param webhook - The webhook object.
  * @returns a valid StatusUI to be used in the StatusIcon component.
  */
-function getListUiStatus(webhook: Webhook): StatusUI {
-  return webhook?.circuit_state === 'open' ? 'danger' : 'success'
+type WebhookListUiIcon = 'x' | 'check'
+
+type WebhookListUiIconBg = 'red' | 'green'
+
+function getListUiIcon(webhook: Webhook): {
+  icon: WebhookListUiIcon
+  bg: WebhookListUiIconBg
+} {
+  return webhook?.circuit_state === 'open'
+    ? { icon: 'x', bg: 'red' }
+    : { icon: 'check', bg: 'green' }
 }
 
 function ListPage(): JSX.Element {
@@ -108,19 +118,30 @@ function ListPage(): JSX.Element {
                 pageCount
               }}
             >
-              {list.map((webhook) => {
-                const statusUi = getListUiStatus(webhook)
+              {list.map((webhook, key) => {
+                // const statusUi = getListUiStatus(webhook)
                 return (
-                  <ListItemTask
-                    key={webhook.id}
-                    status={statusUi}
+                  <ListItem
+                    className='items-center'
+                    key={key}
+                    tag='div'
+                    icon={
+                      <Icon
+                        name={getListUiIcon(webhook).icon}
+                        gap='large'
+                        background={getListUiIcon(webhook).bg}
+                      />
+                    }
                     onClick={() => {
                       setLocation(appRoutes.details.makePath(webhook.id))
                     }}
-                    progressPercentage={statusUi === 'progress' ? 0 : undefined}
-                    title={webhook.name as string}
-                    description={<DescriptionLine webhook={webhook} />}
-                  />
+                  >
+                    <div>
+                      <Text weight='bold'>{webhook.name}</Text>
+                      <DescriptionLine webhook={webhook} />
+                    </div>
+                    <Icon name='caretRight' />
+                  </ListItem>
                 )
               })}
             </List>
