@@ -23,7 +23,7 @@ export function formatDateAndTime(
     isoDate: dateTime,
     timezone,
     format: 'custom',
-    customTemplate: 'pp'
+    customTemplate: `kk':'mm':'ss`
   })
 
   const today = formatDate({
