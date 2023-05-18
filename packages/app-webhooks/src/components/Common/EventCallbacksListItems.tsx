@@ -24,9 +24,10 @@ export function EventCallbacksListItems({
     return <></>
   }
 
-  const {
-    settings: { timezone }
-  } = useTokenProvider()
+  const { user } = useTokenProvider()
+  const timezone = ''
+
+  console.log(user)
 
   const tableRows = eventCallbacks.map((event, key) => {
     const eventCallbackStatusVariantVariant = eventCallbackStatusVariant(event)
@@ -55,7 +56,7 @@ export function EventCallbacksListItems({
           <A
             onClick={() =>
               downloadJsonAsFile({
-                json: event.payload,
+                json: event.payload ?? undefined,
                 filename: `${event.id}.json`
               })
             }
