@@ -1,4 +1,4 @@
-import { ListWebhookContextValue, ListWebhookContextState } from 'App'
+import type { ListWebhookContextValue, ListWebhookContextState } from 'App'
 
 export const initialState: ListWebhookContextState = {
   isLoading: true,

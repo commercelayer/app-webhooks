@@ -7,7 +7,7 @@ import {
   Text,
   Spacer
 } from '@commercelayer/app-elements'
-import { EventCallback } from '@commercelayer/sdk'
+import type { EventCallback } from '@commercelayer/sdk'
 import { formatDateAndTime } from '#utils/formatDateAndTime'
 import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
 import { ArrowCircleDown } from 'phosphor-react'
@@ -25,16 +25,13 @@ export function EventCallbacksListItems({
   }
 
   const { user } = useTokenProvider()
-  const timezone = ''
-
-  console.log(user)
 
   const tableRows = eventCallbacks.map((event, key) => {
     const eventCallbackStatusVariantVariant = eventCallbackStatusVariant(event)
 
     const firedAt = ` · ${
-      formatDateAndTime(event.created_at, timezone).date
-    } · ${formatDateAndTime(event.created_at, timezone).time}`
+      formatDateAndTime(event.created_at, user?.timezone).date
+    } · ${formatDateAndTime(event.created_at, user?.timezone).time}`
 
     return (
       <ListItem key={key} alignItems='center' tag='div'>
@@ -54,12 +51,12 @@ export function EventCallbacksListItems({
         </div>
         <div>
           <A
-            onClick={() =>
+            onClick={() => {
               downloadJsonAsFile({
                 json: event.payload ?? undefined,
                 filename: `${event.id}.json`
               })
-            }
+            }}
           >
             <ArrowCircleDown size={22} />
           </A>

@@ -1,8 +1,7 @@
-import { CommerceLayerClient } from '@commercelayer/sdk'
-import { WebhookDeleteContextValue } from 'App'
+import type { CommerceLayerClient } from '@commercelayer/sdk'
+import type { WebhookDeleteContextValue } from 'App'
 import {
   createContext,
-  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -14,7 +13,9 @@ import { reducer } from './reducer'
 interface WebhookDeleteProviderProps {
   webhookId: string
   sdkClient: CommerceLayerClient
-  children: ((props: WebhookDeleteContextValue) => ReactNode) | ReactNode
+  children:
+    | ((props: WebhookDeleteContextValue) => React.ReactNode)
+    | React.ReactNode
 }
 
 const Context = createContext<WebhookDeleteContextValue>(initialValues)
@@ -52,7 +53,9 @@ export function WebhookDeleteProvider({
 
   const value: WebhookDeleteContextValue = {
     state,
-    refetch: async () => await fetchWebhook(),
+    refetch: async () => {
+      await fetchWebhook()
+    },
     deleteWebhook
   }
 

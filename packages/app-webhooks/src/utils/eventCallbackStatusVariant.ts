@@ -1,4 +1,4 @@
-import { EventCallback } from '@commercelayer/sdk'
+import type { EventCallback } from '@commercelayer/sdk'
 
 export function eventCallbackStatusVariant(
   eventCallback: EventCallback | undefined

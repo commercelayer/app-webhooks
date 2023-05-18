@@ -1,4 +1,4 @@
-import { Webhook } from '@commercelayer/sdk'
+import type { Webhook } from '@commercelayer/sdk'
 import { useTokenProvider, Hint } from '@commercelayer/app-elements'
 import { formatDistanceInWords } from '#utils/formatDistanceInWords'
 

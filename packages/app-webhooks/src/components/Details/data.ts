@@ -1,4 +1,7 @@
-import { WebhookDetailsContextState, WebhookDetailsContextValue } from 'App'
+import type {
+  WebhookDetailsContextState,
+  WebhookDetailsContextValue
+} from 'App'
 
 export const initialState: WebhookDetailsContextState = {
   isLoading: true,

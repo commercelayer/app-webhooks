@@ -30,7 +30,7 @@
   "dependencies": {
     "@commercelayer/app-elements": "v0.0.33",
     "@commercelayer/app-elements-hook-form": "v0.0.33",
-    "@commercelayer/eslint-config-ts-react": "^0.1.4",
+    "@commercelayer/eslint-config-ts-react": "1.0.0",
     "@commercelayer/sdk": "5.0.0",
     "@hookform/resolvers": "^2.9.11",
     "@testing-library/jest-dom": "^5.16.5",

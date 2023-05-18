@@ -1,8 +1,7 @@
-import { CommerceLayerClient } from '@commercelayer/sdk'
-import { WebhookDetailsContextValue } from 'App'
+import type { CommerceLayerClient } from '@commercelayer/sdk'
+import type { WebhookDetailsContextValue } from 'App'
 import {
   createContext,
-  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -14,7 +13,9 @@ import { reducer } from './reducer'
 interface WebhookDetailsProviderProps {
   webhookId: string
   sdkClient: CommerceLayerClient
-  children: ((props: WebhookDetailsContextValue) => ReactNode) | ReactNode
+  children:
+    | ((props: WebhookDetailsContextValue) => React.ReactNode)
+    | React.ReactNode
 }
 
 const Context = createContext<WebhookDetailsContextValue>(initialValues)
@@ -59,7 +60,9 @@ export function WebhookDetailsProvider({
 
   const value: WebhookDetailsContextValue = {
     state,
-    refetch: async () => await fetchWebhook(),
+    refetch: async () => {
+      await fetchWebhook()
+    },
     resetWebhookCircuit
   }
 

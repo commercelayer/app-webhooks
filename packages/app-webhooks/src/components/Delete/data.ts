@@ -1,4 +1,4 @@
-import { WebhookDeleteContextState, WebhookDeleteContextValue } from 'App'
+import type { WebhookDeleteContextState, WebhookDeleteContextValue } from 'App'
 
 export const initialState: WebhookDeleteContextState = {
   isLoading: true,

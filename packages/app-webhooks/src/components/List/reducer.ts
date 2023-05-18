@@ -1,6 +1,6 @@
-import { Webhook } from '@commercelayer/sdk'
-import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
-import { ListWebhookContextState } from 'App'
+import { type Webhook } from '@commercelayer/sdk'
+import type { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
+import type { ListWebhookContextState } from 'App'
 
 type Action =
   | { type: 'webhooks/loaded'; payload: ListResponse<Webhook> }

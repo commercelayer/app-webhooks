@@ -1,6 +1,6 @@
-import { EventCallback } from '@commercelayer/sdk'
-import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
-import { ListEventCallbackContextState } from 'App'
+import type { EventCallback } from '@commercelayer/sdk'
+import type { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
+import type { ListEventCallbackContextState } from 'App'
 
 type Action =
   | { type: 'eventCallbacks/loaded'; payload: ListResponse<EventCallback> }

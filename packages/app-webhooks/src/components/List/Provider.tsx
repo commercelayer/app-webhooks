@@ -1,9 +1,8 @@
-import { CommerceLayerClient, Webhook } from '@commercelayer/sdk'
-import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
-import { ListWebhookContextValue, ListWebhookContextState } from 'App'
+import type { CommerceLayerClient, Webhook } from '@commercelayer/sdk'
+import type { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
+import type { ListWebhookContextValue, ListWebhookContextState } from 'App'
 import {
   createContext,
-  ReactNode,
   useCallback,
   useEffect,
   useReducer,
@@ -15,7 +14,9 @@ import { reducer } from './reducer'
 
 interface ListWebhookProviderProps {
   pageSize: number
-  children: ((props: ListWebhookContextValue) => ReactNode) | ReactNode
+  children:
+    | ((props: ListWebhookContextValue) => React.ReactNode)
+    | React.ReactNode
   sdkClient: CommerceLayerClient
 }
 
@@ -30,10 +31,9 @@ export function ListWebhookProvider({
 }: ListWebhookProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const changePage = useCallback(
-    (page: number) => dispatch({ type: 'webhooks/changePage', payload: page }),
-    []
-  )
+  const changePage = useCallback((page: number) => {
+    dispatch({ type: 'webhooks/changePage', payload: page })
+  }, [])
 
   const fetchList = useCallback(async () => {
     const webhooks = await getAllWebhooks({
