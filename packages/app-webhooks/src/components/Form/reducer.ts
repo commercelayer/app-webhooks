@@ -1,5 +1,5 @@
-import { Webhook } from '@commercelayer/sdk'
-import { WebhookFormContextState } from 'App'
+import type { Webhook } from '@commercelayer/sdk'
+import type { WebhookFormContextState } from 'App'
 
 type Action =
   | { type: 'webhook/onError' }

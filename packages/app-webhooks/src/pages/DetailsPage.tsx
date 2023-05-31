@@ -89,7 +89,7 @@ const DetailsPage = (): JSX.Element | null => {
     <WebhookDetailsProvider sdkClient={sdkClient} webhookId={webhookId}>
       {({ state: { isLoading, data } }) => {
         const showWebhookCircuit =
-          data?.last_event_callbacks !== undefined &&
+          data?.last_event_callbacks != null &&
           data?.last_event_callbacks.length > 0
         return isLoading ? (
           <PageSkeleton layout='details' hasHeaderDescription />

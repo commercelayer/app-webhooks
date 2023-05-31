@@ -9,14 +9,14 @@ import {
   Input,
   Form as FormProvider
 } from '@commercelayer/app-elements-hook-form'
-import { Webhook } from '@commercelayer/sdk'
+import type { Webhook } from '@commercelayer/sdk'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import zod from 'zod'
 
-import { ApiError } from 'App'
+import type { ApiError } from 'App'
 import { EventSelector } from '#components/Form/EventSelector'
 import { appRoutes } from '#data/routes'
 import { parseApiError } from '#utils/apiErrors'

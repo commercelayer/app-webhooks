@@ -1,4 +1,4 @@
-import {
+import type {
   ListEventCallbackContextValue,
   ListEventCallbackContextState
 } from 'App'

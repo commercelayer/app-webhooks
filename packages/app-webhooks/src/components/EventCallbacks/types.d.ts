@@ -1,5 +1,5 @@
-import { EventCallback } from '@commercelayer/sdk'
-import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
+import type { EventCallback } from '@commercelayer/sdk'
+import type { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
 
 declare module 'App' {
   export interface ListEventCallbackContextValue {

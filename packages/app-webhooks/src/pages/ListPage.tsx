@@ -1,4 +1,4 @@
-import { Webhook } from '@commercelayer/sdk'
+import type { Webhook } from '@commercelayer/sdk'
 import { appRoutes } from '#data/routes'
 import { Link, useLocation } from 'wouter'
 import { ListWebhookProvider } from '#components/List/Provider'

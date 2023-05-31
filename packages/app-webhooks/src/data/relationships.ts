@@ -1,6 +1,6 @@
 import type { SelectValue } from '@commercelayer/app-elements'
 import type { ResourceEventKey } from '#data/events'
-import { ResourceWithRelationship } from 'App'
+import type { ResourceWithRelationship } from 'App'
 
 export const webhookRelationships: Record<ResourceWithRelationship, string[]> =
   {

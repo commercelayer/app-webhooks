@@ -1,5 +1,5 @@
-import { Webhook } from '@commercelayer/sdk'
-import { WebhookDeleteContextState } from 'App'
+import type { Webhook } from '@commercelayer/sdk'
+import type { WebhookDeleteContextState } from 'App'
 
 type Action =
   | { type: 'webhook/loaded'; payload: Webhook }

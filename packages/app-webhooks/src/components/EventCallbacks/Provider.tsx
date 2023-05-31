@@ -1,12 +1,11 @@
-import { CommerceLayerClient, EventCallback } from '@commercelayer/sdk'
-import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
-import {
+import type { CommerceLayerClient, EventCallback } from '@commercelayer/sdk'
+import type { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
+import type {
   ListEventCallbackContextValue,
   ListEventCallbackContextState
 } from 'App'
 import {
   createContext,
-  ReactNode,
   useCallback,
   useEffect,
   useReducer,
@@ -19,7 +18,9 @@ import { reducer } from './reducer'
 interface ListEventCallbackProviderProps {
   pageSize: number
   webhookId?: string | null
-  children: ((props: ListEventCallbackContextValue) => ReactNode) | ReactNode
+  children:
+    | ((props: ListEventCallbackContextValue) => React.ReactNode)
+    | React.ReactNode
   sdkClient: CommerceLayerClient
 }
 
@@ -36,11 +37,9 @@ export function ListEventCallbackProvider({
 }: ListEventCallbackProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const changePage = useCallback(
-    (page: number) =>
-      dispatch({ type: 'eventCallbacks/changePage', payload: page }),
-    []
-  )
+  const changePage = useCallback((page: number) => {
+    dispatch({ type: 'eventCallbacks/changePage', payload: page })
+  }, [])
 
   const fetchList = useCallback(async () => {
     if (webhookId != null) {

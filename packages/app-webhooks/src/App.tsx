@@ -25,12 +25,12 @@ function App(): JSX.Element {
   return (
     <ErrorBoundary hasContainer>
       <TokenProvider
-        currentApp='webhooks'
-        clientKind={import.meta.env.PUBLIC_TOKEN_KIND ?? 'webapp'}
+        appSlug='webhooks'
+        kind='webhooks'
         domain={window.clAppConfig.domain}
         reauthenticateOnInvalidAuth={!isDev}
         loadingElement={<PageSkeleton />}
-        devMode
+        devMode={isDev}
       >
         <CoreSdkProvider>
           <Router base={basePath}>

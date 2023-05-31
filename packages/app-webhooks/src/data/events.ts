@@ -1,5 +1,5 @@
 import type { SelectValue } from '@commercelayer/app-elements'
-import { ResourceWithEvent } from 'App'
+import type { ResourceWithEvent } from 'App'
 
 export const webhookEvents: Record<ResourceWithEvent, string[]> = {
   authorizations: ['create'],

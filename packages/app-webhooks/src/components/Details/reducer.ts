@@ -1,5 +1,5 @@
-import { Webhook } from '@commercelayer/sdk'
-import { WebhookDetailsContextState } from 'App'
+import type { Webhook } from '@commercelayer/sdk'
+import type { WebhookDetailsContextState } from 'App'
 
 type Action =
   | { type: 'webhook/loaded'; payload: Webhook }

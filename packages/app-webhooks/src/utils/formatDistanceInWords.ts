@@ -1,4 +1,3 @@
-import formatDistance from 'date-fns/formatDistance'
 import { formatDate } from '@commercelayer/app-elements'
 
 /**
@@ -11,11 +10,9 @@ export function formatDistanceInWords(
   dateTime: string,
   timezone?: string
 ): string {
-  const dateTimeToDate = formatDate({
+  return formatDate({
     isoDate: dateTime,
     timezone,
-    format: 'custom',
-    customTemplate: 'P'
+    format: 'distanceToNow'
   })
-  return `${formatDistance(Date.now(), Date.parse(dateTimeToDate))} ago`
 }

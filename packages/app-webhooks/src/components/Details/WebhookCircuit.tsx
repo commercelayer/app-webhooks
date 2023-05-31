@@ -16,10 +16,7 @@ import { formatDistanceInWords } from '#utils/formatDistanceInWords'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookCircuit(): JSX.Element | null {
-  const {
-    canUser,
-    settings: { timezone }
-  } = useTokenProvider()
+  const { canUser, user } = useTokenProvider()
   const {
     state: { data },
     resetWebhookCircuit
@@ -34,15 +31,15 @@ export function WebhookCircuit(): JSX.Element | null {
   }
 
   const [_, setLocation] = useLocation()
-  const webhookPreviewEventCallbacks = data.last_event_callbacks.slice(0, 5)
+  const webhookPreviewEventCallbacks = data.last_event_callbacks?.slice(0, 5)
   const isCircuitOpen = data.circuit_state === 'open'
   const lastFiredDate =
-    data.last_event_callbacks.slice(0, 1)[0].created_at ?? false
+    data.last_event_callbacks?.slice(0, 1)[0].created_at ?? false
   const lastFired =
     Boolean(lastFiredDate) &&
     formatDistanceInWords(
-      data.last_event_callbacks.slice(0, 1)[0].created_at ?? '',
-      timezone
+      data.last_event_callbacks?.slice(0, 1)[0].created_at ?? '',
+      user?.timezone
     )
 
   const buttonStyle = {
@@ -98,19 +95,20 @@ export function WebhookCircuit(): JSX.Element | null {
                 eventCallbacks={webhookPreviewEventCallbacks}
               />
             </List>
-            {data.last_event_callbacks.length > 5 && (
-              <Spacer top='4'>
-                <A
-                  onClick={() => {
-                    setLocation(
-                      appRoutes.webhookEventCallbacks.makePath(data.id)
-                    )
-                  }}
-                >
-                  View more
-                </A>
-              </Spacer>
-            )}
+            {data.last_event_callbacks != null &&
+              data.last_event_callbacks.length > 5 && (
+                <Spacer top='4'>
+                  <A
+                    onClick={() => {
+                      setLocation(
+                        appRoutes.webhookEventCallbacks.makePath(data.id)
+                      )
+                    }}
+                  >
+                    View more
+                  </A>
+                </Spacer>
+              )}
           </div>
         </Card>
       </Spacer>
