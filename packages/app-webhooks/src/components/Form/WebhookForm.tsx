@@ -21,20 +21,12 @@ import { EventSelector } from '#components/Form/EventSelector'
 import { appRoutes } from '#data/routes'
 import { parseApiError } from '#utils/apiErrors'
 
-const selectValueSchema = {
-  label: zod.string().min(1),
-  value: zod.string().min(1)
-}
-
 const includeResourcesRegExp = /^[a-z][a-z_.]*[a-z](,[a-z][a-z_.]*[a-z])*$|^$/
 
 const webhookFormSchema = zod
   .object({
     name: zod.string().min(1, { message: `Name can't be blank` }),
-    topic: zod.object(selectValueSchema, {
-      required_error: `Topic can't be blank`,
-      invalid_type_error: `Topic can't be blank`
-    }),
+    topic: zod.string().min(1, { message: `Topic can't be blank` }),
     callback_url: zod
       .string()
       .min(1, { message: `Callback URL can't be blank` })
@@ -58,15 +50,6 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
 
   const formAction = webhookData !== undefined ? 'update' : 'create'
 
-  /* eslint-disable @typescript-eslint/naming-convention */
-  const topicValue =
-    webhookData !== undefined
-      ? {
-          label: webhookData?.topic ?? '',
-          value: webhookData?.topic ?? ''
-        }
-      : undefined
-
   const includeResourcesValue =
     webhookData?.include_resources != null
       ? webhookData?.include_resources.join(',')
@@ -74,7 +57,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
 
   const defaultValues = {
     name: webhookData?.name ?? '',
-    topic: topicValue,
+    topic: webhookData?.topic ?? '',
     callback_url: webhookData?.callback_url ?? '',
     include_resources: includeResourcesValue
   }
@@ -108,7 +91,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
       const payload = {
         id: webhookData?.id as string,
         name: values.name,
-        topic: values.topic?.value,
+        topic: values.topic,
         callback_url: values.callback_url,
         include_resources: values.include_resources.split(',')
       }
