@@ -9,36 +9,38 @@
     ],
     "types": [
       "vitest/globals",
-      "@testing-library/jest-dom"
+      "vite/client"
     ],
     "allowJs": false,
     "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "noEmit": true,
-    "esModuleInterop": false,
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "noEmit": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "verbatimModuleSyntax": true,
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
       "#components/*": [
         "src/components/*"
       ],
-      "#pages/*": [
-        "src/pages/*"
-      ],
       "#data/*": [
         "src/data/*"
       ],
+      "#pages/*": [
+        "src/pages/*"
+      ],
       "#utils/*": [
         "src/utils/*"
-      ],
-    },
-    "incremental": true
+      ]
+    }
   },
   "include": [
     "global.d.ts",
@@ -48,12 +50,11 @@
     "*.config.cjs",
     ".eslintrc.cjs",
     "@typing/**/*.d.ts",
-    "public/config*.js"
+    "public/*.js"
   ],
   "references": [
     {
       "path": "./tsconfig.node.json"
     }
-  ],
-  "compileOnSave": false
+  ]
 }
