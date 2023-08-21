@@ -13,10 +13,12 @@ export function WebhookDetails(): JSX.Element | null {
   return (
     <ListDetails title='Details'>
       {data.topic != null ? (
-        <ListDetailsItem label='Topic'>{data.topic}</ListDetailsItem>
+        <ListDetailsItem label='Topic' childrenAlign='right'>
+          {data.topic}
+        </ListDetailsItem>
       ) : null}
       {data.include_resources != null && data.include_resources.length > 0 ? (
-        <ListDetailsItem label='Includes'>
+        <ListDetailsItem label='Includes' childrenAlign='right'>
           {data.include_resources.join(', ')}
         </ListDetailsItem>
       ) : null}
