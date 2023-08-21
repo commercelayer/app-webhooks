@@ -33,14 +33,10 @@ export function WebhookCircuit(): JSX.Element | null {
   const [_, setLocation] = useLocation()
   const webhookPreviewEventCallbacks = data.last_event_callbacks?.slice(0, 5)
   const isCircuitOpen = data.circuit_state === 'open'
-  const lastFiredDate =
-    data.last_event_callbacks?.slice(0, 1)[0].created_at ?? false
+  const lastFiredDate = data.last_event_callbacks?.[0]?.created_at ?? ''
   const lastFired =
     Boolean(lastFiredDate) &&
-    formatDistanceInWords(
-      data.last_event_callbacks?.slice(0, 1)[0].created_at ?? '',
-      user?.timezone
-    )
+    formatDistanceInWords(lastFiredDate, user?.timezone)
 
   const buttonStyle = {
     alignSelf: 'baseline'
