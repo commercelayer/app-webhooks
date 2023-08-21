@@ -1,4 +1,4 @@
-import { InputReadonly, ListDetails } from '@commercelayer/app-elements'
+import { InputReadonly } from '@commercelayer/app-elements'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookCallbackURL(): JSX.Element | null {
@@ -11,8 +11,9 @@ export function WebhookCallbackURL(): JSX.Element | null {
   }
 
   return (
-    <ListDetails title='Callback URL'>
+    <>
+      <h2 className='text-lg font-semibold mb-4'>Callback URL</h2>
       <InputReadonly value={data.callback_url} showCopyAction />
-    </ListDetails>
+    </>
   )
 }

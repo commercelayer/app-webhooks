@@ -1,4 +1,4 @@
-import { A, InputReadonly, ListDetails } from '@commercelayer/app-elements'
+import { A, InputReadonly } from '@commercelayer/app-elements'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookSecret(): JSX.Element | null {
@@ -11,7 +11,8 @@ export function WebhookSecret(): JSX.Element | null {
   }
 
   return (
-    <ListDetails title='Shared secret'>
+    <>
+      <h2 className='text-lg font-semibold mb-4'>Shared secret</h2>
       <InputReadonly
         value={data.shared_secret}
         showCopyAction
@@ -30,6 +31,6 @@ export function WebhookSecret(): JSX.Element | null {
           )
         }}
       />
-    </ListDetails>
+    </>
   )
 }
