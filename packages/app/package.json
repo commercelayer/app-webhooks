@@ -1,5 +1,5 @@
 {
-  "name": "app-webhooks",
+  "name": "app",
   "description": "A Commerce Layer Single Page Application to manage webhooks with a nice GUI.",
   "version": "1.0.8",
   "private": true,
