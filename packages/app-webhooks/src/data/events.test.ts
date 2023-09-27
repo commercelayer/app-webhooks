@@ -9,6 +9,7 @@ describe('getEventsByResourceType', () => {
       'activate',
       'deactivate',
       'redeem',
+      'tagged',
       'destroy'
     ])
   })
