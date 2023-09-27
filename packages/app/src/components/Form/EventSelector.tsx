@@ -1,5 +1,5 @@
 import { getAllEventsForSelect } from '#data/events'
-import { InputSelect } from '@commercelayer/app-elements-hook-form'
+import { HookedInputSelect } from '@commercelayer/app-elements'
 import type { HintProps } from '@commercelayer/app-elements/dist/ui/atoms/Hint'
 
 interface Props {
@@ -11,7 +11,7 @@ export function EventSelector({ name, hintText }: Props): JSX.Element | null {
   const events = getAllEventsForSelect()
 
   return (
-    <InputSelect
+    <HookedInputSelect
       name={name}
       initialValues={events}
       isClearable

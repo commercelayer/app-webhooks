@@ -1,22 +1,22 @@
-import { appRoutes } from '#data/routes'
-import { Link, useRoute, useLocation } from 'wouter'
+import { EventCallbacksListItems } from '#components/Common/EventCallbacksListItems'
 import { ListEventCallbackProvider } from '#components/EventCallbacks/Provider'
+import { appRoutes } from '#data/routes'
 import {
-  useCoreSdkProvider,
-  useTokenProvider,
   Button,
   EmptyState,
   List,
   PageLayout,
-  PageSkeleton
+  PageSkeleton,
+  useCoreSdkProvider,
+  useTokenProvider
 } from '@commercelayer/app-elements'
-import { EventCallbacksListItems } from '#components/Common/EventCallbacksListItems'
+import { Link, useLocation, useRoute } from 'wouter'
 
 function EventCallbacksPage(): JSX.Element {
   const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
-  const [_location, setLocation] = useLocation()
-  const [_match, params] = useRoute(appRoutes.webhookEventCallbacks.path)
+  const [, setLocation] = useLocation()
+  const [, params] = useRoute(appRoutes.webhookEventCallbacks.path)
 
   const webhookId = params == null ? null : params.webhookId
 

@@ -1,15 +1,14 @@
+import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
+import { formatDateAndTime } from '#utils/formatDateAndTime'
 import {
-  useTokenProvider,
-  downloadJsonAsFile,
-  A,
   Badge,
   ListItem,
+  Spacer,
   Text,
-  Spacer
+  downloadJsonAsFile,
+  useTokenProvider
 } from '@commercelayer/app-elements'
 import type { EventCallback } from '@commercelayer/sdk'
-import { formatDateAndTime } from '#utils/formatDateAndTime'
-import { eventCallbackStatusVariant } from '#utils/eventCallbackStatusVariant'
 import { ArrowCircleDown } from 'phosphor-react'
 
 interface Props {
@@ -50,7 +49,7 @@ export function EventCallbacksListItems({
           </Text>
         </div>
         <div>
-          <A
+          <a
             onClick={() => {
               downloadJsonAsFile({
                 json: event.payload ?? undefined,
@@ -59,7 +58,7 @@ export function EventCallbacksListItems({
             }}
           >
             <ArrowCircleDown size={22} />
-          </A>
+          </a>
         </div>
       </ListItem>
     )

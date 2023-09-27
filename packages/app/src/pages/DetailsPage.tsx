@@ -1,29 +1,29 @@
 import { WebhookDetailsProvider } from '#components/Details/Provider'
-import { ErrorNotFound } from '#components/ErrorNotFound'
-import { appRoutes } from '#data/routes'
-import {
-  useTokenProvider,
-  useCoreSdkProvider,
-  Button,
-  EmptyState,
-  PageSkeleton,
-  PageLayout,
-  Spacer,
-  ContextMenu,
-  DropdownMenuItem,
-  DropdownMenuDivider
-} from '@commercelayer/app-elements'
-import { Link, useLocation, useRoute } from 'wouter'
 import { WebhookCallbackURL } from '#components/Details/WebhookCallbackURL'
 import { WebhookCircuit } from '#components/Details/WebhookCircuit'
 import { WebhookDetails } from '#components/Details/WebhookDetails'
 import { WebhookSecret } from '#components/Details/WebhookSecret'
+import { ErrorNotFound } from '#components/ErrorNotFound'
+import { appRoutes } from '#data/routes'
+import {
+  Button,
+  ContextMenu,
+  DropdownMenuDivider,
+  DropdownMenuItem,
+  EmptyState,
+  PageLayout,
+  PageSkeleton,
+  Spacer,
+  useCoreSdkProvider,
+  useTokenProvider
+} from '@commercelayer/app-elements'
+import { Link, useLocation, useRoute } from 'wouter'
 
 const DetailsPage = (): JSX.Element | null => {
   const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
-  const [_match, params] = useRoute(appRoutes.details.path)
-  const [_, setLocation] = useLocation()
+  const [, params] = useRoute(appRoutes.details.path)
+  const [, setLocation] = useLocation()
 
   const webhookId = params == null ? null : params.webhookId
 

@@ -1,22 +1,22 @@
 import { WebhookDeleteProvider } from '#components/Delete/Provider'
+import { WebhookRemoval } from '#components/Delete/WebhookRemoval'
 import { ErrorNotFound } from '#components/ErrorNotFound'
 import { appRoutes } from '#data/routes'
 import {
-  useTokenProvider,
-  useCoreSdkProvider,
   Button,
   EmptyState,
+  PageLayout,
   PageSkeleton,
-  PageLayout
+  useCoreSdkProvider,
+  useTokenProvider
 } from '@commercelayer/app-elements'
 import { Link, useLocation, useRoute } from 'wouter'
-import { WebhookRemoval } from '#components/Delete/WebhookRemoval'
 
 const DeleteWebhookPage = (): JSX.Element | null => {
   const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
-  const [_match, params] = useRoute(appRoutes.deleteWebhook.path)
-  const [_, setLocation] = useLocation()
+  const [, params] = useRoute(appRoutes.deleteWebhook.path)
+  const [, setLocation] = useLocation()
 
   const webhookId = params == null ? null : params.webhookId
 

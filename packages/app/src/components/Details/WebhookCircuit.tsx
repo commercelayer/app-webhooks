@@ -1,18 +1,17 @@
-import { appRoutes } from '#data/routes'
-import { useLocation } from 'wouter'
 import { EventCallbacksListItems } from '#components/Common/EventCallbacksListItems'
+import { appRoutes } from '#data/routes'
+import { formatDistanceInWords } from '#utils/formatDistanceInWords'
 import {
-  useTokenProvider,
-  A,
   Badge,
   Button,
   Card,
+  List,
   ListDetails,
   Spacer,
   Text,
-  List
+  useTokenProvider
 } from '@commercelayer/app-elements'
-import { formatDistanceInWords } from '#utils/formatDistanceInWords'
+import { useLocation } from 'wouter'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookCircuit(): JSX.Element | null {
@@ -30,15 +29,15 @@ export function WebhookCircuit(): JSX.Element | null {
     return null
   }
 
-  const [_, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
   const webhookPreviewEventCallbacks = data.last_event_callbacks?.slice(0, 5)
   const isCircuitOpen = data.circuit_state === 'open'
   const lastFiredDate =
-    data.last_event_callbacks?.slice(0, 1)[0].created_at ?? false
+    data.last_event_callbacks?.slice(0, 1)?.[0]?.created_at ?? false
   const lastFired =
     Boolean(lastFiredDate) &&
     formatDistanceInWords(
-      data.last_event_callbacks?.slice(0, 1)[0].created_at ?? '',
+      data.last_event_callbacks?.slice(0, 1)?.[0]?.created_at ?? '',
       user?.timezone
     )
 
@@ -98,7 +97,7 @@ export function WebhookCircuit(): JSX.Element | null {
             {data.last_event_callbacks != null &&
               data.last_event_callbacks.length > 5 && (
                 <Spacer top='4'>
-                  <A
+                  <a
                     onClick={() => {
                       setLocation(
                         appRoutes.webhookEventCallbacks.makePath(data.id)
@@ -106,7 +105,7 @@ export function WebhookCircuit(): JSX.Element | null {
                     }}
                   >
                     View more
-                  </A>
+                  </a>
                 </Spacer>
               )}
           </div>

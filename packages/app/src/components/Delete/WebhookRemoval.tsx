@@ -1,16 +1,16 @@
-import { Button, ListDetails, Spacer, Text } from '@commercelayer/app-elements'
 import { appRoutes } from '#data/routes'
-import { useWebhookDeleteContext } from './Provider'
+import { Button, ListDetails, Spacer, Text } from '@commercelayer/app-elements'
 import { useLocation } from 'wouter'
+import { useWebhookDeleteContext } from './Provider'
 
 export function WebhookRemoval(): JSX.Element | null {
   const {
     state: { data },
     deleteWebhook
   } = useWebhookDeleteContext()
-  const [_, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
 
-  if (data == null || data.shared_secret == null) {
+  if (data?.shared_secret == null) {
     return null
   }
 

@@ -1,4 +1,4 @@
-import { A, InputReadonly, ListDetails } from '@commercelayer/app-elements'
+import { InputReadonly, ListDetails } from '@commercelayer/app-elements'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookSecret(): JSX.Element | null {
@@ -6,7 +6,7 @@ export function WebhookSecret(): JSX.Element | null {
     state: { data }
   } = useWebhookDetailsContext()
 
-  if (data == null || data.shared_secret == null) {
+  if (data?.shared_secret == null) {
     return null
   }
 
@@ -19,12 +19,13 @@ export function WebhookSecret(): JSX.Element | null {
           text: (
             <>
               Used to sign the payload. Learn how to{' '}
-              <A
+              <a
                 href='https://docs.commercelayer.io/core/callbacks-security'
                 target='_blank'
+                rel='noreferrer'
               >
                 verify the callback authenticity
-              </A>
+              </a>
               .
             </>
           )

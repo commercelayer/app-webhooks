@@ -6,7 +6,7 @@ export function WebhookCallbackURL(): JSX.Element | null {
     state: { data }
   } = useWebhookDetailsContext()
 
-  if (data == null || data.callback_url == null) {
+  if (data?.callback_url == null) {
     return null
   }
 

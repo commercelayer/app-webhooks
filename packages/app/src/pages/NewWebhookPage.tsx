@@ -1,20 +1,19 @@
+import WebhookForm from '#components/Form/WebhookForm'
 import { appRoutes } from '#data/routes'
 import {
-  useCoreSdkProvider,
   Button,
   EmptyState,
-  PageSkeleton,
   PageLayout,
+  PageSkeleton,
+  useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/app-elements'
-import { Link, useLocation, useRoute } from 'wouter'
-import WebhookForm from '#components/Form/WebhookForm'
+import { Link, useLocation } from 'wouter'
 
 const NewWebhookPage = (): JSX.Element | null => {
   const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
-  const [_match] = useRoute(appRoutes.newWebhook.path)
-  const [_location, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
 
   if (sdkClient == null) {
     return <PageSkeleton hasHeaderDescription />

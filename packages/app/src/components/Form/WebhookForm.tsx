@@ -1,25 +1,22 @@
 import {
-  useCoreSdkProvider,
-  A,
-  Spacer,
   Button,
-  InputFeedback
+  HookedForm,
+  HookedInput,
+  InputFeedback,
+  Spacer,
+  useCoreSdkProvider
 } from '@commercelayer/app-elements'
-import {
-  Input,
-  Form as FormProvider
-} from '@commercelayer/app-elements-hook-form'
 import type { Webhook } from '@commercelayer/sdk'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useLocation } from 'wouter'
 import zod from 'zod'
 
-import type { ApiError } from 'App'
 import { EventSelector } from '#components/Form/EventSelector'
 import { appRoutes } from '#data/routes'
 import { parseApiError } from '#utils/apiErrors'
+import type { ApiError } from 'App'
 
 const includeResourcesRegExp = /^[a-z][a-z_.]*[a-z](,[a-z][a-z_.]*[a-z])*$|^$/
 
@@ -46,7 +43,7 @@ interface Props {
 const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
   const { sdkClient } = useCoreSdkProvider()
   const [apiError, setApiError] = useState<ApiError[] | undefined>(undefined)
-  const [_location, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
 
   const formAction = webhookData !== undefined ? 'update' : 'create'
 
@@ -104,14 +101,14 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
   }
 
   return (
-    <FormProvider
+    <HookedForm
       {...methods}
       onSubmit={(values) => {
         void submitWebhookTask(values)
       }}
     >
       <Spacer bottom='6'>
-        <Input
+        <HookedInput
           label='Name'
           name='name'
           hint={{
@@ -126,12 +123,12 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
           hintText={
             <>
               The resource/event that will trigger the webhook.{' '}
-              <A
+              <a
                 href='https://docs.commercelayer.io/core/real-time-webhooks#supported-events'
                 target='blank'
               >
                 Browse supported events
-              </A>
+              </a>
               .
             </>
           }
@@ -139,7 +136,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
       </Spacer>
 
       <Spacer bottom='6'>
-        <Input
+        <HookedInput
           label='Callback URL'
           name='callback_url'
           hint={{ text: 'The URL invoked by the webhook.' }}
@@ -147,7 +144,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
       </Spacer>
 
       <Spacer bottom='6'>
-        <Input
+        <HookedInput
           label='Include'
           name='include_resources'
           hint={{
@@ -172,7 +169,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
           </div>
         ) : null}
       </Spacer>
-    </FormProvider>
+    </HookedForm>
   )
 }
 

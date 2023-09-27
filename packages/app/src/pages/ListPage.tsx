@@ -1,21 +1,20 @@
-import type { Webhook } from '@commercelayer/sdk'
-import { appRoutes } from '#data/routes'
-import { Link, useLocation } from 'wouter'
+import { DescriptionLine } from '#components/List/ItemDescriptionLine'
 import { ListWebhookProvider } from '#components/List/Provider'
+import { appRoutes } from '#data/routes'
 import {
-  A,
   Button,
+  EmptyState,
   Icon,
-  PageSkeleton,
-  PageLayout,
   List,
   ListItem,
-  EmptyState,
+  PageLayout,
+  PageSkeleton,
   Text,
   useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/app-elements'
-import { DescriptionLine } from '#components/List/ItemDescriptionLine'
+import type { Webhook } from '@commercelayer/sdk'
+import { Link, useLocation } from 'wouter'
 
 /**
  * Get the relative status based on webhook's circuit state {@link https://docs.commercelayer.io/core/v/api-reference/webhooks/object}
@@ -39,7 +38,7 @@ function ListPage(): JSX.Element {
   const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const { dashboardUrl } = useTokenProvider()
-  const [_location, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
 
   if (sdkClient == null) {
     return <PageSkeleton />
@@ -106,7 +105,7 @@ function ListPage(): JSX.Element {
               actionButton={
                 canUser('create', 'webhooks') ? (
                   <Link href={appRoutes.newWebhook.makePath()}>
-                    <A>New webhook</A>
+                    <a>New webhook</a>
                   </Link>
                 ) : undefined
               }

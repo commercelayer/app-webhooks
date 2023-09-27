@@ -1,15 +1,15 @@
 import { appRoutes } from '#data/routes'
 import {
-  useTokenProvider,
   Button,
   EmptyState,
-  PageLayout
+  PageLayout,
+  useTokenProvider
 } from '@commercelayer/app-elements'
 import { Link, useLocation } from 'wouter'
 
 export function ErrorNotFound(): JSX.Element {
   const { settings } = useTokenProvider()
-  const [_, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
 
   return (
     <PageLayout
