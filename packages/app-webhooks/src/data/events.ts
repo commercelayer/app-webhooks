@@ -2,9 +2,12 @@ import type { SelectValue } from '@commercelayer/app-elements'
 import type { ResourceWithEvent } from 'App'
 
 export const webhookEvents: Record<ResourceWithEvent, string[]> = {
+  addresses: ['tagged'],
   authorizations: ['create'],
+  bundles: ['tagged'],
   captures: ['create'],
   cleanups: ['create', 'start', 'complete', 'interrupt', 'destroy'],
+  coupons: ['tagged'],
   customer_addresses: ['create', 'destroy'],
   customer_password_resets: ['create', 'destroy', 'reset_password'],
   customer_subscriptions: ['create', 'destroy'],
@@ -14,20 +17,22 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'repeat',
     'create_password',
     'metadata_update',
+    'tagged',
     'destroy'
   ],
   exports: ['create', 'start', 'complete', 'interrupt', 'destroy'],
-  external_promotions: ['create', 'destroy'],
-  fixed_amount_promotions: ['create', 'destroy'],
-  fixed_price_promotions: ['create', 'destroy'],
-  free_gift_promotions: ['create', 'destroy'],
-  free_shipping_promotions: ['create', 'destroy'],
+  external_promotions: ['create', 'destroy', 'tagged'],
+  fixed_amount_promotions: ['create', 'destroy', 'tagged'],
+  fixed_price_promotions: ['create', 'destroy', 'tagged'],
+  free_gift_promotions: ['create', 'destroy', 'tagged'],
+  free_shipping_promotions: ['create', 'destroy', 'tagged'],
   gift_cards: [
     'create',
     'purchase',
     'activate',
     'deactivate',
     'redeem',
+    'tagged',
     'destroy'
   ],
   imports: ['create', 'start', 'complete', 'interrupt', 'destroy'],
@@ -38,14 +43,29 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'notify',
     'destroy'
   ],
+  line_items: ['tagged'],
+  line_item_options: ['tagged'],
   orders: [
     'create',
     'draft',
     'pending',
     'place',
+    'start_editing',
+    'stop_editing',
     'approve',
     'cancel',
-    'authorize'
+    'authorize',
+    'void',
+    'pay',
+    'refund',
+    'start_fulfilling',
+    'cancel_fulfilling',
+    'fulfill',
+    'rebuild_shipments',
+    'create_subscriptions',
+    'cancel_subscriptions',
+    'tagged',
+    'destroy'
   ],
   order_copies: ['create', 'start', 'fail', 'complete', 'destroy'],
   order_subscriptions: [
@@ -69,8 +89,10 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'failure',
     'destroy'
   ],
-  percentage_discount_promotions: ['create', 'destroy'],
+  percentage_discount_promotions: ['create', 'destroy', 'tagged'],
+  price_frequency_tiers: ['create', 'destroy'],
   price_volume_tiers: ['create', 'destroy'],
+  recurring_order_copies: ['create', 'destroy', 'start', 'fail', 'complete'],
   refunds: ['create'],
   returns: [
     'create',
@@ -81,6 +103,7 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'ship',
     'receive',
     'restock',
+    'tagged',
     'destroy'
   ],
   shipments: [
@@ -93,6 +116,8 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'ship'
   ],
   shipping_weight_tiers: ['create', 'destroy'],
+  skus: ['tagged'],
+  sku_options: ['tagged'],
   stock_transfers: [
     'create',
     'upcoming',
