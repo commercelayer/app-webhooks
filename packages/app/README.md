@@ -1,54 +1,66 @@
-# Commerce Layer App Webhooks
+# App Orders
 
-The Commerce Layer webhooks application (React) provides you with a simple GUI to handle [webhooks](https://docs.commercelayer.io/core/real-time-webhooks).
+Commerce Layer application for managing webhooks. 
 
-<img width="565" alt="Webhooks" src="https://user-images.githubusercontent.com/105653649/220582409-2854c350-d977-4787-8514-e70b58af0a16.png">
+Any Commerce Layer account comes with a hosted version of this application, as part of the Dashboard hub, and it is automatically enabled for admin users.
+An admin can then enable the app for other organization members giving each member full or read-only access.
 
-## What is Commerce Layer?
-
-[Commerce Layer](https://commercelayer.io) is a multi-market commerce API and order management system that lets you add global shopping capabilities to any website, mobile app, chatbot, wearable, voice, or IoT device, with ease. Compose your stack with the best-of-breed tools you already mastered and love. Make any experience shoppable, anywhere, through a blazing-fast, enterprise-grade, and secure API.
+It's possible to fork this app and add it to your Dashboard hub, in order to customize every part of the code and start using your own and self-hosted version.
 
 ## Table of contents
 
 - [Getting started](#getting-started)
-- [Environments](#environments)
+- [Running on Windows](#running-on-windows)
 - [Help and support](#need-help)
 - [License](#license)
 
----
 
 ## Getting started
+You need a local Node.JS (version 18+) environment and some React.JS knowledge to customize the app code.
 
-1. First, install dependencies and run the development server:
+1. Fork [this repository](https://github.com/commercelayer/app-webhooks) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
+
+2. Clone the forked repository like so:
+
+```bash
+git clone https://github.com/<your username>/app-webhooks.git && cd app-webhooks
+```
+
+3. Set your environment by creating a new `/src/app/.env.local` file starting from `/src/app/.env.local.sample` (not required for local development)
+
+
+4. Install dependencies and run the development server:
 
 ```
 pnpm install
 pnpm dev
 ```
 
-2. Set your environment with `.env.local` starting from `.env.local.sample`.
+5. The app will run in development mode at the following address `http://localhost:5173/`. 
+In order to authenticate the app, you need to add an integration access token as URL query param. Example: `http://localhost:5173/?accessToken=<integration-token-for-local-dev>`.
+Integration access token is only required (and will work only) for development mode. In production mode the Commerce Layer Dashboard hub will generate a valid access token, based on the current user.
 
-3. Configure your `/public/config.local.js` with the runtime configuration required
+6. Modify the app to satisfy your requirements. 
+All our Dashboard apps are built using a shared component library [@commercelayer/app-elements](https://github.com/commercelayer/app-elements).
+You can browse the [official documentation](https://github.com/commercelayer/app-elements) to discover more about this topic.
 
-4. Open [http://localhost:5173](http://localhost:5173) with your browser to see the result. You can use the following format to open the app: `http://localhost:5173/webhooks?accessToken=<your-access-token>`
+7. Deploy the forked repository to your preferred hosting service. You can deploy with one click below:
 
-## Environments
+[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="35">](https://app.netlify.com/start/deploy?repository=https://github.com/commercelayer/app-webhooks#PUBLIC_SELF_HOSTED_SLUG) [<img src="https://vercel.com/button" alt="Deploy to Vercel" height="35">](https://vercel.com/new/clone?repository-url=https://github.com/commercelayer/app-webhooks&build-command=pnpm%20build&output-directory=packages%2Fapp%2Fdist&env=PUBLIC_SELF_HOSTED_SLUG&envDescription=your%20organization%20slug) 
 
-Configure environment variables in your `.env`, `.env.local` or `.env.production` file as followings:
+8. Complete the configuration in the Dashboard hub by setting your app URL.
 
-| Var name            | Sample vaule | Description                                                                                                                                                                                                                                                          |
-| ------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PUBLIC_TOKEN_KIND   | integration  | (Optional) Defines the kind of token to be used and validated. <br />Possible values: `integration` or `webapp`. <br />Default value is `webapp`.                                                                                                                    |
-| PUBLIC_PROJECT_PATH | webhooks      | (Optional) Defines the base root path where the app will be served.<br/> `https://<slug>.commercelayer.app/<PUBLIC_PROJECT_PATH>`<br /> It's used at build time to reference assets folder and at runtime as base router path. <br />No leading or trailing slashes. |
+## Running on Windows
+[Read more](https://github.com/commercelayer/.github/blob/main/PNPM_ON_WINDOWS.md)
 
 ## Need help?
 
 1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
 
-2. Create an [issue](https://github.com/commercelayer/app-webhooks/issues) in this repository.
+2. Create an [issue](https://github.com/commercelayer/mfe-cart/issues) in this repository.
 
 3. Ping us [on Twitter](https://twitter.com/commercelayer).
 
 ## License
 
-This repository is published under the [MIT](LICENSE) license.
+This repository is published under the [MIT](LICENSE) license
