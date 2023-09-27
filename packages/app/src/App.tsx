@@ -1,18 +1,19 @@
 import { ErrorNotFound } from '#components/ErrorNotFound'
 import { appRoutes } from '#data/routes'
-import { Router, Route, Switch } from 'wouter'
-import ListPage from '#pages/ListPage'
-import {
-  PageSkeleton,
-  TokenProvider,
-  CoreSdkProvider,
-  ErrorBoundary
-} from '@commercelayer/app-elements'
-import DetailsPage from '#pages/DetailsPage'
-import NewWebhookPage from '#pages/NewWebhookPage'
-import EventCallbacksPage from '#pages/EventCallbacksPage'
-import EditWebhookPage from '#pages/EditWebhookPage'
 import DeleteWebhookPage from '#pages/DeleteWebhookPage'
+import DetailsPage from '#pages/DetailsPage'
+import EditWebhookPage from '#pages/EditWebhookPage'
+import EventCallbacksPage from '#pages/EventCallbacksPage'
+import ListPage from '#pages/ListPage'
+import NewWebhookPage from '#pages/NewWebhookPage'
+import {
+  CoreSdkProvider,
+  ErrorBoundary,
+  MetaTags,
+  PageSkeleton,
+  TokenProvider
+} from '@commercelayer/app-elements'
+import { Route, Router, Switch } from 'wouter'
 
 const isDev = Boolean(import.meta.env.DEV)
 
@@ -32,6 +33,7 @@ function App(): JSX.Element {
         loadingElement={<PageSkeleton />}
         devMode={isDev}
       >
+        <MetaTags />
         <CoreSdkProvider>
           <Router base={basePath}>
             <Switch>
