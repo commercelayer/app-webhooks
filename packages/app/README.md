@@ -38,7 +38,7 @@ pnpm dev
 
 5. The app will run in development mode at the following address `http://localhost:5173/`. 
 In order to authenticate the app, you need to add an integration access token as URL query param. Example: `http://localhost:5173/?accessToken=<integration-token-for-local-dev>`.
-Integration access token is only required (and will work only) for development mode. In production mode the Commerce Layer Dashboard hub will generate a valid access token, based on the current user.
+That access token is only required (and will work only) for development mode. In production mode the Commerce Layer Dashboard hub will generate a valid access token, based on the current user.
 
 6. Modify the app to satisfy your requirements. 
 All our Dashboard apps are built using a shared component library [@commercelayer/app-elements](https://github.com/commercelayer/app-elements).
