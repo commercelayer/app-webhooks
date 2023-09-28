@@ -57,7 +57,7 @@ You can browse the [official documentation](https://github.com/commercelayer/app
 
 1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
 
-2. Create an [issue](https://github.com/commercelayer/mfe-cart/issues) in this repository.
+2. Create an [issue](https://github.com/commercelayer/app-webhooks/issues) in this repository.
 
 3. Ping us [on Twitter](https://twitter.com/commercelayer).
 
