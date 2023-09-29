@@ -4,17 +4,19 @@
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -r dev",
     "build": "pnpm -r build",
-    "preview": "pnpm -r preview",
+    "preview:react": "pnpm -r preview",
     "lint": "pnpm -r lint",
     "lint:fix": "pnpm -r lint:fix",
     "test": "pnpm -r test",
-    "test:watch": "pnpm -r test:watch"
+    "ts:check": "pnpm -r ts:check",
+    "test:watch": "pnpm -r test:watch",
+    "dep:upgrade:major": "pnpm -r exec npm-check-updates -u",
+    "dep:upgrade:minor": "pnpm dep:upgrade:major -t minor",
+    "dep:self-upgrade:major": "pnpm exec npm-check-updates -u",
+    "dep:self-upgrade:minor": "pnpm dep:self-upgrade:major -t minor",
+    "prepare": "husky install"
   },
   "keywords": [],
-  "author": {
-    "name": "Pier Francesco Ferrari",
-    "email": "pierfrancesco@commercelayer.io"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/commercelayer/app-webhooks.git"
@@ -28,6 +30,9 @@
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^6.1.0"
+    "husky": "^8.0.3",
+    "lerna": "^7.2.0",
+    "lint-staged": "^14.0.1",
+    "npm-check-updates": "^16.13.3"
   }
 }
