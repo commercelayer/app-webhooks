@@ -48,16 +48,14 @@ export function WebhookCircuit(): JSX.Element | null {
   return (
     <ListDetails>
       <Spacer bottom='4'>
-        <Card>
+        <Card overflow='visible'>
           <div className='flex justify-between'>
             <div>
               <Spacer bottom='2'>
                 <div className='flex gap-2'>
                   <Text weight='bold'>Circuit {data.circuit_state}</Text>
-                  {isCircuitOpen && <Badge variant='danger' label='failed' />}
-                  {!isCircuitOpen && (
-                    <Badge variant='success' label='enabled' />
-                  )}
+                  {isCircuitOpen && <Badge variant='danger'>failed</Badge>}
+                  {!isCircuitOpen && <Badge variant='success'>enabled</Badge>}
                 </div>
               </Spacer>
               {isCircuitOpen && (

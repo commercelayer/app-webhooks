@@ -1,5 +1,5 @@
-import type { SelectValue } from '@commercelayer/app-elements'
 import type { ResourceEventKey } from '#data/events'
+import type { InputSelectValue } from '@commercelayer/app-elements'
 import type { ResourceWithRelationship } from 'App'
 
 export const webhookRelationships: Record<ResourceWithRelationship, string[]> =
@@ -67,8 +67,8 @@ export type ResourceRelationshipKey = (typeof allDottedRelationships)[number]
 
 export function getAllRelationshipsForSelect(
   parentResource?: ResourceEventKey
-): SelectValue[] {
-  const allRelationshipsForSelect: SelectValue[] = []
+): InputSelectValue[] {
+  const allRelationshipsForSelect: InputSelectValue[] = []
   const dottedRelationships = getDottedIncludeRelationships(parentResource)
   dottedRelationships.forEach((rel) => {
     allRelationshipsForSelect.push({

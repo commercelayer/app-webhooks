@@ -36,10 +36,9 @@ export function EventCallbacksListItems({
       <ListItem key={key} alignItems='center' tag='div'>
         <div className='flex gap-1 items-center'>
           <Spacer right='2'>
-            <Badge
-              variant={eventCallbackStatusVariantVariant}
-              label={event.response_code ?? ''}
-            />
+            <Badge variant={eventCallbackStatusVariantVariant}>
+              {event.response_code ?? ''}
+            </Badge>
           </Spacer>
           <Text weight='bold' size='small'>
             {event.response_message}

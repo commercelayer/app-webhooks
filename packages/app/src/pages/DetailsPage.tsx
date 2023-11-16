@@ -7,12 +7,13 @@ import { ErrorNotFound } from '#components/ErrorNotFound'
 import { appRoutes } from '#data/routes'
 import {
   Button,
-  ContextMenu,
-  DropdownMenuDivider,
-  DropdownMenuItem,
+  Dropdown,
+  DropdownDivider,
+  DropdownItem,
   EmptyState,
   PageLayout,
   PageSkeleton,
+  Section,
   Spacer,
   useCoreSdkProvider,
   useTokenProvider
@@ -53,7 +54,7 @@ const DetailsPage = (): JSX.Element | null => {
   }
 
   const contextMenuEdit = canUser('update', 'webhooks') && (
-    <DropdownMenuItem
+    <DropdownItem
       label='Edit'
       onClick={() => {
         setLocation(appRoutes.editWebhook.makePath(webhookId))
@@ -62,10 +63,10 @@ const DetailsPage = (): JSX.Element | null => {
   )
 
   const contextMenuDivider = canUser('update', 'webhooks') &&
-    canUser('destroy', 'webhooks') && <DropdownMenuDivider />
+    canUser('destroy', 'webhooks') && <DropdownDivider />
 
   const contextMenuDelete = canUser('destroy', 'webhooks') && (
-    <DropdownMenuItem
+    <DropdownItem
       label='Delete'
       onClick={() => {
         setLocation(appRoutes.deleteWebhook.makePath(webhookId))
@@ -74,8 +75,8 @@ const DetailsPage = (): JSX.Element | null => {
   )
 
   const contextMenu = (
-    <ContextMenu
-      menuItems={
+    <Dropdown
+      dropdownItems={
         <>
           {contextMenuEdit}
           {contextMenuDivider}
@@ -112,12 +113,14 @@ const DetailsPage = (): JSX.Element | null => {
             <Spacer bottom='12'>
               <WebhookDetails />
             </Spacer>
-            <Spacer bottom='12'>
-              <WebhookCallbackURL />
-            </Spacer>
-            <Spacer bottom='12'>
-              <WebhookSecret />
-            </Spacer>
+            <Section title='Callback'>
+              <Spacer top='6' bottom='10'>
+                <WebhookCallbackURL />
+              </Spacer>
+              <Spacer bottom='12'>
+                <WebhookSecret />
+              </Spacer>
+            </Section>
           </PageLayout>
         )
       }}
