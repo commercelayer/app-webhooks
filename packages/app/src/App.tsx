@@ -9,6 +9,7 @@ import NewWebhookPage from '#pages/NewWebhookPage'
 import {
   CoreSdkProvider,
   ErrorBoundary,
+  GTMProvider,
   MetaTags,
   PageSkeleton,
   TokenProvider
@@ -34,34 +35,36 @@ function App(): JSX.Element {
         loadingElement={<PageSkeleton />}
         organizationSlug={import.meta.env.PUBLIC_SELF_HOSTED_SLUG}
       >
-        <MetaTags />
-        <CoreSdkProvider>
-          <Router base={basePath}>
-            <Switch>
-              <Route path={appRoutes.list.path}>
-                <ListPage />
-              </Route>
-              <Route path={appRoutes.newWebhook.path}>
-                <NewWebhookPage />
-              </Route>
-              <Route path={appRoutes.editWebhook.path}>
-                <EditWebhookPage />
-              </Route>
-              <Route path={appRoutes.deleteWebhook.path}>
-                <DeleteWebhookPage />
-              </Route>
-              <Route path={appRoutes.webhookEventCallbacks.path}>
-                <EventCallbacksPage />
-              </Route>
-              <Route path={appRoutes.details.path}>
-                <DetailsPage />
-              </Route>
-              <Route>
-                <ErrorNotFound />
-              </Route>
-            </Switch>
-          </Router>
-        </CoreSdkProvider>
+        <GTMProvider gtmId={window.clAppConfig.gtmId}>
+          <MetaTags />
+          <CoreSdkProvider>
+            <Router base={basePath}>
+              <Switch>
+                <Route path={appRoutes.list.path}>
+                  <ListPage />
+                </Route>
+                <Route path={appRoutes.newWebhook.path}>
+                  <NewWebhookPage />
+                </Route>
+                <Route path={appRoutes.editWebhook.path}>
+                  <EditWebhookPage />
+                </Route>
+                <Route path={appRoutes.deleteWebhook.path}>
+                  <DeleteWebhookPage />
+                </Route>
+                <Route path={appRoutes.webhookEventCallbacks.path}>
+                  <EventCallbacksPage />
+                </Route>
+                <Route path={appRoutes.details.path}>
+                  <DetailsPage />
+                </Route>
+                <Route>
+                  <ErrorNotFound />
+                </Route>
+              </Switch>
+            </Router>
+          </CoreSdkProvider>
+        </GTMProvider>
       </TokenProvider>
     </ErrorBoundary>
   )

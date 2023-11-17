@@ -1,4 +1,4 @@
-import type { SelectValue } from '@commercelayer/app-elements'
+import type { InputSelectValue } from '@commercelayer/app-elements'
 import type { ResourceWithEvent } from 'App'
 
 export const webhookEvents: Record<ResourceWithEvent, string[]> = {
@@ -150,8 +150,8 @@ function getAllFlatEvents(): string[] {
 const allFlatEvents = getAllFlatEvents()
 export type ResourceEventKey = (typeof allFlatEvents)[number]
 
-export function getAllEventsForSelect(): SelectValue[] {
-  const allEventsForSelect: SelectValue[] = []
+export function getAllEventsForSelect(): InputSelectValue[] {
+  const allEventsForSelect: InputSelectValue[] = []
   allFlatEvents.forEach((event) => {
     allEventsForSelect.push({
       label: event,

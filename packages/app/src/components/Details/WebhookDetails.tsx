@@ -1,4 +1,4 @@
-import { ListDetailsItem, ListDetails } from '@commercelayer/app-elements'
+import { ListItem, Section, Text } from '@commercelayer/app-elements'
 import { useWebhookDetailsContext } from './Provider'
 
 export function WebhookDetails(): JSX.Element | null {
@@ -11,15 +11,19 @@ export function WebhookDetails(): JSX.Element | null {
   }
 
   return (
-    <ListDetails title='Details'>
+    <Section title='Info'>
       {data.topic != null ? (
-        <ListDetailsItem label='Topic'>{data.topic}</ListDetailsItem>
+        <ListItem tag='div'>
+          <Text variant='info'>Topic</Text>
+          <Text weight='bold'>{data.topic}</Text>
+        </ListItem>
       ) : null}
       {data.include_resources != null && data.include_resources.length > 0 ? (
-        <ListDetailsItem label='Includes'>
-          {data.include_resources.join(', ')}
-        </ListDetailsItem>
+        <ListItem tag='div'>
+          <Text variant='info'>Includes</Text>
+          <Text weight='bold'>{data.include_resources.join(', ')}</Text>
+        </ListItem>
       ) : null}
-    </ListDetails>
+    </Section>
   )
 }
