@@ -10,9 +10,10 @@ import {
   useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/app-elements'
+import type { FC } from 'react'
 import { Link, useLocation, useRoute } from 'wouter'
 
-const EditWebhookPage = (): JSX.Element | null => {
+export const WebhookEdit: FC = () => {
   const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const [, params] = useRoute(appRoutes.editWebhook.path)
@@ -67,5 +68,3 @@ const EditWebhookPage = (): JSX.Element | null => {
     </WebhookFormProvider>
   )
 }
-
-export default EditWebhookPage

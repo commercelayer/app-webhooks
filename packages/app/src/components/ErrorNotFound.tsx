@@ -5,9 +5,10 @@ import {
   PageLayout,
   useTokenProvider
 } from '@commercelayer/app-elements'
+import type { FC } from 'react'
 import { Link, useLocation } from 'wouter'
 
-export function ErrorNotFound(): JSX.Element {
+export const ErrorNotFound: FC = () => {
   const { settings } = useTokenProvider()
   const [, setLocation] = useLocation()
 
