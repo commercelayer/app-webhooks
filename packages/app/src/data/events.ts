@@ -113,7 +113,8 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'picking',
     'packing',
     'ready_to_ship',
-    'ship'
+    'ship',
+    'tagged'
   ],
   shipping_weight_tiers: ['create', 'destroy'],
   skus: ['tagged'],
