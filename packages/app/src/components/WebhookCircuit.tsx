@@ -12,31 +12,28 @@ interface WebhookCircuitProps {
 export const WebhookCircuit: FC<WebhookCircuitProps> = ({ webhook }) => {
   const [, setLocation] = useLocation()
 
-  const webhookPreviewEventCallbacks = webhook.last_event_callbacks?.slice(0, 5)
+  if (webhook.last_event_callbacks == null) return <></>
+
+  const webhookPreviewEventCallbacks = webhook.last_event_callbacks.slice(0, 5)
 
   return (
-    <>
-      {webhookPreviewEventCallbacks != null && (
-        <List>
-          {webhookPreviewEventCallbacks.map((resource, idx) => (
-            <ListItemEvenCallback key={idx} resource={resource} />
-          ))}
-        </List>
+    <div className='mt-4 border-t border-gray-100'>
+      <List>
+        {webhookPreviewEventCallbacks.map((resource, idx) => (
+          <ListItemEvenCallback key={idx} resource={resource} />
+        ))}
+      </List>
+      {webhook.last_event_callbacks.length > 5 && (
+        <Spacer top='4'>
+          <a
+            onClick={() => {
+              setLocation(appRoutes.webhookEventCallbacks.makePath(webhook.id))
+            }}
+          >
+            View more
+          </a>
+        </Spacer>
       )}
-      {webhook.last_event_callbacks != null &&
-        webhook.last_event_callbacks.length > 5 && (
-          <Spacer top='4'>
-            <a
-              onClick={() => {
-                setLocation(
-                  appRoutes.webhookEventCallbacks.makePath(webhook.id)
-                )
-              }}
-            >
-              View more
-            </a>
-          </Spacer>
-        )}
-    </>
+    </div>
   )
 }
