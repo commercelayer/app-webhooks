@@ -1,3 +1,4 @@
+import { getWebhookStatus, hasWebhookEverFired } from '#data/dictionaries'
 import { appRoutes } from '#data/routes'
 import { makeWebhook } from '#mocks'
 import { formatDistanceInWords } from '#utils/formatDistanceInWords'
@@ -5,6 +6,7 @@ import {
   Hint,
   Icon,
   ListItem,
+  RadialProgress,
   Text,
   useTokenProvider
 } from '@commercelayer/app-elements'
@@ -12,22 +14,27 @@ import type { Webhook } from '@commercelayer/sdk'
 import type { FC } from 'react'
 import { useLocation } from 'wouter'
 
-type WebhookListUiIcon = 'x' | 'check'
-
-type WebhookListUiIconBg = 'red' | 'green'
-
 /**
  * Get the relative status based on webhook's circuit state {@link https://docs.commercelayer.io/core/v/api-reference/webhooks/object}
  * @param webhook - The webhook object.
  * @returns a valid StatusUI to be used in the StatusIcon component.
  */
-function getListUiIcon(webhook: Webhook): {
-  icon: WebhookListUiIcon
-  bg: WebhookListUiIconBg
-} {
-  return webhook?.circuit_state === 'open'
-    ? { icon: 'x', bg: 'red' }
-    : { icon: 'check', bg: 'green' }
+function getListUiIcon(webhook: Webhook): JSX.Element {
+  const everFired = hasWebhookEverFired(webhook)
+  const status = getWebhookStatus(webhook)
+  if (!everFired) {
+    return <RadialProgress />
+  }
+  switch (status) {
+    case 'running':
+      return <Icon name='pulse' gap='large' background='green' />
+
+    case 'disabled':
+      return <Icon name='minus' gap='large' background='gray' />
+
+    case 'failed':
+      return <Icon name='x' gap='large' background='red' />
+  }
 }
 
 interface ListItemWebhookProps {
@@ -45,13 +52,7 @@ export const ListItemWebhook: FC<ListItemWebhookProps> = ({
     <ListItem
       className='items-center'
       tag='div'
-      icon={
-        <Icon
-          name={getListUiIcon(resource).icon}
-          gap='large'
-          background={getListUiIcon(resource).bg}
-        />
-      }
+      icon={getListUiIcon(resource)}
       onClick={() => {
         setLocation(appRoutes.details.makePath(resource.id))
       }}

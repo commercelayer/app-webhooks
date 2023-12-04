@@ -13,11 +13,23 @@ interface TriggerAction {
 type WebhookAppStatus = 'disabled' | 'failed' | 'running'
 
 /**
+ * Determine if a webhook has ever fired by counting its `last_event_callbacks` relationship items
+ * @param webhook a given webhook object
+ * @returns a boolean flag
+ */
+export function hasWebhookEverFired(webhook: Webhook): boolean {
+  if ((webhook.last_event_callbacks ?? []).length > 0) {
+    return true
+  }
+  return false
+}
+
+/**
  * Determine the app level webhook status based on values of some its attributes
  * @param webhook a given webhook object
  * @returns a status string that can be disabled or failed or running
  */
-function getWebhookStatus(webhook: Webhook): WebhookAppStatus {
+export function getWebhookStatus(webhook: Webhook): WebhookAppStatus {
   if (webhook.disabled_at != null) {
     return 'disabled'
   } else if (webhook.circuit_state === 'open') {
