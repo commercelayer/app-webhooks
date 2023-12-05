@@ -1,7 +1,7 @@
 import { getWebhookDisplayStatus } from '#data/dictionaries'
 import { appRoutes } from '#data/routes'
 import { useWebhookDetails } from '#hooks/useWebhookDetails'
-import { formatDistanceInWords } from '#utils/formatDistanceInWords'
+import { getWebhookPredicateByStatus } from '#utils/getWebhookPredicateByStatus'
 import {
   Badge,
   Card,
@@ -30,14 +30,8 @@ export const WebhookTopCard: FC = () => {
   }
 
   const isCircuitOpen = webhook.circuit_state === 'open'
-  const lastFiredDate =
-    webhook.last_event_callbacks?.slice(0, 1)?.[0]?.created_at ?? null
-  const lastFired =
-    lastFiredDate != null
-      ? formatDistanceInWords(lastFiredDate ?? '', user?.timezone)
-      : null
-
   const displayStatus = getWebhookDisplayStatus(webhook)
+  const webhookPredicate = getWebhookPredicateByStatus(webhook, user?.timezone)
 
   const showWebhookCircuit =
     webhook?.last_event_callbacks != null &&
@@ -66,10 +60,7 @@ export const WebhookTopCard: FC = () => {
               ) : (
                 <Spacer bottom='2'>
                   <Text variant='info' size='small' weight='medium'>
-                    {lastFired != null
-                      ? `Last fired ${lastFired}`
-                      : 'Never fired'}
-                    .
+                    {webhookPredicate}.
                   </Text>
                 </Spacer>
               )}

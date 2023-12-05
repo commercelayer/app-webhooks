@@ -1,7 +1,7 @@
 import { getWebhookStatus, hasWebhookEverFired } from '#data/dictionaries'
 import { appRoutes } from '#data/routes'
 import { makeWebhook } from '#mocks'
-import { formatDistanceInWords } from '#utils/formatDistanceInWords'
+import { getWebhookPredicateByStatus } from '#utils/getWebhookPredicateByStatus'
 import {
   Hint,
   Icon,
@@ -47,6 +47,8 @@ export const ListItemWebhook: FC<ListItemWebhookProps> = ({
   resource = makeWebhook()
 }) => {
   const [, setLocation] = useLocation()
+  const { user } = useTokenProvider()
+  const webhookPredicate = getWebhookPredicateByStatus(resource, user?.timezone)
 
   return (
     <ListItem
@@ -59,35 +61,9 @@ export const ListItemWebhook: FC<ListItemWebhookProps> = ({
     >
       <div>
         <Text weight='bold'>{resource.name}</Text>
-        <DescriptionLine webhook={resource} />
+        <Hint>{webhookPredicate}</Hint>
       </div>
       <Icon name='caretRight' />
     </ListItem>
   )
-}
-
-interface DescriptionLineProps {
-  webhook: Webhook
-}
-
-const DescriptionLine: FC<DescriptionLineProps> = ({ webhook }) => {
-  if (
-    webhook.last_event_callbacks === undefined ||
-    webhook.last_event_callbacks?.length === 0
-  )
-    return <Hint>Never fired</Hint>
-
-  const { user } = useTokenProvider()
-
-  const lastEventCallback =
-    webhook.last_event_callbacks != null
-      ? webhook.last_event_callbacks[0]
-      : undefined
-
-  const lastFiredAt = formatDistanceInWords(
-    lastEventCallback?.created_at ?? '',
-    user?.timezone
-  )
-
-  return <Hint>{`Last fired ${lastFiredAt}`}</Hint>
 }
