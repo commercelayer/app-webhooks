@@ -31,7 +31,7 @@ export function getWebhookPredicateByStatus(
         isoDate: lastEventCallback?.created_at ?? '',
         timezone
       })
-    case 'running':
+    case 'active':
       return formatDateWithPredicate({
         predicate: 'Last fired',
         isoDate: lastEventCallback?.created_at,

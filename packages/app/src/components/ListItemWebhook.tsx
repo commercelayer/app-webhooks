@@ -26,7 +26,7 @@ function getListUiIcon(webhook: Webhook): JSX.Element {
     return <RadialProgress />
   }
   switch (status) {
-    case 'running':
+    case 'active':
       return <Icon name='pulse' gap='large' background='green' />
 
     case 'disabled':

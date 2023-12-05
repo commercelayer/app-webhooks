@@ -10,7 +10,7 @@ interface TriggerAction {
   hidden?: true
 }
 
-type WebhookAppStatus = 'disabled' | 'failed' | 'running'
+type WebhookAppStatus = 'disabled' | 'failed' | 'active'
 
 /**
  * Determine if a webhook has ever fired by counting its `last_event_callbacks` relationship items
@@ -27,7 +27,7 @@ export function hasWebhookEverFired(webhook: Webhook): boolean {
 /**
  * Determine the app level webhook status based on values of some its attributes
  * @param webhook a given webhook object
- * @returns a status string that can be disabled or failed or running
+ * @returns a status string that can be disabled or failed or active
  */
 export function getWebhookStatus(webhook: Webhook): WebhookAppStatus {
   if (webhook.disabled_at != null) {
@@ -35,7 +35,7 @@ export function getWebhookStatus(webhook: Webhook): WebhookAppStatus {
   } else if (webhook.circuit_state === 'open') {
     return 'failed'
   }
-  return 'running'
+  return 'active'
 }
 
 type WebhookDisplayStatus = Pick<DisplayStatus, 'label'> & {
@@ -48,9 +48,9 @@ export function getWebhookDisplayStatus(
   const status = getWebhookStatus(webhook)
 
   switch (status) {
-    case 'running':
+    case 'active':
       return {
-        label: 'running',
+        label: 'active',
         variant: 'success'
       }
     case 'disabled':
@@ -70,7 +70,7 @@ export function getWebhookTriggerAction(webhook: Webhook): TriggerAction {
   const status = getWebhookStatus(webhook)
 
   switch (status) {
-    case 'running':
+    case 'active':
       return { triggerAttribute: '_disable' }
     case 'disabled':
       return { triggerAttribute: '_enable' }
