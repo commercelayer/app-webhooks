@@ -1,4 +1,7 @@
-import { getWebhookDisplayStatus } from '#data/dictionaries'
+import {
+  getWebhookBadgeIcon,
+  getWebhookDisplayStatus
+} from '#data/dictionaries'
 import { appRoutes } from '#data/routes'
 import { useWebhookDetails } from '#hooks/useWebhookDetails'
 import { getWebhookPredicateByStatus } from '#utils/getWebhookPredicateByStatus'
@@ -32,6 +35,7 @@ export const WebhookTopCard: FC = () => {
   const isCircuitOpen = webhook.circuit_state === 'open'
   const displayStatus = getWebhookDisplayStatus(webhook)
   const webhookPredicate = getWebhookPredicateByStatus(webhook, user?.timezone)
+  const badgeIcon = getWebhookBadgeIcon(webhook)
 
   const showWebhookCircuit =
     webhook?.last_event_callbacks != null &&
@@ -44,9 +48,9 @@ export const WebhookTopCard: FC = () => {
           <div className='flex justify-between'>
             <div>
               <Spacer bottom='2'>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 items-center'>
                   <Text weight='bold'>Webhook</Text>
-                  <Badge variant={displayStatus.variant}>
+                  <Badge variant={displayStatus.variant} icon={badgeIcon}>
                     {displayStatus.label}
                   </Badge>
                 </div>

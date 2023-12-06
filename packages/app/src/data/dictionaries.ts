@@ -1,4 +1,8 @@
-import type { BadgeProps, TriggerAttribute } from '@commercelayer/app-elements'
+import type {
+  BadgeProps,
+  IconProps,
+  TriggerAttribute
+} from '@commercelayer/app-elements'
 import type { DisplayStatus } from '@commercelayer/app-elements/dist/dictionaries/types'
 import type { Webhook, WebhookUpdate } from '@commercelayer/sdk'
 
@@ -56,13 +60,25 @@ export function getWebhookDisplayStatus(
     case 'disabled':
       return {
         label: 'disabled',
-        variant: 'danger'
+        variant: 'secondary'
       }
     case 'failed':
       return {
         label: 'failed',
         variant: 'danger'
       }
+  }
+}
+
+export function getWebhookBadgeIcon(webhook: Webhook): IconProps['name'] {
+  const status = getWebhookStatus(webhook)
+  switch (status) {
+    case 'active':
+      return 'pulse'
+    case 'disabled':
+      return 'minusCircle'
+    case 'failed':
+      return 'xCircle'
   }
 }
 

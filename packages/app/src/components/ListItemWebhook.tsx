@@ -7,6 +7,7 @@ import {
   Icon,
   ListItem,
   RadialProgress,
+  StatusIcon,
   Text,
   useTokenProvider
 } from '@commercelayer/app-elements'
@@ -22,18 +23,18 @@ import { useLocation } from 'wouter'
 function getListUiIcon(webhook: Webhook): JSX.Element {
   const everFired = hasWebhookEverFired(webhook)
   const status = getWebhookStatus(webhook)
-  if (!everFired) {
+  if (!everFired && status !== 'disabled') {
     return <RadialProgress />
   }
   switch (status) {
     case 'active':
-      return <Icon name='pulse' gap='large' background='green' />
+      return <StatusIcon name='pulse' gap='large' background='green' />
 
     case 'disabled':
-      return <Icon name='minus' gap='large' background='gray' />
+      return <StatusIcon name='minus' gap='large' background='gray' />
 
     case 'failed':
-      return <Icon name='x' gap='large' background='red' />
+      return <StatusIcon name='x' gap='large' background='red' />
   }
 }
 

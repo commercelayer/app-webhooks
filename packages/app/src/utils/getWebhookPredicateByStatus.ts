@@ -15,7 +15,7 @@ export function getWebhookPredicateByStatus(
   const status = getWebhookStatus(webhook)
   const lastEventCallback =
     webhook.last_event_callbacks?.slice(0, 1)[0] ?? undefined
-  if (!everFired) {
+  if (!everFired && status !== 'disabled') {
     return 'Never fired'
   }
   switch (status) {
