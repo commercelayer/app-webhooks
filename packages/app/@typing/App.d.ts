@@ -1,33 +1,12 @@
-import { Webhook } from '@commercelayer/sdk'
-
 declare module 'App' {
-  export interface WebhookDetailsContextValue {
-    state: WebhookDetailsContextState
+  export interface WebhookFormContextValue {
     refetch: () => Promise<void>
-    resetWebhookCircuit: () => Promise<void>
+    state: WebhookFormContextState
   }
 
-  export interface WebhookDetailsContextState {
+  export interface WebhookFormContextState {
     data?: Webhook
     isLoading: boolean
     isNotFound: boolean
   }
-
-  export interface WebhookDeleteContextValue
-    extends Omit<WebhookDetailsContextValue, 'resetWebhookCircuit' | 'state'> {
-    state: WebhookFormContextState
-    deleteWebhook: () => Promise<boolean>
-  }
-
-  export interface WebhookDeleteContextState
-    extends WebhookDetailsContextState {
-    isDeleting: boolean
-  }
-
-  export interface WebhookFormContextValue
-    extends Omit<WebhookDetailsContextValue, 'resetWebhookCircuit' | 'state'> {
-    state: WebhookFormContextState
-  }
-
-  export interface WebhookFormContextState extends WebhookDetailsContextState {}
 }

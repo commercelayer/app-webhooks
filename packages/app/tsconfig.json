@@ -37,6 +37,12 @@
       "#data/*": [
         "src/data/*"
       ],
+      "#hooks/*": [
+        "src/hooks/*"
+      ],
+      "#mocks": [
+        "src/mocks/index"
+      ],
       "#utils/*": [
         "src/utils/*"
       ],

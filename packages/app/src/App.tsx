@@ -1,11 +1,11 @@
 import { ErrorNotFound } from '#components/ErrorNotFound'
 import { appRoutes } from '#data/routes'
-import DeleteWebhookPage from '#pages/DeleteWebhookPage'
-import DetailsPage from '#pages/DetailsPage'
-import EditWebhookPage from '#pages/EditWebhookPage'
-import EventCallbacksPage from '#pages/EventCallbacksPage'
-import ListPage from '#pages/ListPage'
-import NewWebhookPage from '#pages/NewWebhookPage'
+import { EventCallbacksList } from '#pages/EventCallbacksList'
+import { WebhookCreate } from '#pages/WebhookCreate'
+import { WebhookDelete } from '#pages/WebhookDelete'
+import { WebhookDetails } from '#pages/WebhookDetails'
+import { WebhookEdit } from '#pages/WebhookEdit'
+import { WebhooksList } from '#pages/WebhooksList'
 import {
   CoreSdkProvider,
   ErrorBoundary,
@@ -41,22 +41,22 @@ function App(): JSX.Element {
             <Router base={basePath}>
               <Switch>
                 <Route path={appRoutes.list.path}>
-                  <ListPage />
+                  <WebhooksList />
                 </Route>
                 <Route path={appRoutes.newWebhook.path}>
-                  <NewWebhookPage />
+                  <WebhookCreate />
                 </Route>
                 <Route path={appRoutes.editWebhook.path}>
-                  <EditWebhookPage />
+                  <WebhookEdit />
                 </Route>
                 <Route path={appRoutes.deleteWebhook.path}>
-                  <DeleteWebhookPage />
-                </Route>
-                <Route path={appRoutes.webhookEventCallbacks.path}>
-                  <EventCallbacksPage />
+                  <WebhookDelete />
                 </Route>
                 <Route path={appRoutes.details.path}>
-                  <DetailsPage />
+                  <WebhookDetails />
+                </Route>
+                <Route path={appRoutes.webhookEventCallbacks.path}>
+                  <EventCallbacksList />
                 </Route>
                 <Route>
                   <ErrorNotFound />

@@ -8,9 +8,10 @@ import {
   useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/app-elements'
+import type { FC } from 'react'
 import { Link, useLocation } from 'wouter'
 
-const NewWebhookPage = (): JSX.Element | null => {
+export const WebhookCreate: FC = () => {
   const { settings, canUser } = useTokenProvider()
   const { sdkClient } = useCoreSdkProvider()
   const [, setLocation] = useLocation()
@@ -52,5 +53,3 @@ const NewWebhookPage = (): JSX.Element | null => {
     </PageLayout>
   )
 }
-
-export default NewWebhookPage
