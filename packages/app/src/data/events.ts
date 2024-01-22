@@ -5,7 +5,8 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
   addresses: ['tagged'],
   authorizations: ['create'],
   bundles: ['tagged'],
-  captures: ['create'],
+  buy_x_pay_y_promotions: ['create', 'tagged', 'destroy'],
+  captures: ['create', 'succeeded'],
   cleanups: ['create', 'start', 'complete', 'interrupt', 'destroy'],
   coupons: ['tagged'],
   customer_addresses: ['create', 'destroy'],
@@ -32,6 +33,7 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'activate',
     'deactivate',
     'redeem',
+    'use',
     'tagged',
     'destroy'
   ],
@@ -92,8 +94,9 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
   percentage_discount_promotions: ['create', 'destroy', 'tagged'],
   price_frequency_tiers: ['create', 'destroy'],
   price_volume_tiers: ['create', 'destroy'],
+  promotions: ['create', 'tagged', 'destroy'],
   recurring_order_copies: ['create', 'destroy', 'start', 'fail', 'complete'],
-  refunds: ['create'],
+  refunds: ['create', 'succeeded'],
   returns: [
     'create',
     'request',
@@ -126,9 +129,11 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'in_transit',
     'complete',
     'cancel',
+    'on_hold',
     'destroy'
   ],
-  voids: ['create']
+  transaction: ['create'],
+  voids: ['create', 'succeeded']
 }
 
 export function getEventsByResourceType(
