@@ -1,5 +1,5 @@
+import { isResourceWithEvent, webhookEvents } from '#data/events'
 import { getEventsByResourceType } from './events'
-import { webhookEvents, isResourceWithEvent } from '#data/events'
 
 describe('getEventsByResourceType', () => {
   test('Should retrieve a list of events', () => {
@@ -9,6 +9,7 @@ describe('getEventsByResourceType', () => {
       'activate',
       'deactivate',
       'redeem',
+      'use',
       'tagged',
       'destroy'
     ])

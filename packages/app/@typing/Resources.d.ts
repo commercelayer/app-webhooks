@@ -42,6 +42,7 @@ declare module 'App' {
     | 'addresses'
     | 'authorizations'
     | 'bundles'
+    | 'buy_x_pay_y_promotions'
     | 'captures'
     | 'cleanups'
     | 'coupons'
@@ -67,6 +68,7 @@ declare module 'App' {
     | 'percentage_discount_promotions'
     | 'price_frequency_tiers'
     | 'price_volume_tiers'
+    | 'promotions'
     | 'recurring_order_copies'
     | 'refunds'
     | 'returns'
@@ -75,5 +77,6 @@ declare module 'App' {
     | 'skus'
     | 'sku_options'
     | 'stock_transfers'
+    | 'transaction'
     | 'voids'
 }
