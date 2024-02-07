@@ -2,7 +2,7 @@
   "private": true,
   "name": "app",
   "description": "A Commerce Layer Single Page Application to manage webhooks with a nice GUI.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Pier Francesco Ferrari",
     "email": "pierfrancesco@commercelayer.io"
