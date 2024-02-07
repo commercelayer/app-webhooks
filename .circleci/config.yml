@@ -32,6 +32,9 @@ jobs:
       - checkout
       - <<: *setup
       - run:
+          name: Audit
+          command: pnpm audit --audit-level high
+      - run:
           name: Build 
           command: pnpm build
       - aws-s3/sync:
