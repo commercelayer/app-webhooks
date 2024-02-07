@@ -32,15 +32,19 @@ export const WebhookDetails: FC = () => {
     return (
       <PageLayout
         title='Webhook details'
-        onGoBack={() => {
-          setLocation(appRoutes.list.makePath())
+        navigationButton={{
+          onClick: () => {
+            setLocation(appRoutes.list.path)
+          },
+          label: `Webhooks`,
+          icon: 'arrowLeft'
         }}
         mode={settings.mode}
       >
         <EmptyState
           title='Not authorized'
           action={
-            <Link href={appRoutes.list.makePath()}>
+            <Link href={appRoutes.list.path}>
               <Button variant='primary'>Go back</Button>
             </Link>
           }
@@ -57,7 +61,7 @@ export const WebhookDetails: FC = () => {
     <DropdownItem
       label='Edit'
       onClick={() => {
-        setLocation(appRoutes.editWebhook.makePath(webhookId))
+        setLocation(appRoutes.editWebhook.makePath({ webhookId }))
       }}
     />
   )
@@ -69,7 +73,7 @@ export const WebhookDetails: FC = () => {
     <DropdownItem
       label='Delete'
       onClick={() => {
-        setLocation(appRoutes.deleteWebhook.makePath(webhookId))
+        setLocation(appRoutes.deleteWebhook.makePath({ webhookId }))
       }}
     />
   )
@@ -94,8 +98,12 @@ export const WebhookDetails: FC = () => {
     <PageLayout
       title={webhook.name}
       mode={settings.mode}
-      onGoBack={() => {
-        setLocation(appRoutes.list.makePath())
+      navigationButton={{
+        onClick: () => {
+          setLocation(appRoutes.list.path)
+        },
+        label: `Webhooks`,
+        icon: 'arrowLeft'
       }}
       actionButton={contextMenu}
     >

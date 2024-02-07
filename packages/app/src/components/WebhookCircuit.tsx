@@ -27,7 +27,11 @@ export const WebhookCircuit: FC<WebhookCircuitProps> = ({ webhook }) => {
         <Spacer top='4'>
           <a
             onClick={() => {
-              setLocation(appRoutes.webhookEventCallbacks.makePath(webhook.id))
+              setLocation(
+                appRoutes.webhookEventCallbacks.makePath({
+                  webhookId: webhook.id
+                })
+              )
             }}
           >
             View more

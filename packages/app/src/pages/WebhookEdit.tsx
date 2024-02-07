@@ -25,15 +25,19 @@ export const WebhookEdit: FC = () => {
     return (
       <PageLayout
         title='Edit webhook'
-        onGoBack={() => {
-          setLocation(appRoutes.list.makePath())
+        navigationButton={{
+          onClick: () => {
+            setLocation(appRoutes.list.path)
+          },
+          label: `Webhooks`,
+          icon: 'arrowLeft'
         }}
         mode={settings.mode}
       >
         <EmptyState
           title='Not authorized'
           action={
-            <Link href={appRoutes.list.makePath()}>
+            <Link href={appRoutes.list.path}>
               <Button variant='primary'>Go back</Button>
             </Link>
           }
@@ -57,9 +61,14 @@ export const WebhookEdit: FC = () => {
           <PageLayout
             title='Edit webhook'
             mode={settings.mode}
-            onGoBack={() => {
-              setLocation(appRoutes.details.makePath(webhookId))
+            navigationButton={{
+              onClick: () => {
+                setLocation(appRoutes.list.makePath({ webhookId }))
+              },
+              label: 'Cancel',
+              icon: 'x'
             }}
+            overlay
           >
             <WebhookForm webhookData={data} />
           </PageLayout>

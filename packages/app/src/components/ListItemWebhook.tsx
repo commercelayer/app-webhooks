@@ -57,7 +57,7 @@ export const ListItemWebhook: FC<ListItemWebhookProps> = ({
       tag='div'
       icon={getListUiIcon(resource)}
       onClick={() => {
-        setLocation(appRoutes.details.makePath(resource.id))
+        setLocation(appRoutes.details.makePath({ webhookId: resource.id }))
       }}
     >
       <div>

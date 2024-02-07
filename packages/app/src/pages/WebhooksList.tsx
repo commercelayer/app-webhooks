@@ -20,8 +20,12 @@ export const WebhooksList: FC = () => {
       <PageLayout
         title='Webhooks'
         mode={settings.mode}
-        onGoBack={() => {
-          setLocation(appRoutes.list.makePath())
+        navigationButton={{
+          onClick: () => {
+            setLocation(appRoutes.list.path)
+          },
+          label: `Webhooks`,
+          icon: 'arrowLeft'
         }}
       >
         <EmptyState title='You are not authorized' />
@@ -33,9 +37,13 @@ export const WebhooksList: FC = () => {
     <PageLayout
       title='Webhooks'
       mode={settings.mode}
-      onGoBack={() => {
-        window.location.href =
-          dashboardUrl != null ? `${dashboardUrl}/hub` : '/'
+      navigationButton={{
+        onClick: () => {
+          window.location.href =
+            dashboardUrl != null ? `${dashboardUrl}/hub` : '/'
+        },
+        label: `Hub`,
+        icon: 'arrowLeft'
       }}
     >
       <ResourceList
@@ -49,9 +57,7 @@ export const WebhooksList: FC = () => {
         }}
         actionButton={
           canUser('create', 'webhooks') ? (
-            <Link href={appRoutes.newWebhook.makePath()}>
-              <a>New webhook</a>
-            </Link>
+            <Link href={appRoutes.newWebhook.path}>New webhook</Link>
           ) : undefined
         }
         ItemTemplate={ListItemWebhook}
@@ -61,7 +67,7 @@ export const WebhooksList: FC = () => {
             description='Create your first webhook'
             action={
               canUser('create', 'webhooks') ? (
-                <Link href={appRoutes.newWebhook.makePath()}>
+                <Link href={appRoutes.newWebhook.path}>
                   <Button variant='primary'>New webhook</Button>
                 </Link>
               ) : undefined

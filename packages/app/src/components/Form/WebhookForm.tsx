@@ -86,7 +86,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
 
     try {
       const payload = {
-        id: webhookData?.id as string,
+        id: webhookData?.id ?? '',
         name: values.name,
         topic: values.topic,
         callback_url: values.callback_url,
@@ -94,7 +94,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
       }
       const sdkRequest = await sdkClient.webhooks[formAction](payload)
       methods.reset()
-      setLocation(appRoutes.details.makePath(sdkRequest?.id))
+      setLocation(appRoutes.details.makePath({ webhookId: sdkRequest?.id }))
     } catch (error) {
       setApiError(parseApiError(error))
     }
@@ -143,7 +143,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
         />
       </Spacer>
 
-      <Spacer bottom='6'>
+      <Spacer bottom='12'>
         <HookedInput
           label='Include'
           name='include_resources'
@@ -154,7 +154,7 @@ const WebhookForm = ({ webhookData }: Props): JSX.Element | null => {
       </Spacer>
 
       <Spacer bottom='14'>
-        <Button variant='primary' type='submit'>
+        <Button variant='primary' type='submit' fullWidth>
           {formAction === 'create' ? 'Create webhook' : 'Edit webhook'}
         </Button>
         {hasApiError ? (
