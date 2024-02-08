@@ -22,7 +22,7 @@ export const WebhooksList: FC = () => {
         mode={settings.mode}
         navigationButton={{
           onClick: () => {
-            setLocation(appRoutes.list.path)
+            setLocation(appRoutes.list.makePath({}))
           },
           label: `Webhooks`,
           icon: 'arrowLeft'
@@ -57,7 +57,7 @@ export const WebhooksList: FC = () => {
         }}
         actionButton={
           canUser('create', 'webhooks') ? (
-            <Link href={appRoutes.newWebhook.path}>New webhook</Link>
+            <Link href={appRoutes.newWebhook.makePath({})}>New webhook</Link>
           ) : undefined
         }
         ItemTemplate={ListItemWebhook}
@@ -67,7 +67,7 @@ export const WebhooksList: FC = () => {
             description='Create your first webhook'
             action={
               canUser('create', 'webhooks') ? (
-                <Link href={appRoutes.newWebhook.path}>
+                <Link href={appRoutes.newWebhook.makePath({})}>
                   <Button variant='primary'>New webhook</Button>
                 </Link>
               ) : undefined

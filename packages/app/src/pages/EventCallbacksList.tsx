@@ -31,7 +31,7 @@ export const EventCallbacksList: FC = () => {
         mode={settings.mode}
         navigationButton={{
           onClick: () => {
-            setLocation(appRoutes.list.path)
+            setLocation(appRoutes.list.makePath({}))
           },
           label: `Webhooks`,
           icon: 'arrowLeft'
@@ -40,7 +40,7 @@ export const EventCallbacksList: FC = () => {
         <EmptyState
           title='Not authorized'
           action={
-            <Link href={appRoutes.list.path}>
+            <Link href={appRoutes.list.makePath({})}>
               <Button variant='primary'>Go back</Button>
             </Link>
           }

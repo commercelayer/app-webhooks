@@ -34,7 +34,7 @@ export const WebhookDetails: FC = () => {
         title='Webhook details'
         navigationButton={{
           onClick: () => {
-            setLocation(appRoutes.list.path)
+            setLocation(appRoutes.list.makePath({}))
           },
           label: `Webhooks`,
           icon: 'arrowLeft'
@@ -44,7 +44,7 @@ export const WebhookDetails: FC = () => {
         <EmptyState
           title='Not authorized'
           action={
-            <Link href={appRoutes.list.path}>
+            <Link href={appRoutes.list.makePath({})}>
               <Button variant='primary'>Go back</Button>
             </Link>
           }
@@ -100,7 +100,7 @@ export const WebhookDetails: FC = () => {
       mode={settings.mode}
       navigationButton={{
         onClick: () => {
-          setLocation(appRoutes.list.path)
+          setLocation(appRoutes.list.makePath({}))
         },
         label: `Webhooks`,
         icon: 'arrowLeft'

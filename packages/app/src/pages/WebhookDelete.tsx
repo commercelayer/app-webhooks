@@ -40,7 +40,7 @@ export const WebhookDelete: FC = () => {
         title='Delete webhook'
         navigationButton={{
           onClick: () => {
-            setLocation(appRoutes.list.path)
+            setLocation(appRoutes.list.makePath({}))
           },
           label: `Webhooks`,
           icon: 'arrowLeft'
@@ -50,7 +50,7 @@ export const WebhookDelete: FC = () => {
         <EmptyState
           title='Not authorized'
           action={
-            <Link href={appRoutes.list.path}>
+            <Link href={appRoutes.list.makePath({})}>
               <Button variant='primary'>Go back</Button>
             </Link>
           }
@@ -90,7 +90,7 @@ export const WebhookDelete: FC = () => {
             e.stopPropagation()
             deleteWebhook()
               .then(() => {
-                setLocation(appRoutes.list.path)
+                setLocation(appRoutes.list.makePath({}))
               })
               .catch((e: any) => {
                 console.log(e)
