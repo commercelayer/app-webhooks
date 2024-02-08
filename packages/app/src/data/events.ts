@@ -173,7 +173,7 @@ export function isResourceWithEvent(
   try {
     return (
       resourceType in webhookEvents &&
-      getEventsByResourceType(resourceType).length > 0
+      getEventsByResourceType(resourceType as ResourceWithEvent).length > 0
     )
   } catch {
     return false

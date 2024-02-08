@@ -38,15 +38,19 @@ export const WebhookDelete: FC = () => {
     return (
       <PageLayout
         title='Delete webhook'
-        onGoBack={() => {
-          setLocation(appRoutes.list.makePath())
+        navigationButton={{
+          onClick: () => {
+            setLocation(appRoutes.list.makePath({}))
+          },
+          label: `Webhooks`,
+          icon: 'arrowLeft'
         }}
         mode={settings.mode}
       >
         <EmptyState
           title='Not authorized'
           action={
-            <Link href={appRoutes.list.makePath()}>
+            <Link href={appRoutes.list.makePath({})}>
               <Button variant='primary'>Go back</Button>
             </Link>
           }
@@ -61,14 +65,20 @@ export const WebhookDelete: FC = () => {
     <ErrorNotFound />
   ) : (
     <PageLayout
-      title={`Permanently delete the ${webhook.name as string} webhook.`}
+      title={`Permanently delete the ${webhook.name} webhook.`}
       mode={settings.mode}
-      onGoBack={() => {
-        setLocation(appRoutes.details.makePath(webhookId))
+      navigationButton={{
+        onClick: () => {
+          setLocation(appRoutes.details.makePath({ webhookId }))
+        },
+        label: `Cancel`,
+        icon: 'x'
       }}
+      gap='only-top'
+      overlay
     >
       <ListDetails>
-        <Spacer bottom='6'>
+        <Spacer bottom='12'>
           <Text variant='info' weight='medium'>
             This action cannot be undone, proceed with caution.
           </Text>
@@ -80,12 +90,13 @@ export const WebhookDelete: FC = () => {
             e.stopPropagation()
             deleteWebhook()
               .then(() => {
-                setLocation(appRoutes.list.makePath())
+                setLocation(appRoutes.list.makePath({}))
               })
               .catch((e: any) => {
                 console.log(e)
               })
           }}
+          fullWidth
         >
           Delete webhook
         </Button>

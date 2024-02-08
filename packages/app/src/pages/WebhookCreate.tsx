@@ -25,14 +25,18 @@ export const WebhookCreate: FC = () => {
       <PageLayout
         title='New webhook'
         mode={settings.mode}
-        onGoBack={() => {
-          setLocation(appRoutes.list.makePath())
+        navigationButton={{
+          onClick: () => {
+            setLocation(appRoutes.list.makePath({}))
+          },
+          label: `Webhooks`,
+          icon: 'arrowLeft'
         }}
       >
         <EmptyState
           title='You are not authorized'
           action={
-            <Link href={appRoutes.list.makePath()}>
+            <Link href={appRoutes.list.makePath({})}>
               <Button variant='primary'>Go back</Button>
             </Link>
           }
@@ -45,9 +49,14 @@ export const WebhookCreate: FC = () => {
     <PageLayout
       title='New webhook'
       mode={settings.mode}
-      onGoBack={() => {
-        setLocation(appRoutes.list.makePath())
+      navigationButton={{
+        onClick: () => {
+          setLocation(appRoutes.list.makePath({}))
+        },
+        label: `Cancel`,
+        icon: 'x'
       }}
+      overlay
     >
       <WebhookForm />
     </PageLayout>

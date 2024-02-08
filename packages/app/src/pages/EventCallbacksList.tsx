@@ -28,15 +28,19 @@ export const EventCallbacksList: FC = () => {
     return (
       <PageLayout
         title='Event callbacks'
-        onGoBack={() => {
-          setLocation(appRoutes.list.makePath())
-        }}
         mode={settings.mode}
+        navigationButton={{
+          onClick: () => {
+            setLocation(appRoutes.list.makePath({}))
+          },
+          label: `Webhooks`,
+          icon: 'arrowLeft'
+        }}
       >
         <EmptyState
           title='Not authorized'
           action={
-            <Link href={appRoutes.list.makePath()}>
+            <Link href={appRoutes.list.makePath({})}>
               <Button variant='primary'>Go back</Button>
             </Link>
           }
@@ -53,8 +57,12 @@ export const EventCallbacksList: FC = () => {
     <PageLayout
       title='Event Callbacks'
       mode={settings.mode}
-      onGoBack={() => {
-        setLocation(appRoutes.details.makePath(webhookId))
+      navigationButton={{
+        onClick: () => {
+          setLocation(appRoutes.details.makePath({ webhookId }))
+        },
+        label: `Cancel`,
+        icon: 'x'
       }}
     >
       <ResourceList
