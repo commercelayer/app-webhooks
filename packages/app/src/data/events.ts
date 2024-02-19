@@ -3,7 +3,7 @@ import type { ResourceWithEvent } from 'App'
 
 export const webhookEvents: Record<ResourceWithEvent, string[]> = {
   addresses: ['tagged'],
-  authorizations: ['create'],
+  authorizations: ['create', 'succeeded'],
   bundles: ['tagged'],
   buy_x_pay_y_promotions: ['create', 'tagged', 'destroy'],
   captures: ['create', 'succeeded'],
