@@ -3,10 +3,10 @@ import type { ResourceWithEvent } from 'App'
 
 export const webhookEvents: Record<ResourceWithEvent, string[]> = {
   addresses: ['tagged'],
-  authorizations: ['create'],
+  authorizations: ['create', 'succeeded', 'failed'],
   bundles: ['tagged'],
   buy_x_pay_y_promotions: ['create', 'tagged', 'destroy'],
-  captures: ['create', 'succeeded'],
+  captures: ['create', 'succeeded', 'failed'],
   cleanups: ['create', 'start', 'complete', 'interrupt', 'destroy'],
   coupons: ['tagged'],
   customer_addresses: ['create', 'destroy'],
@@ -96,7 +96,7 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
   price_volume_tiers: ['create', 'destroy'],
   promotions: ['create', 'tagged', 'destroy'],
   recurring_order_copies: ['create', 'destroy', 'start', 'fail', 'complete'],
-  refunds: ['create', 'succeeded'],
+  refunds: ['create', 'succeeded', 'failed'],
   returns: [
     'create',
     'request',
@@ -133,7 +133,7 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'destroy'
   ],
   transaction: ['create'],
-  voids: ['create', 'succeeded']
+  voids: ['create', 'succeeded', 'failed']
 }
 
 export function getEventsByResourceType(
