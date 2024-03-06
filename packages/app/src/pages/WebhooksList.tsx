@@ -3,6 +3,7 @@ import { appRoutes } from '#data/routes'
 import {
   Button,
   EmptyState,
+  HomePageLayout,
   PageLayout,
   ResourceList,
   useTokenProvider
@@ -12,7 +13,6 @@ import { Link, useLocation } from 'wouter'
 
 export const WebhooksList: FC = () => {
   const { settings, canUser } = useTokenProvider()
-  const { dashboardUrl } = useTokenProvider()
   const [, setLocation] = useLocation()
 
   if (!canUser('read', 'webhooks')) {
@@ -34,18 +34,7 @@ export const WebhooksList: FC = () => {
   }
 
   return (
-    <PageLayout
-      title='Webhooks'
-      mode={settings.mode}
-      navigationButton={{
-        onClick: () => {
-          window.location.href =
-            dashboardUrl != null ? `${dashboardUrl}/hub` : '/'
-        },
-        label: `Hub`,
-        icon: 'arrowLeft'
-      }}
-    >
+    <HomePageLayout title='Webhooks'>
       <ResourceList
         title='All webhooks'
         type='webhooks'
@@ -75,6 +64,6 @@ export const WebhooksList: FC = () => {
           />
         }
       />
-    </PageLayout>
+    </HomePageLayout>
   )
 }
