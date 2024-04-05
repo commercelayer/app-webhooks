@@ -53,8 +53,7 @@ export const ListItemWebhook: FC<ListItemWebhookProps> = ({
 
   return (
     <ListItem
-      className='items-center'
-      tag='div'
+      alignItems='center'
       icon={getListUiIcon(resource)}
       onClick={() => {
         setLocation(appRoutes.details.makePath({ webhookId: resource.id }))

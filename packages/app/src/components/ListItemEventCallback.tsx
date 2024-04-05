@@ -30,7 +30,7 @@ export const ListItemEvenCallback: FC<ListItemEventCallbackProps> = ({
   } · ${formatDateAndTime(resource.created_at, user?.timezone).time}`
 
   return (
-    <ListItem alignItems='center' tag='div'>
+    <ListItem alignItems='center'>
       <div className='flex gap-1 items-center'>
         <Spacer right='2'>
           <Badge variant={eventCallbackStatusVariantVariant}>
