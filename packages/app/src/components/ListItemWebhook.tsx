@@ -61,7 +61,9 @@ export const ListItemWebhook: FC<ListItemWebhookProps> = ({
     >
       <div>
         <Text weight='bold'>{resource.name}</Text>
-        <Hint>{webhookPredicate}</Hint>
+        <Hint>
+          {resource.topic} · {webhookPredicate}
+        </Hint>
       </div>
       <Icon name='caretRight' />
     </ListItem>
