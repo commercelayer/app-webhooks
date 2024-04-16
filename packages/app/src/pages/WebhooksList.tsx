@@ -4,6 +4,7 @@ import {
   Button,
   EmptyState,
   HomePageLayout,
+  Icon,
   PageLayout,
   ResourceList,
   useTokenProvider
@@ -46,7 +47,12 @@ export const WebhooksList: FC = () => {
         }}
         actionButton={
           canUser('create', 'webhooks') ? (
-            <Link href={appRoutes.newWebhook.makePath({})}>New webhook</Link>
+            <Link href={appRoutes.newWebhook.makePath({})}>
+              <Button variant='secondary' size='mini' alignItems='center'>
+                <Icon name='plus' size={16} />
+                New
+              </Button>
+            </Link>
           ) : undefined
         }
         ItemTemplate={ListItemWebhook}
@@ -57,7 +63,9 @@ export const WebhooksList: FC = () => {
             action={
               canUser('create', 'webhooks') ? (
                 <Link href={appRoutes.newWebhook.makePath({})}>
-                  <Button variant='primary'>New webhook</Button>
+                  <Button variant='primary' type='button'>
+                    New webhook
+                  </Button>
                 </Link>
               ) : undefined
             }
