@@ -48,9 +48,14 @@ export const WebhooksList: FC = () => {
         actionButton={
           canUser('create', 'webhooks') ? (
             <Link href={appRoutes.newWebhook.makePath({})}>
-              <Button variant='secondary' size='mini' alignItems='center'>
+              <Button
+                variant='secondary'
+                size='mini'
+                alignItems='center'
+                aria-label='Add webhook'
+              >
                 <Icon name='plus' size={16} />
-                New
+                Webhook
               </Button>
             </Link>
           ) : undefined
