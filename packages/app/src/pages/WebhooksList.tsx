@@ -7,6 +7,7 @@ import {
   Icon,
   PageLayout,
   ResourceList,
+  Spacer,
   useTokenProvider
 } from '@commercelayer/app-elements'
 import type { FC } from 'react'
@@ -36,47 +37,49 @@ export const WebhooksList: FC = () => {
 
   return (
     <HomePageLayout title='Webhooks'>
-      <ResourceList
-        title='All webhooks'
-        type='webhooks'
-        query={{
-          include: ['last_event_callbacks'],
-          sort: {
-            created_at: 'desc'
-          }
-        }}
-        actionButton={
-          canUser('create', 'webhooks') ? (
-            <Link href={appRoutes.newWebhook.makePath({})}>
-              <Button
-                variant='secondary'
-                size='mini'
-                alignItems='center'
-                aria-label='Add webhook'
-              >
-                <Icon name='plus' size={16} />
-                Webhook
-              </Button>
-            </Link>
-          ) : undefined
-        }
-        ItemTemplate={ListItemWebhook}
-        emptyState={
-          <EmptyState
-            title='No webhook yet!'
-            description='Create your first webhook'
-            action={
-              canUser('create', 'webhooks') ? (
-                <Link href={appRoutes.newWebhook.makePath({})}>
-                  <Button variant='primary' type='button'>
-                    New webhook
-                  </Button>
-                </Link>
-              ) : undefined
+      <Spacer top='14'>
+        <ResourceList
+          title='All webhooks'
+          type='webhooks'
+          query={{
+            include: ['last_event_callbacks'],
+            sort: {
+              created_at: 'desc'
             }
-          />
-        }
-      />
+          }}
+          actionButton={
+            canUser('create', 'webhooks') ? (
+              <Link href={appRoutes.newWebhook.makePath({})}>
+                <Button
+                  variant='secondary'
+                  size='mini'
+                  alignItems='center'
+                  aria-label='Add webhook'
+                >
+                  <Icon name='plus' size={16} />
+                  New
+                </Button>
+              </Link>
+            ) : undefined
+          }
+          ItemTemplate={ListItemWebhook}
+          emptyState={
+            <EmptyState
+              title='No webhook yet!'
+              description='Create your first webhook'
+              action={
+                canUser('create', 'webhooks') ? (
+                  <Link href={appRoutes.newWebhook.makePath({})}>
+                    <Button variant='primary' type='button'>
+                      New webhook
+                    </Button>
+                  </Link>
+                ) : undefined
+              }
+            />
+          }
+        />
+      </Spacer>
     </HomePageLayout>
   )
 }
