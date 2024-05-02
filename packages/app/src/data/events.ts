@@ -77,7 +77,8 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'deactivate',
     'cancel',
     'last_run_failed',
-    'last_run_succeeded'
+    'last_run_succeeded',
+    'renewal'
   ],
   parcels: [
     'create',
