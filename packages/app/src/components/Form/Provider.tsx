@@ -1,4 +1,4 @@
-import type { CommerceLayerClient } from '@commercelayer/sdk'
+import { useCoreSdkProvider } from '@commercelayer/app-elements'
 import type { WebhookFormContextValue } from 'App'
 import {
   createContext,
@@ -12,7 +12,6 @@ import { reducer } from './reducer'
 
 interface WebhookFormProviderProps {
   webhookId: string
-  sdkClient: CommerceLayerClient
   children:
     | ((props: WebhookFormContextValue) => React.ReactNode)
     | React.ReactNode
@@ -23,10 +22,10 @@ export const useWebhookFormContext = (): WebhookFormContextValue =>
   useContext(Context)
 
 export function WebhookFormProvider({
-  sdkClient,
   webhookId,
   children
 }: WebhookFormProviderProps): JSX.Element {
+  const { sdkClient } = useCoreSdkProvider()
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const fetchJob = useCallback(async () => {

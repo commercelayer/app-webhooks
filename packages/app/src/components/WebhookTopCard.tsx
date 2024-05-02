@@ -11,14 +11,15 @@ import {
   ListDetails,
   Spacer,
   Text,
-  useTokenProvider
+  useTokenProvider,
+  withSkeletonTemplate
 } from '@commercelayer/app-elements'
 import type { FC } from 'react'
 import { useRoute } from 'wouter'
 import { WebhookCircuit } from './WebhookCircuit'
 import { WebhookTriggerActionButton } from './WebhookTriggerActionButton'
 
-export const WebhookTopCard: FC = () => {
+export const WebhookTopCard: FC = withSkeletonTemplate(() => {
   const { canUser, user } = useTokenProvider()
   const [, params] = useRoute(appRoutes.details.path)
   const webhookId = params?.webhookId ?? ''
@@ -76,4 +77,4 @@ export const WebhookTopCard: FC = () => {
       </Spacer>
     </ListDetails>
   )
-}
+})

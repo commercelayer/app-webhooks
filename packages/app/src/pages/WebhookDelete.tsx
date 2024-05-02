@@ -6,7 +6,7 @@ import {
   EmptyState,
   ListDetails,
   PageLayout,
-  PageSkeleton,
+  SkeletonTemplate,
   Spacer,
   Text,
   useCoreSdkProvider,
@@ -59,48 +59,48 @@ export const WebhookDelete: FC = () => {
     )
   }
 
-  return isLoading ? (
-    <PageSkeleton layout='details' hasHeaderDescription />
-  ) : webhook == null ? (
+  return webhook == null ? (
     <ErrorNotFound />
   ) : (
-    <PageLayout
-      title={`Permanently delete the ${webhook.name} webhook.`}
-      mode={settings.mode}
-      navigationButton={{
-        onClick: () => {
-          setLocation(appRoutes.details.makePath({ webhookId }))
-        },
-        label: `Cancel`,
-        icon: 'x'
-      }}
-      gap='only-top'
-      overlay
-    >
-      <ListDetails>
-        <Spacer bottom='12'>
-          <Text variant='info' weight='medium'>
-            This action cannot be undone, proceed with caution.
-          </Text>
-        </Spacer>
-        <Button
-          variant='danger'
-          size='small'
-          onClick={(e) => {
-            e.stopPropagation()
-            deleteWebhook()
-              .then(() => {
-                setLocation(appRoutes.list.makePath({}))
-              })
-              .catch((e: any) => {
-                console.log(e)
-              })
-          }}
-          fullWidth
-        >
-          Delete webhook
-        </Button>
-      </ListDetails>
-    </PageLayout>
+    <SkeletonTemplate isLoading={isLoading}>
+      <PageLayout
+        title={`Permanently delete the ${webhook.name} webhook.`}
+        mode={settings.mode}
+        navigationButton={{
+          onClick: () => {
+            setLocation(appRoutes.details.makePath({ webhookId }))
+          },
+          label: `Cancel`,
+          icon: 'x'
+        }}
+        gap='only-top'
+        overlay
+      >
+        <ListDetails>
+          <Spacer bottom='12'>
+            <Text variant='info' weight='medium'>
+              This action cannot be undone, proceed with caution.
+            </Text>
+          </Spacer>
+          <Button
+            variant='danger'
+            size='small'
+            onClick={(e) => {
+              e.stopPropagation()
+              deleteWebhook()
+                .then(() => {
+                  setLocation(appRoutes.list.makePath({}))
+                })
+                .catch((e: any) => {
+                  console.log(e)
+                })
+            }}
+            fullWidth
+          >
+            Delete webhook
+          </Button>
+        </ListDetails>
+      </PageLayout>
+    </SkeletonTemplate>
   )
 }

@@ -4,8 +4,6 @@ import {
   Button,
   EmptyState,
   PageLayout,
-  PageSkeleton,
-  useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/app-elements'
 import type { FC } from 'react'
@@ -13,12 +11,7 @@ import { Link, useLocation } from 'wouter'
 
 export const WebhookCreate: FC = () => {
   const { settings, canUser } = useTokenProvider()
-  const { sdkClient } = useCoreSdkProvider()
   const [, setLocation] = useLocation()
-
-  if (sdkClient == null) {
-    return <PageSkeleton hasHeaderDescription />
-  }
 
   if (!canUser('create', 'webhooks')) {
     return (

@@ -6,8 +6,7 @@ import {
   Button,
   EmptyState,
   PageLayout,
-  PageSkeleton,
-  useCoreSdkProvider,
+  SkeletonTemplate,
   useTokenProvider
 } from '@commercelayer/app-elements'
 import type { FC } from 'react'
@@ -15,7 +14,6 @@ import { Link, useLocation, useRoute } from 'wouter'
 
 export const WebhookEdit: FC = () => {
   const { settings, canUser } = useTokenProvider()
-  const { sdkClient } = useCoreSdkProvider()
   const [, params] = useRoute(appRoutes.editWebhook.path)
   const [, setLocation] = useLocation()
 
@@ -46,32 +44,28 @@ export const WebhookEdit: FC = () => {
     )
   }
 
-  if (sdkClient == null) {
-    return <PageSkeleton hasHeaderDescription />
-  }
-
   return (
-    <WebhookFormProvider sdkClient={sdkClient} webhookId={webhookId}>
+    <WebhookFormProvider webhookId={webhookId}>
       {({ state: { isLoading, data } }) =>
-        isLoading ? (
-          <PageSkeleton layout='details' hasHeaderDescription />
-        ) : data == null ? (
+        isLoading ? null : data == null ? (
           <ErrorNotFound />
         ) : (
-          <PageLayout
-            title='Edit webhook'
-            mode={settings.mode}
-            navigationButton={{
-              onClick: () => {
-                setLocation(appRoutes.list.makePath({ webhookId }))
-              },
-              label: 'Cancel',
-              icon: 'x'
-            }}
-            overlay
-          >
-            <WebhookForm webhookData={data} />
-          </PageLayout>
+          <SkeletonTemplate>
+            <PageLayout
+              title='Edit webhook'
+              mode={settings.mode}
+              navigationButton={{
+                onClick: () => {
+                  setLocation(appRoutes.list.makePath({ webhookId }))
+                },
+                label: 'Cancel',
+                icon: 'x'
+              }}
+              overlay
+            >
+              <WebhookForm webhookData={data} />
+            </PageLayout>
+          </SkeletonTemplate>
         )
       }
     </WebhookFormProvider>
