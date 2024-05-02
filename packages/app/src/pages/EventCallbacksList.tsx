@@ -4,9 +4,7 @@ import {
   Button,
   EmptyState,
   PageLayout,
-  PageSkeleton,
   ResourceList,
-  useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/app-elements'
 import type { FC } from 'react'
@@ -14,7 +12,6 @@ import { Link, useLocation, useRoute } from 'wouter'
 
 export const EventCallbacksList: FC = () => {
   const { settings, canUser } = useTokenProvider()
-  const { sdkClient } = useCoreSdkProvider()
   const [, setLocation] = useLocation()
   const [, params] = useRoute(appRoutes.webhookEventCallbacks.path)
 
@@ -47,10 +44,6 @@ export const EventCallbacksList: FC = () => {
         />
       </PageLayout>
     )
-  }
-
-  if (sdkClient == null) {
-    return <PageSkeleton />
   }
 
   return (

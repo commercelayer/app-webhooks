@@ -12,9 +12,8 @@ import {
   EmptyState,
   Icon,
   PageLayout,
-  PageSkeleton,
+  SkeletonTemplate,
   Spacer,
-  useCoreSdkProvider,
   useTokenProvider
 } from '@commercelayer/app-elements'
 import type { FC } from 'react'
@@ -22,7 +21,6 @@ import { Link, useLocation, useRoute } from 'wouter'
 
 export const WebhookDetails: FC = () => {
   const { settings, canUser } = useTokenProvider()
-  const { sdkClient } = useCoreSdkProvider()
   const [, params] = useRoute(appRoutes.details.path)
   const [, setLocation] = useLocation()
 
@@ -52,10 +50,6 @@ export const WebhookDetails: FC = () => {
         />
       </PageLayout>
     )
-  }
-
-  if (sdkClient == null) {
-    return <PageSkeleton layout='details' hasHeaderDescription />
   }
 
   const contextMenuEdit = canUser('update', 'webhooks') && (
@@ -96,30 +90,30 @@ export const WebhookDetails: FC = () => {
     />
   )
 
-  return isLoading ? (
-    <PageSkeleton layout='details' hasHeaderDescription />
-  ) : webhook == null ? (
+  return webhook == null ? (
     <ErrorNotFound />
   ) : (
-    <PageLayout
-      title={webhook.name}
-      mode={settings.mode}
-      navigationButton={{
-        onClick: () => {
-          setLocation(appRoutes.list.makePath({}))
-        },
-        label: `Webhooks`,
-        icon: 'arrowLeft'
-      }}
-      actionButton={contextMenu}
-    >
-      <Spacer bottom='12'>
-        <WebhookTopCard />
-      </Spacer>
-      <Spacer bottom='12'>
-        <WebhookInfos webhook={webhook} />
-      </Spacer>
-      <WebhookCallback webhook={webhook} />
-    </PageLayout>
+    <SkeletonTemplate isLoading={isLoading}>
+      <PageLayout
+        title={webhook.name}
+        mode={settings.mode}
+        navigationButton={{
+          onClick: () => {
+            setLocation(appRoutes.list.makePath({}))
+          },
+          label: `Webhooks`,
+          icon: 'arrowLeft'
+        }}
+        actionButton={contextMenu}
+      >
+        <Spacer bottom='12'>
+          <WebhookTopCard />
+        </Spacer>
+        <Spacer bottom='12'>
+          <WebhookInfos webhook={webhook} />
+        </Spacer>
+        <WebhookCallback webhook={webhook} />
+      </PageLayout>
+    </SkeletonTemplate>
   )
 }
