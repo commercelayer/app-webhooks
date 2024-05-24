@@ -162,12 +162,14 @@ export type ResourceEventKey = (typeof allFlatEvents)[number]
 
 export function getAllEventsForSelect(): InputSelectValue[] {
   const allEventsForSelect: InputSelectValue[] = []
+  allFlatEvents.sort()
   allFlatEvents.forEach((event) => {
     allEventsForSelect.push({
       label: event,
       value: event
     })
   })
+
   return allEventsForSelect
 }
 
