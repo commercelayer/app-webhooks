@@ -67,7 +67,8 @@ export const webhookEvents: Record<ResourceWithEvent, string[]> = {
     'create_subscriptions',
     'cancel_subscriptions',
     'tagged',
-    'destroy'
+    'destroy',
+    'placing'
   ],
   order_copies: ['create', 'start', 'fail', 'complete', 'destroy'],
   order_subscriptions: [
