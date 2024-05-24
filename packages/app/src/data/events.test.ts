@@ -4,14 +4,14 @@ import { getEventsByResourceType } from './events'
 describe('getEventsByResourceType', () => {
   test('Should retrieve a list of events', () => {
     expect(getEventsByResourceType('gift_cards')).toMatchObject([
-      'create',
-      'purchase',
       'activate',
+      'create',
       'deactivate',
+      'destroy',
+      'purchase',
       'redeem',
-      'use',
       'tagged',
-      'destroy'
+      'use'
     ])
   })
 
